@@ -58,7 +58,7 @@ Today is $TODAY. CLAUDE_BIN=$CLAUDE_BIN is the binary for validate and test. You
 echo "── agent (budget \$$BUDGET${DAILY_MODEL:+, model $DAILY_MODEL})"
 set +e
 "$AGENT_BIN" -p "$PROMPT" \
-  "${MODEL_ARGS[@]}" \
+  ${MODEL_ARGS[@]+"${MODEL_ARGS[@]}"} \
   --max-budget-usd "$BUDGET" \
   --permission-mode bypassPermissions \
   --settings "$SETTINGS" \
