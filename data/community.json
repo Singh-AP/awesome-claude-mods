@@ -1,0 +1,1050 @@
+[
+  {
+    "name": "agents-md",
+    "url": "https://github.com/anthropics/claude-code/tree/main/mods/agents-md",
+    "author": "anthropics",
+    "authorUrl": "https://github.com/anthropics",
+    "category": "official",
+    "emoji": "📄",
+    "tagline": "Built-in: loads AGENTS.md files as project instructions, the way CLAUDE.md is loaded",
+    "stars": 149354,
+    "license": null
+  },
+  {
+    "name": "diff",
+    "url": "https://github.com/anthropics/claude-code/tree/main/mods/diff",
+    "author": "anthropics",
+    "authorUrl": "https://github.com/anthropics",
+    "category": "official",
+    "emoji": "🔍",
+    "tagline": "The built-in /diff pane as a mod: uncommitted changes beside the transcript, kept live",
+    "stars": 149354,
+    "license": null
+  },
+  {
+    "name": "code-modernization",
+    "url": "https://github.com/anthropics/claude-plugins-official/tree/main/plugins/code-modernization",
+    "author": "anthropics",
+    "authorUrl": "https://github.com/anthropics",
+    "category": "official",
+    "emoji": "🏗️",
+    "tagline": "/modernize: assess a legacy codebase, map it, mine its rules, then upgrade it with proof",
+    "stars": 37369,
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "next-steps",
+    "url": "https://github.com/anthropics/claude-plugins-community/tree/main/next-steps",
+    "author": "anthropics",
+    "authorUrl": "https://github.com/anthropics",
+    "category": "official",
+    "emoji": "⏭️",
+    "tagline": "Suggests three next prompts above the input after each turn; press 1, 2 or 3 to draft one",
+    "stars": 4465,
+    "license": "Apache-2.0",
+    "marketplace": {
+      "name": "next-steps",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-community.git",
+        "path": "next-steps",
+        "sha": "87c843d52c12f4bc91bb23b47132eb08b70e6cb6"
+      }
+    }
+  },
+  {
+    "name": "blast-radius",
+    "url": "https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods/blast-radius",
+    "author": "anthropics",
+    "authorUrl": "https://github.com/anthropics",
+    "category": "official",
+    "emoji": "💥",
+    "tagline": "Holds risky shell commands and shows what they'd change, with Proceed and Cancel buttons",
+    "stars": 97,
+    "license": "Apache-2.0",
+    "marketplace": {
+      "name": "blast-radius",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-code-playground.git",
+        "path": "claude-code/mods/blast-radius",
+        "sha": "569c5283d9a0a7ee7938df85bb32e4f48cbb8c86"
+      }
+    }
+  },
+  {
+    "name": "replay-theater",
+    "url": "https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods/replay-theater",
+    "author": "anthropics",
+    "authorUrl": "https://github.com/anthropics",
+    "category": "official",
+    "emoji": "🎞️",
+    "tagline": "Step through the file edits Claude made last turn, one diff at a time, in a pane",
+    "stars": 97,
+    "license": "Apache-2.0",
+    "marketplace": {
+      "name": "replay-theater",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-code-playground.git",
+        "path": "claude-code/mods/replay-theater",
+        "sha": "569c5283d9a0a7ee7938df85bb32e4f48cbb8c86"
+      }
+    }
+  },
+  {
+    "name": "token-weather",
+    "url": "https://github.com/anthropics/claude-code-playground/tree/main/claude-code/mods/token-weather",
+    "author": "anthropics",
+    "authorUrl": "https://github.com/anthropics",
+    "category": "official",
+    "emoji": "🌦️",
+    "tagline": "A weather forecast for your context window above the prompt, with a chart of recent turns",
+    "stars": 97,
+    "license": "Apache-2.0",
+    "marketplace": {
+      "name": "token-weather",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-code-playground.git",
+        "path": "claude-code/mods/token-weather",
+        "sha": "569c5283d9a0a7ee7938df85bb32e4f48cbb8c86"
+      }
+    }
+  },
+  {
+    "name": "secrets-veil",
+    "url": "https://github.com/yonatangross/orchestkit/tree/main/mods/secrets-veil",
+    "author": "yonatangross",
+    "authorUrl": "https://github.com/yonatangross",
+    "category": "safety",
+    "emoji": "🫥",
+    "tagline": "Masks API keys and high-entropy tokens in tool results before the model reads them",
+    "stars": 286,
+    "license": "MIT",
+    "marketplace": {
+      "name": "secrets-veil",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/yonatangross/orchestkit.git",
+        "path": "mods/secrets-veil",
+        "sha": "ca2fa7ae157db2b4f49738e6a956a4187ff48f08"
+      }
+    }
+  },
+  {
+    "name": "pii-guard",
+    "url": "https://github.com/danyuchn/pii-guard/tree/main/examples/claude-code-mod",
+    "author": "danyuchn",
+    "authorUrl": "https://github.com/danyuchn",
+    "category": "safety",
+    "emoji": "🪪",
+    "tagline": "Strips personal data before the model sees it and restores it on writes (local service)",
+    "stars": 244,
+    "license": "MIT"
+  },
+  {
+    "name": "merge-gate",
+    "url": "https://github.com/hamzafer/claude-code-mods/tree/main/mods/merge-gate",
+    "author": "hamzafer",
+    "authorUrl": "https://github.com/hamzafer",
+    "category": "safety",
+    "emoji": "🚪",
+    "tagline": "Holds `gh pr merge` until CI is green and a Codex review has run on the PR",
+    "stars": 60,
+    "license": "MIT"
+  },
+  {
+    "name": "collision-guard",
+    "url": "https://github.com/nateherkai/claude-code-mods/tree/main/collision-guard",
+    "author": "nateherkai",
+    "authorUrl": "https://github.com/nateherkai",
+    "category": "safety",
+    "emoji": "🚦",
+    "tagline": "Asks before Claude edits a file another open chat changed in the last 30 minutes",
+    "stars": 7,
+    "license": "MIT",
+    "marketplace": {
+      "name": "collision-guard",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/nateherkai/claude-code-mods.git",
+        "path": "collision-guard",
+        "sha": "33a936f2ec6bbfea5a30a1a4d71d992487a5c769"
+      }
+    }
+  },
+  {
+    "name": "dep-sentinel",
+    "url": "https://github.com/KilimcininKorOglu/claude-code-mods/tree/main/plugins/dep-sentinel",
+    "author": "KilimcininKorOglu",
+    "authorUrl": "https://github.com/KilimcininKorOglu",
+    "category": "safety",
+    "emoji": "📦",
+    "tagline": "Checks every package Claude installs against its registry and OSV; stops fakes and vulns",
+    "stars": 5,
+    "license": "MIT"
+  },
+  {
+    "name": "guardrails",
+    "url": "https://github.com/mishgoldenberg/claude-mods/tree/main/plugins/guardrails",
+    "author": "mishgoldenberg",
+    "authorUrl": "https://github.com/mishgoldenberg",
+    "category": "safety",
+    "emoji": "🧱",
+    "tagline": "Clickable safety rules: block rm -rf, force-push, secret files, sudo; lock to the project",
+    "stars": 2,
+    "license": "MIT",
+    "marketplace": {
+      "name": "guardrails",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/mishgoldenberg/claude-mods.git",
+        "path": "plugins/guardrails",
+        "sha": "2a6340fe28ff77702e71304b3cdcbf1e31e7cfd0"
+      }
+    }
+  },
+  {
+    "name": "launch-codes",
+    "url": "https://github.com/OneWave-AI/claude-code-mods/tree/main/launch-codes",
+    "author": "OneWave-AI",
+    "authorUrl": "https://github.com/OneWave-AI",
+    "category": "safety",
+    "emoji": "🚀",
+    "tagline": "Dangerous commands need launch codes: a red-alert pane, a siren, an arm code, then LAUNCH",
+    "stars": 2,
+    "license": "MIT"
+  },
+  {
+    "name": "path-guard",
+    "url": "https://github.com/Justmalhar/awesome-claude-mods/tree/main/mods/path-guard",
+    "author": "Justmalhar",
+    "authorUrl": "https://github.com/Justmalhar",
+    "category": "safety",
+    "emoji": "🚧",
+    "tagline": "Blocks writes outside the project root or inside .git, plus your own deny globs",
+    "stars": 1,
+    "license": "MIT"
+  },
+  {
+    "name": "redact",
+    "url": "https://github.com/karanb192/claude-code-redact/tree/main/plugins/redact",
+    "author": "karanb192",
+    "authorUrl": "https://github.com/karanb192",
+    "category": "safety",
+    "emoji": "🖍️",
+    "tagline": "Redacts secrets and PII from every stored row; real values return only inside file writes",
+    "stars": 1,
+    "license": "MIT",
+    "marketplace": {
+      "name": "redact",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/karanb192/claude-code-redact.git",
+        "path": "plugins/redact",
+        "sha": "66e80ae112323f0511a7b49c4524984cc1965a2f"
+      }
+    }
+  },
+  {
+    "name": "safe-delete",
+    "url": "https://github.com/charlie947/mod-maker/tree/main/plugins/safe-delete",
+    "author": "charlie947",
+    "authorUrl": "https://github.com/charlie947",
+    "category": "safety",
+    "emoji": "🗑️",
+    "tagline": "rm, find -delete and git clean move files to a Bin instead, with /undo-delete",
+    "stars": 1,
+    "license": null
+  },
+  {
+    "name": "token-optimizer",
+    "url": "https://github.com/alexgreensh/token-optimizer",
+    "author": "alexgreensh",
+    "authorUrl": "https://github.com/alexgreensh",
+    "category": "cost",
+    "emoji": "🪙",
+    "tagline": "Finds the ghost tokens eating your context window, with a usage band above the prompt",
+    "stars": 2483,
+    "license": "NOASSERTION"
+  },
+  {
+    "name": "winnow",
+    "url": "https://github.com/GhalebDweikat/winnow",
+    "author": "GhalebDweikat",
+    "authorUrl": "https://github.com/GhalebDweikat",
+    "category": "cost",
+    "emoji": "🌾",
+    "tagline": "A small model trims irrelevant parts of large tool results before they enter context",
+    "stars": 101,
+    "license": "MIT"
+  },
+  {
+    "name": "usage-meter",
+    "url": "https://github.com/hamzafer/claude-code-mods/tree/main/mods/usage-meter",
+    "author": "hamzafer",
+    "authorUrl": "https://github.com/hamzafer",
+    "category": "cost",
+    "emoji": "📊",
+    "tagline": "Your plan's 5-hour and 7-day limits as small bars above the prompt, with reset countdowns",
+    "stars": 60,
+    "license": "MIT",
+    "marketplace": {
+      "name": "usage-meter",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hamzafer/claude-code-mods.git",
+        "path": "mods/usage-meter",
+        "sha": "fc5130427799f69852055add193161080bd054d6"
+      }
+    }
+  },
+  {
+    "name": "cache-tax",
+    "url": "https://github.com/karanb192/cache-tax",
+    "author": "karanb192",
+    "authorUrl": "https://github.com/karanb192",
+    "category": "cost",
+    "emoji": "♨️",
+    "tagline": "Keeps the 1-hour prompt cache warm on breaks and stops one costly cold send to warn you",
+    "stars": 40,
+    "license": "MIT"
+  },
+  {
+    "name": "idle-compact",
+    "url": "https://github.com/takahirom/takahirom-claude-code-marketplace/tree/main/plugins/idle-compact",
+    "author": "takahirom",
+    "authorUrl": "https://github.com/takahirom",
+    "category": "cost",
+    "emoji": "💤",
+    "tagline": "Compacts once after 50 idle minutes, while the 1-hour prompt cache is still warm",
+    "stars": 17,
+    "license": "Apache-2.0",
+    "marketplace": {
+      "name": "idle-compact",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/takahirom/takahirom-claude-code-marketplace.git",
+        "path": "plugins/idle-compact",
+        "sha": "a8d452ebc0e95613237e162ce4ccba268cc9da70"
+      }
+    }
+  },
+  {
+    "name": "bash-diet",
+    "url": "https://github.com/KilimcininKorOglu/claude-code-mods/tree/main/plugins/bash-diet",
+    "author": "KilimcininKorOglu",
+    "authorUrl": "https://github.com/KilimcininKorOglu",
+    "category": "cost",
+    "emoji": "🥗",
+    "tagline": "Shrinks Bash output from git, tests, linters and installs before Claude reads it",
+    "stars": 5,
+    "license": "MIT"
+  },
+  {
+    "name": "cache-timer",
+    "url": "https://github.com/arasovic/claude-code-mods/tree/main/cache-timer",
+    "author": "arasovic",
+    "authorUrl": "https://github.com/arasovic",
+    "category": "cost",
+    "emoji": "⏳",
+    "tagline": "Counts down until the prompt cache expires, so you can reply before a costly re-cache",
+    "stars": 4,
+    "license": "MIT"
+  },
+  {
+    "name": "burn-meter",
+    "url": "https://github.com/OneWave-AI/claude-code-mods/tree/main/burn-meter",
+    "author": "OneWave-AI",
+    "authorUrl": "https://github.com/OneWave-AI",
+    "category": "cost",
+    "emoji": "🔥",
+    "tagline": "A live cost odometer above the prompt, with a burning fuse and threshold alerts",
+    "stars": 2,
+    "license": "MIT",
+    "marketplace": {
+      "name": "burn-meter",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/OneWave-AI/claude-code-mods.git",
+        "path": "burn-meter",
+        "sha": "e6da26ca36a88eec3be25605d30fa20f2c1c0cec"
+      }
+    }
+  },
+  {
+    "name": "wavy-usage",
+    "url": "https://github.com/BatuhanCakmakk/wavy-usage",
+    "author": "BatuhanCakmakk",
+    "authorUrl": "https://github.com/BatuhanCakmakk",
+    "category": "cost",
+    "emoji": "🌊",
+    "tagline": "Liquid-filled rings for your 5h and 7d limits, context and cache lifetime above the prompt",
+    "stars": 2,
+    "license": "MIT"
+  },
+  {
+    "name": "reread-guard",
+    "url": "https://github.com/VedantAndhale/claude-pro-kit/tree/main/plugins/reread-guard",
+    "author": "VedantAndhale",
+    "authorUrl": "https://github.com/VedantAndhale",
+    "category": "cost",
+    "emoji": "♻️",
+    "tagline": "Skips Claude's repeat reads of files that haven't changed since it last read them",
+    "stars": 1,
+    "license": "MIT",
+    "marketplace": {
+      "name": "reread-guard",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/VedantAndhale/claude-pro-kit.git",
+        "path": "plugins/reread-guard",
+        "sha": "316522ef1a4d5467758178cb658ed8adf4ad567f"
+      }
+    }
+  },
+  {
+    "name": "mobile-mcp",
+    "url": "https://github.com/mobile-next/mobile-mcp/tree/main/plugin",
+    "author": "mobile-next",
+    "authorUrl": "https://github.com/mobile-next",
+    "category": "awareness",
+    "emoji": "📱",
+    "tagline": "/mobile-mirror: a live, clickable phone or emulator screen in a pane, plus automation",
+    "stars": 8631,
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "terminal-browser",
+    "url": "https://github.com/zenbu-labs/terminal-browser/tree/main/claude-code-plugin",
+    "author": "zenbu-labs",
+    "authorUrl": "https://github.com/zenbu-labs",
+    "category": "awareness",
+    "emoji": "🌐",
+    "tagline": "A real browser in a pane that Claude can drive: preview sites and HTML in the terminal",
+    "stars": 3630,
+    "license": "MIT"
+  },
+  {
+    "name": "image-view",
+    "url": "https://github.com/jarrodwatts/claude-image-view",
+    "author": "jarrodwatts",
+    "authorUrl": "https://github.com/jarrodwatts",
+    "category": "awareness",
+    "emoji": "🖼️",
+    "tagline": "Thumbnails of the images you paste, above the prompt, instead of bare [Image #1] tags",
+    "stars": 119,
+    "license": "MIT",
+    "marketplace": {
+      "name": "image-view",
+      "source": {
+        "source": "github",
+        "repo": "jarrodwatts/claude-image-view",
+        "sha": "b3c412bb6d167cafade79148e95f9114ee1aad7c"
+      }
+    }
+  },
+  {
+    "name": "agent-radar",
+    "url": "https://github.com/hamzafer/claude-code-mods/tree/main/mods/agent-radar",
+    "author": "hamzafer",
+    "authorUrl": "https://github.com/hamzafer",
+    "category": "awareness",
+    "emoji": "🕵️",
+    "tagline": "One live line per running subagent above the prompt: time, tool count, what it's doing",
+    "stars": 60,
+    "license": "MIT",
+    "marketplace": {
+      "name": "agent-radar",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hamzafer/claude-code-mods.git",
+        "path": "mods/agent-radar",
+        "sha": "fc5130427799f69852055add193161080bd054d6"
+      }
+    }
+  },
+  {
+    "name": "md-preview",
+    "url": "https://github.com/hamzafer/claude-code-mods/tree/main/mods/md-preview",
+    "author": "hamzafer",
+    "authorUrl": "https://github.com/hamzafer",
+    "category": "awareness",
+    "emoji": "📘",
+    "tagline": "Markdown files Claude edits, rendered like GitHub in a pane, before and after side by side",
+    "stars": 60,
+    "license": "MIT"
+  },
+  {
+    "name": "mission-control",
+    "url": "https://github.com/hamzafer/claude-code-mods/tree/main/mods/mission-control",
+    "author": "hamzafer",
+    "authorUrl": "https://github.com/hamzafer",
+    "category": "awareness",
+    "emoji": "🛰️",
+    "tagline": "/mission: a live map of the main agent, subagents and tool calls, plus the files touched",
+    "stars": 60,
+    "license": "MIT"
+  },
+  {
+    "name": "filetree",
+    "url": "https://github.com/data-goblin/claude-code-filetree",
+    "author": "data-goblin",
+    "authorUrl": "https://github.com/data-goblin",
+    "category": "awareness",
+    "emoji": "🌳",
+    "tagline": "An IDE-style file tree pane that lights up where Claude is reading and editing",
+    "stars": 30,
+    "license": "MIT"
+  },
+  {
+    "name": "prompt-rail",
+    "url": "https://github.com/oikon48/prompt-rail/tree/main/plugins/prompt-rail",
+    "author": "oikon48",
+    "authorUrl": "https://github.com/oikon48",
+    "category": "awareness",
+    "emoji": "🛤️",
+    "tagline": "A rail of your session's prompts beside the transcript; hover to read one, click to jump",
+    "stars": 19,
+    "license": "MIT"
+  },
+  {
+    "name": "ccprogress",
+    "url": "https://github.com/amigoer/ccprogress/tree/main/plugins/ccprogress",
+    "author": "amigoer",
+    "authorUrl": "https://github.com/amigoer",
+    "category": "awareness",
+    "emoji": "📶",
+    "tagline": "A live progress bar of Claude's current task above the spinner, from its todo list",
+    "stars": 14,
+    "license": "MIT"
+  },
+  {
+    "name": "leitstand",
+    "url": "https://github.com/dominikmartn/leitstand",
+    "author": "dominikmartn",
+    "authorUrl": "https://github.com/dominikmartn",
+    "category": "awareness",
+    "emoji": "🎛️",
+    "tagline": "A control room above the prompt: background agents and shells, disk space and context",
+    "stars": 7,
+    "license": "MIT"
+  },
+  {
+    "name": "hud",
+    "url": "https://github.com/hoobnn/hoobnn-agent-mods/tree/main/claude-code/hud",
+    "author": "hoobnn",
+    "authorUrl": "https://github.com/hoobnn",
+    "category": "awareness",
+    "emoji": "🧭",
+    "tagline": "claude-hud as a mod: model, git, context, usage, tools, agents and todos above the prompt",
+    "stars": 2,
+    "license": "MIT"
+  },
+  {
+    "name": "whats-agent-doing",
+    "url": "https://github.com/tzafrir/whats-agent-doing",
+    "author": "tzafrir",
+    "authorUrl": "https://github.com/tzafrir",
+    "category": "awareness",
+    "emoji": "👀",
+    "tagline": "A box above the prompt that says what Claude is doing now, and expands to what it did",
+    "stars": 2,
+    "license": "MIT",
+    "marketplace": {
+      "name": "whats-agent-doing",
+      "source": {
+        "source": "github",
+        "repo": "tzafrir/whats-agent-doing",
+        "sha": "1efd306948e2cb1866a02fe65f0cdbfb0c3da277"
+      }
+    }
+  },
+  {
+    "name": "pull-request-pane",
+    "url": "https://github.com/meganemura/pull-request-pane/tree/main/plugin",
+    "author": "meganemura",
+    "authorUrl": "https://github.com/meganemura",
+    "category": "awareness",
+    "emoji": "🔀",
+    "tagline": "Your session's PRs and issues in a pane, with live checks and inline comments for Claude",
+    "stars": 1,
+    "license": "MIT"
+  },
+  {
+    "name": "plannotator",
+    "url": "https://github.com/backnotprop/plannotator/tree/main/apps/hook",
+    "author": "backnotprop",
+    "authorUrl": "https://github.com/backnotprop",
+    "category": "productivity",
+    "emoji": "🗒️",
+    "tagline": "Mark up Claude's plans and diffs in a review UI and send your annotations back",
+    "stars": 9132,
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "obsidian-mind",
+    "url": "https://github.com/breferrari/obsidian-mind/tree/main/.claude/skills/obsidian-mind",
+    "author": "breferrari",
+    "authorUrl": "https://github.com/breferrari",
+    "category": "productivity",
+    "emoji": "🧠",
+    "tagline": "Obsidian-vault memory for Claude whose session context survives compaction",
+    "stars": 4891,
+    "license": "MIT"
+  },
+  {
+    "name": "reflect-mod",
+    "url": "https://github.com/BayramAnnakov/claude-reflect/tree/main/mod",
+    "author": "BayramAnnakov",
+    "authorUrl": "https://github.com/BayramAnnakov",
+    "category": "productivity",
+    "emoji": "🪞",
+    "tagline": "Spots corrections in your prompts and saves them to CLAUDE.md with one press",
+    "stars": 1702,
+    "license": "MIT"
+  },
+  {
+    "name": "crit-tui",
+    "url": "https://github.com/tomasz-tomczyk/crit/tree/main/integrations/claude-code-tui",
+    "author": "tomasz-tomczyk",
+    "authorUrl": "https://github.com/tomasz-tomczyk",
+    "category": "productivity",
+    "emoji": "💬",
+    "tagline": "Comment on the conversation, your diff or a file in a pane; Claude replies in threads",
+    "stars": 1169,
+    "license": "MIT"
+  },
+  {
+    "name": "claude-council",
+    "url": "https://github.com/hex/claude-council",
+    "author": "hex",
+    "authorUrl": "https://github.com/hex",
+    "category": "productivity",
+    "emoji": "👥",
+    "tagline": "Ask Gemini, GPT, Grok and other models the same question; answers stream into a pane",
+    "stars": 826,
+    "license": "MIT"
+  },
+  {
+    "name": "remctl",
+    "url": "https://github.com/viticci/remctl/tree/main/plugins/claude-code",
+    "author": "viticci",
+    "authorUrl": "https://github.com/viticci",
+    "category": "productivity",
+    "emoji": "✅",
+    "tagline": "Today's Apple Reminders above the prompt in your lists' colors, via RemCTL",
+    "stars": 587,
+    "license": "MIT"
+  },
+  {
+    "name": "hal-grammar-check",
+    "url": "https://github.com/vinta/hal-9000/tree/main/plugins/hal-grammar-check",
+    "author": "vinta",
+    "authorUrl": "https://github.com/vinta",
+    "category": "productivity",
+    "emoji": "🔴",
+    "tagline": "Grammar-checks your prompt as you type with a local Ollama model, shown above the prompt",
+    "stars": 138,
+    "license": "MIT"
+  },
+  {
+    "name": "where-am-i",
+    "url": "https://github.com/hamzafer/claude-code-mods/tree/main/mods/where-am-i",
+    "author": "hamzafer",
+    "authorUrl": "https://github.com/hamzafer",
+    "category": "productivity",
+    "emoji": "📍",
+    "tagline": "A live recap above the prompt: the goal, what Claude is doing, what waits on you, next",
+    "stars": 60,
+    "license": "MIT",
+    "marketplace": {
+      "name": "where-am-i",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hamzafer/claude-code-mods.git",
+        "path": "mods/where-am-i",
+        "sha": "fc5130427799f69852055add193161080bd054d6"
+      }
+    }
+  },
+  {
+    "name": "think-first",
+    "url": "https://github.com/petekp/claude-code-setup/tree/main/mods/think-first",
+    "author": "petekp",
+    "authorUrl": "https://github.com/petekp",
+    "category": "productivity",
+    "emoji": "🔮",
+    "tagline": "Asks what you expect before a long task, then shows how your prediction held up",
+    "stars": 47,
+    "license": "MIT"
+  },
+  {
+    "name": "run-command",
+    "url": "https://github.com/bendrucker/claude/tree/main/plugins/run-command",
+    "author": "bendrucker",
+    "authorUrl": "https://github.com/bendrucker",
+    "category": "productivity",
+    "emoji": "▶️",
+    "tagline": "Click or press a digit to put a reply's `! command` suggestion into your prompt",
+    "stars": 17,
+    "license": "MIT",
+    "marketplace": {
+      "name": "run-command",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/bendrucker/claude.git",
+        "path": "plugins/run-command",
+        "sha": "3ca2b1787108662833d01fb841febe6f912a4966"
+      }
+    }
+  },
+  {
+    "name": "prompt-deck",
+    "url": "https://github.com/KilimcininKorOglu/claude-code-mods/tree/main/plugins/prompt-deck",
+    "author": "KilimcininKorOglu",
+    "authorUrl": "https://github.com/KilimcininKorOglu",
+    "category": "productivity",
+    "emoji": "🃏",
+    "tagline": "Learns the short prompts you send often and keeps them a digit away above the prompt",
+    "stars": 5,
+    "license": "MIT"
+  },
+  {
+    "name": "todos",
+    "url": "https://github.com/bengous/claude-code-plugins/tree/main/todos",
+    "author": "bengous",
+    "authorUrl": "https://github.com/bengous",
+    "category": "productivity",
+    "emoji": "☑️",
+    "tagline": "Your repo's TODOs and FIXMEs above the prompt, newest first, dated with git blame",
+    "stars": 4,
+    "license": "MIT"
+  },
+  {
+    "name": "fanyi",
+    "url": "https://github.com/JrCx7scC/claude-code-fanyi",
+    "author": "JrCx7scC",
+    "authorUrl": "https://github.com/JrCx7scC",
+    "category": "productivity",
+    "emoji": "🌍",
+    "tagline": "Write to Claude in your own language; each reply gets a streamed translation underneath",
+    "stars": 3,
+    "license": "MIT"
+  },
+  {
+    "name": "auto-checkpoint",
+    "url": "https://github.com/Justmalhar/awesome-claude-mods/tree/main/mods/auto-checkpoint",
+    "author": "Justmalhar",
+    "authorUrl": "https://github.com/Justmalhar",
+    "category": "productivity",
+    "emoji": "⏪",
+    "tagline": "A hidden git snapshot at the start of every turn; /undo-turn rolls back what Claude did",
+    "stars": 1,
+    "license": "MIT",
+    "marketplace": {
+      "name": "auto-checkpoint",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/Justmalhar/awesome-claude-mods.git",
+        "path": "mods/auto-checkpoint",
+        "sha": "6846616ca36c08a8e7e1143648a996e1c2dedbec"
+      }
+    }
+  },
+  {
+    "name": "cuelume",
+    "url": "https://github.com/danielwh2/cuelume/tree/main/claude-code",
+    "author": "danielwh2",
+    "authorUrl": "https://github.com/danielwh2",
+    "category": "notifications",
+    "emoji": "🎐",
+    "tagline": "Pleasant sounds when a long turn ends or a permission prompt waits, in four themes",
+    "stars": 1941,
+    "license": "MIT",
+    "marketplace": {
+      "name": "cuelume",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/danielwh2/cuelume.git",
+        "path": "claude-code",
+        "sha": "6ee4f7fab7890aeeb702cc311b14c6de937eceb5"
+      }
+    }
+  },
+  {
+    "name": "desk-notify",
+    "url": "https://github.com/KilimcininKorOglu/claude-code-mods/tree/main/plugins/desk-notify",
+    "author": "KilimcininKorOglu",
+    "authorUrl": "https://github.com/KilimcininKorOglu",
+    "category": "notifications",
+    "emoji": "🖥️",
+    "tagline": "Desktop notifications when a question or a plan waits for you, or a turn ends or fails",
+    "stars": 5,
+    "license": "MIT"
+  },
+  {
+    "name": "notify",
+    "url": "https://github.com/XD3an/cc-plus/tree/main/mods/notify",
+    "author": "XD3an",
+    "authorUrl": "https://github.com/XD3an",
+    "category": "notifications",
+    "emoji": "📣",
+    "tagline": "Animated desktop alerts when a turn ends, a tool fails, context fills or Claude asks",
+    "stars": 4,
+    "license": "MIT"
+  },
+  {
+    "name": "notify",
+    "url": "https://github.com/mishgoldenberg/claude-mods/tree/main/plugins/notify",
+    "author": "mishgoldenberg",
+    "authorUrl": "https://github.com/mishgoldenberg",
+    "category": "notifications",
+    "emoji": "📬",
+    "tagline": "A notification inbox pane plus native OS alerts for long turns, subagents and approvals",
+    "stars": 2,
+    "license": "MIT"
+  },
+  {
+    "name": "red-alert",
+    "url": "https://github.com/dukechain2333/red-alert/tree/main/plugin",
+    "author": "dukechain2333",
+    "authorUrl": "https://github.com/dukechain2333",
+    "category": "notifications",
+    "emoji": "🚨",
+    "tagline": "Star Trek alerts: Claude sounds red and yellow alerts on your speakers, with an LCARS band",
+    "stars": 1,
+    "license": "MIT"
+  },
+  {
+    "name": "mindful-claude",
+    "url": "https://github.com/halluton/Mindful-Claude",
+    "author": "halluton",
+    "authorUrl": "https://github.com/halluton",
+    "category": "fun",
+    "emoji": "🧘",
+    "tagline": "Guided breathing exercises above the prompt while Claude works; gone when it answers",
+    "stars": 92,
+    "license": "MIT"
+  },
+  {
+    "name": "intermission",
+    "url": "https://github.com/jarrodwatts/intermission",
+    "author": "jarrodwatts",
+    "authorUrl": "https://github.com/jarrodwatts",
+    "category": "fun",
+    "emoji": "🔫",
+    "tagline": "Doom deathmatch in a pane while Claude works; you're handed back the moment it's done",
+    "stars": 88,
+    "license": "MIT"
+  },
+  {
+    "name": "snake",
+    "url": "https://github.com/hamzafer/claude-code-mods/tree/main/mods/snake",
+    "author": "hamzafer",
+    "authorUrl": "https://github.com/hamzafer",
+    "category": "fun",
+    "emoji": "🐍",
+    "tagline": "Snake in a pane while Claude works, paused the moment it's done",
+    "stars": 60,
+    "license": "MIT",
+    "marketplace": {
+      "name": "snake",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/hamzafer/claude-code-mods.git",
+        "path": "mods/snake",
+        "sha": "fc5130427799f69852055add193161080bd054d6"
+      }
+    }
+  },
+  {
+    "name": "cc-arcade",
+    "url": "https://github.com/sezaakgun/cc-arcade",
+    "author": "sezaakgun",
+    "authorUrl": "https://github.com/sezaakgun",
+    "category": "fun",
+    "emoji": "🕹️",
+    "tagline": "Snake, Tetris, 2048, Minesweeper, Pong and more above the prompt, plus a pet that grows",
+    "stars": 40,
+    "license": "MIT",
+    "marketplace": {
+      "name": "cc-arcade",
+      "source": {
+        "source": "github",
+        "repo": "sezaakgun/cc-arcade",
+        "sha": "0baff06d31295850283c2eebe052f39bbc35473f"
+      }
+    }
+  },
+  {
+    "name": "toons",
+    "url": "https://github.com/achimala/claude-toons",
+    "author": "achimala",
+    "authorUrl": "https://github.com/achimala",
+    "category": "fun",
+    "emoji": "📺",
+    "tagline": "Animated cartoons of what Claude is doing under the spinner (uses extra model calls)",
+    "stars": 22,
+    "license": "MIT"
+  },
+  {
+    "name": "idle-art",
+    "url": "https://github.com/KilimcininKorOglu/claude-code-mods/tree/main/plugins/idle-art",
+    "author": "KilimcininKorOglu",
+    "authorUrl": "https://github.com/KilimcininKorOglu",
+    "category": "fun",
+    "emoji": "🎆",
+    "tagline": "Matrix rain, fire, an aquarium or your own GIF as ASCII art above the prompt",
+    "stars": 5,
+    "license": "MIT"
+  },
+  {
+    "name": "cat-spinner",
+    "url": "https://github.com/swicken/cat-spinner",
+    "author": "swicken",
+    "authorUrl": "https://github.com/swicken",
+    "category": "fun",
+    "emoji": "🐈",
+    "tagline": "A pixel-art cat walks above the spinner, plays with yarn and sits to think with Claude",
+    "stars": 3,
+    "license": "MIT",
+    "marketplace": {
+      "name": "cat-spinner",
+      "source": {
+        "source": "github",
+        "repo": "swicken/cat-spinner",
+        "sha": "90e644a8b18c04add10d4bcb963743e000ed8925"
+      }
+    }
+  },
+  {
+    "name": "clauisc",
+    "url": "https://github.com/mireabot/Clauisc/tree/main/plugins/clauisc",
+    "author": "mireabot",
+    "authorUrl": "https://github.com/mireabot",
+    "category": "fun",
+    "emoji": "🎵",
+    "tagline": "Apple Music now playing above the prompt: pixel album art and a bopping Claude plush",
+    "stars": 3,
+    "license": "MIT"
+  },
+  {
+    "name": "pets",
+    "url": "https://github.com/uppinote20/claude-pets",
+    "author": "uppinote20",
+    "authorUrl": "https://github.com/uppinote20",
+    "category": "fun",
+    "emoji": "🐾",
+    "tagline": "A pixel pet in a pane that wanders, reacts to your session and grows as you work",
+    "stars": 3,
+    "license": "MIT"
+  },
+  {
+    "name": "boss-fight",
+    "url": "https://github.com/OneWave-AI/claude-code-mods/tree/main/boss-fight",
+    "author": "OneWave-AI",
+    "authorUrl": "https://github.com/OneWave-AI",
+    "category": "fun",
+    "emoji": "👾",
+    "tagline": "Failing tests spawn a pixel boss; every fix lands a hit, and zero failures is a KO",
+    "stars": 2,
+    "license": "MIT",
+    "marketplace": {
+      "name": "boss-fight",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/OneWave-AI/claude-code-mods.git",
+        "path": "boss-fight",
+        "sha": "e6da26ca36a88eec3be25605d30fa20f2c1c0cec"
+      }
+    }
+  },
+  {
+    "name": "skins",
+    "url": "https://github.com/hellosverre/claude-skins",
+    "author": "hellosverre",
+    "authorUrl": "https://github.com/hellosverre",
+    "category": "fun",
+    "emoji": "🎨",
+    "tagline": "Themes for the transcript: tool rows, reply gutters and spinner words, swapped live",
+    "stars": 2,
+    "license": "MIT"
+  },
+  {
+    "name": "buddy",
+    "url": "https://github.com/polus-1/buddy-mod",
+    "author": "polus-1",
+    "authorUrl": "https://github.com/polus-1",
+    "category": "fun",
+    "emoji": "🐣",
+    "tagline": "The retired /buddy companion is back as a mod, with new sprites and Haiku-written lines",
+    "stars": 1,
+    "license": "Apache-2.0"
+  },
+  {
+    "name": "claude-code-widgets",
+    "url": "https://github.com/oMaN-Rod/claude-code-widgets/tree/main/plugins",
+    "author": "oMaN-Rod",
+    "authorUrl": "https://github.com/oMaN-Rod",
+    "category": "fun",
+    "emoji": "🧩",
+    "tagline": "60 widgets for one shared pane: Tetris, Game of Life, pomodoro, checks, usage and more",
+    "stars": 1,
+    "license": "MIT"
+  },
+  {
+    "name": "dopa-mode",
+    "url": "https://github.com/charimsma/dopa-mode/tree/main/plugin",
+    "author": "charimsma",
+    "authorUrl": "https://github.com/charimsma",
+    "category": "fun",
+    "emoji": "🎇",
+    "tagline": "Fireworks for finished turns, commits and green tests, plus context and limit meters",
+    "stars": 1,
+    "license": "MIT"
+  },
+  {
+    "name": "minefield",
+    "url": "https://github.com/reporails/arcade/tree/main/minefield",
+    "author": "reporails",
+    "authorUrl": "https://github.com/reporails",
+    "category": "fun",
+    "emoji": "💣",
+    "tagline": "Minesweeper in a pane while Claude works, with a best time and a face that watches Claude",
+    "stars": 1,
+    "license": "MIT",
+    "marketplace": {
+      "name": "minefield",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/reporails/arcade.git",
+        "path": "minefield",
+        "sha": "e42e16382e157b057c23bd1b775d1ca22388fb3d"
+      }
+    }
+  },
+  {
+    "name": "terminal-gym",
+    "url": "https://github.com/DrumAndCode/terminal-gym",
+    "author": "DrumAndCode",
+    "authorUrl": "https://github.com/DrumAndCode",
+    "category": "fun",
+    "emoji": "💪",
+    "tagline": "A daily bodyweight rep goal: log sets with /fit, get nudged on long turns, keep a streak",
+    "stars": 1,
+    "license": "MIT"
+  },
+  {
+    "name": "tool-snake",
+    "url": "https://github.com/Yash1927/claude-code-snake",
+    "author": "Yash1927",
+    "authorUrl": "https://github.com/Yash1927",
+    "category": "fun",
+    "emoji": "🍎",
+    "tagline": "Snake while Claude works, where every tool call Claude makes drops food on the board",
+    "stars": 1,
+    "license": "MIT"
+  }
+]

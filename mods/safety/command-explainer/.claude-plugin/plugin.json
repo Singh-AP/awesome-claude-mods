@@ -1,0 +1,36 @@
+{
+  "name": "command-explainer",
+  "version": "1.0.0",
+  "description": "Explains a shell command in one plain-English line, with its risk, right where you approve it, so you know what you're saying yes to.",
+  "author": {
+    "name": "awesome-claude-mods",
+    "url": "https://github.com/Singh-AP/awesome-claude-mods"
+  },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/command-explainer",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": [
+    "mod",
+    "safety",
+    "bash",
+    "permissions",
+    "explain"
+  ],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "model": {
+      "type": "string",
+      "title": "Model",
+      "description": "The model that writes explanations. If your organization blocks it, the session's own model is used instead.",
+      "default": "haiku"
+    },
+    "minLength": {
+      "type": "number",
+      "title": "Minimum command length",
+      "description": "Skip commands shorter than this many characters. 0 explains everything except obvious read-only commands.",
+      "default": 0,
+      "min": 0,
+      "max": 2000
+    }
+  }
+}

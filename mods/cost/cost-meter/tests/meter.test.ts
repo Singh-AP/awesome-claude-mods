@@ -91,7 +91,7 @@ test('the line closing a turn carries the turn cost on every width', async ($, o
 
   const line = await $.ui.mount({ plugin: 'cost-meter', surface: 'terminal', component: 'TurnDuration', requestId: 'm1', props: { word: 'Baked', durationMs: 30_000 } })
   expect(await line.find({ type: 'Text', text: 'Baked for 30s' })).toBeDefined()
-  expect(await line.find({ type: 'Text', text: ' · $0.12' })).toBeDefined()
+  expect(await line.find({ type: 'Text', text: '  $0.12 this turn' })).toBeDefined()
   await line.unmount()
 
   // An older line no turn matches is left as the engine draws it.

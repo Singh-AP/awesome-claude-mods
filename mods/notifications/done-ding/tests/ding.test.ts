@@ -193,16 +193,63 @@ test('/ding mute, unmute and test', async ($, on) => {
   const clock = mock.clock(on)
   const w = world(on)
 
-  expect((await $.command.run({ command: 'ding', args: 'mute', ...TYPED })).text).toMatch(/muted/)
+  expect((await $.command.run({ command: 'ding', args: 'mute', ...TYPED })).text).toMatch(/Muted/)
   await $.turn.complete(turn(90_000))
   await clock.settle()
   expect(w.runs).toEqual([])
 
-  expect((await $.command.run({ command: 'ding', args: 'unmute', ...TYPED })).text).toMatch(/on again/)
+  expect((await $.command.run({ command: 'ding', args: 'unmute', ...TYPED })).text).toMatch(/On again/)
   const sent = await $.command.run({ command: 'ding', args: 'test', ...TYPED })
-  expect(sent.text).toBe('done-ding sent a test as a desktop notification (osascript), with sound: chime.')
+  expect(sent.text).toBe('Sent a test as a desktop notification (osascript), with sound: chime.')
   expect(w.runs.length).toBe(1)
 
   const status = await $.command.run({ command: 'ding', args: '', ...TYPED })
   expect(status.text).toMatch(/pings after turns of 30s or longer, and when Claude is waiting on you/)
+})
+
+test('with an ntfy topic, a long turn also pushes to the phone', { options: { ntfyTopic: 'my-claude-x7q' } }, async ($, on) => {
+  const clock = mock.clock(on)
+  const w = world(on)
+  const pushes: { url: string; body: string }[] = []
+  on('http.fetch', ($, e) => {
+    pushes.push({ url: e.url, body: String(e.init?.body ?? '') })
+    return { value: { status: 200, ok: true, headers: {}, text: '{}' } }
+  })
+
+  await $.turn.complete(turn(90_000))
+  await clock.settle()
+
+  expect(w.runs.length).toBe(1)
+  expect(pushes.length).toBe(1)
+  expect(pushes[0]!.url).toBe('https://ntfy.sh')
+  const sent = JSON.parse(pushes[0]!.body)
+  expect(sent.topic).toBe('my-claude-x7q')
+  expect(sent.title).toMatch(/Claude Code/)
+  expect(sent.message).toMatch(/Done in 1m 30s/)
+
+  const test = await $.command.run({ command: 'ding', args: 'test', ...TYPED })
+  expect(test.text).toMatch(/and a phone push/)
+})
+
+test('a topic that is not a plain name is ignored, and nothing is pushed', { options: { ntfyTopic: 'bad topic/../x' } }, async ($, on) => {
+  const clock = mock.clock(on)
+  world(on)
+  let pushes = 0
+  on('http.fetch', () => (pushes++, { value: { status: 200, ok: true, headers: {}, text: '' } }))
+
+  await $.turn.complete(turn(90_000))
+  await clock.settle()
+
+  expect(pushes).toBe(0)
+})
+
+test('a failed push never breaks the desktop ping', { options: { ntfyTopic: 'my-claude-x7q' } }, async ($, on) => {
+  const clock = mock.clock(on)
+  const w = world(on)
+  on('http.fetch', () => ({ deny: 'offline' }))
+
+  await $.turn.complete(turn(90_000))
+  await clock.settle()
+
+  expect(w.runs.length).toBe(1)
 })

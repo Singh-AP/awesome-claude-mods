@@ -8,6 +8,9 @@ export type Change = {
   added: number
   removed: number
   created: boolean
+  /** A Bash command made the change, rather than a file tool. */
+  bash?: boolean
+  deleted?: boolean
 }
 
 type Hunk = { lines?: unknown }
@@ -121,10 +124,22 @@ export function relativeTo(path: string, root: string | undefined): string {
 /** The list with one more change in it, the file moved to the front. */
 export function merge(files: readonly TouchedFile[], change: Change & { path: string }, now: number): TouchedFile[] {
   const old = files.find(f => f.path === change.path)
-  const next: TouchedFile = old === undefined
+  const base: TouchedFile = old === undefined
     ? { path: change.path, edits: 1, added: change.added, removed: change.removed, created: change.created, firstAt: now, lastAt: now }
     : { ...old, edits: old.edits + 1, added: old.added + change.added, removed: old.removed + change.removed, created: old.created || change.created, lastAt: now }
+  const bash = (old?.bash ?? 0) + (change.bash === true ? 1 : 0)
+  const next: TouchedFile = { ...base, deleted: change.deleted === true }
+  if (bash > 0) next.bash = bash
+  if (next.deleted !== true) delete next.deleted
   return [next, ...files.filter(f => f.path !== change.path)]
+}
+
+/** `created`, `modified` or `deleted`, with `(bash)` when Bash made every change and `(+bash)` when it made some. */
+export function statusOf(file: TouchedFile): string {
+  const what = file.deleted === true ? 'deleted' : file.created ? 'created' : 'modified'
+  const bash = file.bash ?? 0
+  if (bash === 0) return what
+  return bash >= file.edits ? `${what} (bash)` : `${what} (+bash)`
 }
 
 /** Most recently touched first. */
@@ -194,7 +209,7 @@ export function tableText(files: readonly TouchedFile[]): string {
   if (files.length === 0) return 'No files changed yet this session.'
   const recent = byRecent(files)
   const sum = totals(recent)
-  const rows = recent.map(f => `| \`${f.path}\` | ${f.created ? 'created' : 'modified'} | ${f.edits} | +${f.added} | −${f.removed} | ${clock(f.lastAt)} |`)
+  const rows = recent.map(f => `| \`${f.path}\` | ${statusOf(f)} | ${f.edits} | +${f.added} | −${f.removed} | ${clock(f.lastAt)} |`)
   return [
     `**${recent.length} file${recent.length === 1 ? '' : 's'} changed** · +${sum.added} −${sum.removed} · ${sum.edits} edit${sum.edits === 1 ? '' : 's'}`,
     '',

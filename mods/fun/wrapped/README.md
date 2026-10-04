@@ -2,6 +2,10 @@
 
 > Spotify Wrapped for your Claude Code life: your stats, your streaks, your coding persona, and a share card that's one keypress away.
 
+<img src="../../../assets/screens/wrapped.svg" alt="wrapped in a real Claude Code session" width="100%">
+
+The capture above is from a fresh install. After a few months, a card looks more like this (illustrative numbers):
+
 ```text
 ✦ CLAUDE CODE WRAPPED · 2026 ✦
 

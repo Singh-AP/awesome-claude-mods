@@ -2,6 +2,8 @@
 
 > Claude never sees your keys. API keys, tokens, private keys and passwords in tool output are swapped for `[REDACTED:kind]` before they reach the model *or* your transcript file.
 
+<img src="../../../assets/screens/secret-shield.svg" alt="secret-shield in a real Claude Code session" width="100%">
+
 ```text
 ● Bash(cat build.log)
   ⎿  step 1: checkout ok

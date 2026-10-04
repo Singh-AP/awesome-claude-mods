@@ -1,0 +1,61 @@
+name: Refresh mods index
+
+# Rebuilds data/mods.json and catalog/ every day: refreshes stars and push
+# dates of every indexed mod, drops deleted ones, and finds new ones.
+#
+# Discovery uses GitHub code search, which needs a token allowed to call the
+# search API. Store a fine-grained personal access token with read-only
+# access to public repositories as the MODS_SCAN_TOKEN secret. With only the
+# workflow's own github.token the refresh still runs; the scanner notices a
+# 401/403/422 from code search and skips discovery instead of failing.
+
+on:
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+    inputs:
+      budget:
+        description: Time budget in minutes
+        default: '20'
+
+permissions:
+  contents: write
+
+concurrency:
+  group: mods-index
+  cancel-in-progress: false
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+
+      - name: Unit tests for the scanner
+        run: node --test scripts/test/*.test.mjs
+
+      - name: Scan GitHub for mods
+        env:
+          GH_TOKEN: ${{ secrets.MODS_SCAN_TOKEN || github.token }}
+        run: node scripts/scan-mods.mjs --budget-min "${{ github.event.inputs.budget || '20' }}"
+
+      - name: Rebuild the catalog and the README counts
+        run: node scripts/build-catalog.mjs && node scripts/build-readme.mjs
+
+      - name: Commit if anything changed
+        run: |
+          if git diff --quiet -- data catalog README.md .claude-plugin; then
+            echo "No changes."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data catalog README.md .claude-plugin
+          git commit -m "chore(index): refresh mods index $(date -u +%F)"
+          git pull --rebase --autostash origin "${GITHUB_REF_NAME}"
+          git push origin "HEAD:${GITHUB_REF_NAME}"

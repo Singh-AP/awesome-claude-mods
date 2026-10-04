@@ -1,6 +1,6 @@
 # Writing Claude Code mods: the practical guide
 
-The [official docs](https://code.claude.com/docs/en/plugins/mods/overview) are the reference. This page is the field guide: the ten patterns every mod in this repo is built from, the rules the validator enforces, and the testing recipes that keep them working. Everything here was verified against Claude Code 2.1.288.
+The [official docs](https://code.claude.com/docs/en/plugins/mods/overview) are the reference. This page is the field guide: the ten patterns every mod in this repo is built from, the rules the validator enforces, and the testing recipes that keep them working. Everything here was verified against Claude Code 2.1.288 and 2.1.289, the public release CI runs.
 
 - [Anatomy of a mod](#anatomy-of-a-mod)
 - [Ten patterns](#ten-patterns)
@@ -50,7 +50,7 @@ on('session.measure', async ($, e, next) => {
 })
 ```
 
-Used by [cost-meter](../mods/cost/cost-meter) and [git-pulse](../mods/awareness/git-pulse).
+Used by [cost-meter](../mods/cost/cost-meter), [git-pulse](../mods/awareness/git-pulse) and [test-pulse](../mods/awareness/test-pulse). `session.measure` fires after each main-thread turn; read `$.session.usage()` yourself if you need fresher numbers.
 
 ### 2. A toast
 
@@ -103,28 +103,39 @@ on('tool.call', { tool: 'Bash' }, async ($, e, next) => {
 
 ### 6. Rewrite what the model reads
 
-`session.append` fires once for every row the conversation keeps, before it's stored and sent. Rewrite the `content` blocks:
+Two hooks cover it. Use both when it matters, as [secret-shield](../mods/safety/secret-shield) does:
+
+- **`tool.call`:** run the tool, then answer with a new `{ result }`. Leave out `ref`, and Claude Code re-maps your result for the model and stores it as the tool's record, so the screen shows your version too.
+- **`session.append`:** fires once for every row the conversation keeps (tool results, attachments, hook context, deliveries), before it's stored and sent. Rewrite the `content` blocks:
 
 ```ts
-on('session.append', { door: 'tool-result' }, ($, e, next) => next({ ...e, message: redact(e.message) }))
+on('tool.call', async ($, e, next) => {
+  const ran = await next(e)
+  if (ran.deny !== undefined || ran.isError === true) return ran
+  return { result: redactDeep(ran.result) }       // no `ref`: core re-maps it
+})
+
+on('session.append', ($, e, next) => next({ ...e, message: redact(e.message) }))
   .catch(($, e, next) => next({ ...e, message: placeholder(e.message) }))
 ```
 
-The `.catch` handler is important for a redactor. If the hook throws, the row is stored with a placeholder, never raw. See [secret-shield](../mods/safety/secret-shield).
+The `.catch` handler matters for a redactor. If the hook throws, the row is stored with a placeholder, never raw. A `session.append` rewrite alone changes what the model reads, but the transcript's on-screen record (`toolUseResult`) keeps the original.
 
 ### 7. Add to the system prompt
 
-`prompt.compose` resolves the system prompt's sections. Append yours last with `scope: 'session'`:
+`prompt.compose` resolves the system prompt's sections. Append yours last with `scope: 'session'`, after the cached shared sections:
 
 ```ts
 on('prompt.compose', async ($, e, next) => {
   const composed = await next(e)
-  if (goal === undefined) return composed
-  return { ...composed, sections: [...composed.sections, { id: 'focus', text: `The user's focus: ${goal}`, scope: 'session' }] }
+  const current = await read($, goal)
+  if (current === null || e.traits.includes('bare')) return composed
+  const sections = composed.sections.filter(section => section.id !== 'aim:goal')
+  return { sections: [...sections, { id: 'aim:goal', text: `The user's current goal: ${current.text}`, scope: 'session' as const }] }
 })
 ```
 
-Changing a section spends the prompt cache, so only change it when the content does. See [focus](../mods/productivity/focus).
+Changing a section spends the prompt cache, so only change it when the content does. In a real session, [aim](../mods/productivity/aim) made Claude answer an off-topic question and then add "This is outside the current focus".
 
 ### 8. A band above the prompt
 
@@ -146,6 +157,20 @@ on('ui.render', { component: 'AbovePrompt' }, async ($, e, next) => {
 
 Elements come from `$.ui.resolve(e)`, not globals. Every `Button` needs a `key`.
 
+**The band is shared.** Every mod hooks the same `AbovePrompt` site, so a mod that returns its own tree without calling `next(e)` hides every mod beneath it. Put `await next(e)` inside your tree:
+
+```tsx
+const below = await next(e)
+return (
+  <Box flexDirection="column">
+    <Text>🎯 {goal}</Text>
+    {below}
+  </Box>
+)
+```
+
+That's how [buddy](../mods/fun/buddy), [files-touched](../mods/awareness/files-touched) and [aim](../mods/productivity/aim) stack in the [gallery shot](../README.md#%EF%B8%8F-gallery).
+
 ### 9. A pane
 
 `$.ui.open({ id, title })` opens it, and a `ui.render` hook on `{ component: 'Pane', requestId: id }` draws it. A pane you open because the user typed a command seats at any width. One opened unasked, from `session.start` or a timer, waits until the terminal is 144 columns wide.
@@ -157,7 +182,7 @@ on('command.run', { command: 'radar' }, async $ => {
 })
 ```
 
-See [tool-radar](../mods/awareness/tool-radar) and [wrapped](../mods/fun/wrapped).
+See [tool-radar](../mods/awareness/tool-radar) and [wrapped](../mods/fun/wrapped). A docked pane draws its close button (✕) inside the header row, so leave a column or two of slack when you size rows to `e.props.bodyColumns`.
 
 ### 10. State that redraws
 

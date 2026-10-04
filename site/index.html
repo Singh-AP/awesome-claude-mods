@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Awesome Claude Mods: tested Claude Code mods, one-command install</title>
+  <meta name="description" content="Hand-picked, tested Claude Code mods: guardrails that hold in YOLO mode, live cost and context, panes, pets and more. Search every public Claude Code mod, refreshed daily.">
+  <link rel="canonical" href="https://singh-ap.github.io/awesome-claude-mods/">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <meta name="theme-color" content="#0d0b0a">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Awesome Claude Mods">
+  <meta property="og:title" content="Awesome Claude Mods">
+  <meta property="og:description" content="Tested Claude Code mods, one command to install. Plus a daily index of every public mod.">
+  <meta property="og:url" content="https://singh-ap.github.io/awesome-claude-mods/">
+  <meta property="og:image" content="https://singh-ap.github.io/awesome-claude-mods/og.png">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Awesome Claude Mods">
+  <meta name="twitter:description" content="Tested Claude Code mods, one command to install. Plus a daily index of every public mod.">
+  <meta name="twitter:image" content="https://singh-ap.github.io/awesome-claude-mods/og.png">
+  <link rel="stylesheet" href="style.css">
+  <script type="module" src="app.js"></script>
+</head>
+<body>
+  <a class="skip" href="#browse">Skip to the mod browser</a>
+
+  <header class="hero">
+    <div class="hero-text">
+      <p class="kicker">Awesome</p>
+      <h1>claude mods</h1>
+      <span class="bar" aria-hidden="true"></span>
+      <p class="pitch">Hand-picked, tested <a href="https://code.claude.com/docs/en/plugins/mods/overview">Claude Code mods</a>. Guardrails that hold in YOLO mode, live cost and context, panes, pets, and a daily index of every public mod.</p>
+      <p class="stats" id="stats" aria-live="polite">Loading…</p>
+      <div class="install">
+        <code id="install-line">/plugin marketplace add Singh-AP/awesome-claude-mods</code>
+        <button type="button" class="copy" data-copy="/plugin marketplace add Singh-AP/awesome-claude-mods" aria-label="Copy the marketplace command">Copy</button>
+      </div>
+      <p class="then">Then <code>/plugin install bash-guard@awesome-claude-mods</code>, or any mod marked installable below.</p>
+      <nav class="cta" aria-label="Project links">
+        <a class="button primary" href="https://github.com/Singh-AP/awesome-claude-mods">★ Star on GitHub</a>
+        <a class="button" href="#browse">Browse mods</a>
+        <a class="button" href="https://github.com/Singh-AP/awesome-claude-mods/issues/new?template=submit-a-mod.yml">Submit a mod</a>
+      </nav>
+    </div>
+    <figure class="hero-shot">
+      <img src="screens/hero.svg" alt="A real Claude Code session with buddy, files-touched, aim, git-pulse and cost-meter loaded" width="1300" height="574">
+      <figcaption>A real session: five mods sharing the band above the prompt and the status line.</figcaption>
+    </figure>
+  </header>
+
+  <main>
+    <section class="built" aria-labelledby="built-title">
+      <div class="section-head">
+        <h2 id="built-title">Built &amp; tested here</h2>
+        <p>Every one has tests that run in CI against the newest Claude Code, passes <code>claude plugin validate --strict</code>, and was run in a real session.</p>
+      </div>
+      <div class="built-shots" id="built-shots"></div>
+      <div class="built-grid" id="built"></div>
+    </section>
+
+    <section class="browse" id="browse" aria-labelledby="browse-title">
+      <div class="section-head">
+        <h2 id="browse-title">Browse every mod</h2>
+        <p>Built here, hand-picked from the community, or found by the daily scan of GitHub. Press <kbd>/</kbd> to search.</p>
+      </div>
+
+      <div class="toolbar" role="search">
+        <label class="search">
+          <span class="sr-only">Search mods</span>
+          <input id="q" type="search" placeholder="Search: guard, pane, cost, tool.call, pet…" autocomplete="off" spellcheck="false">
+        </label>
+        <label class="sort">
+          <span>Sort</span>
+          <select id="sort">
+            <option value="featured">Featured</option>
+            <option value="stars">Stars</option>
+            <option value="newest">Newest</option>
+            <option value="name">Name</option>
+          </select>
+        </label>
+        <div class="toggles" role="group" aria-label="Filters">
+          <button type="button" class="toggle" data-flag="built" aria-pressed="false">Built here</button>
+          <button type="button" class="toggle" data-flag="curated" aria-pressed="false">Curated</button>
+          <button type="button" class="toggle" data-flag="installable" aria-pressed="false">Installable</button>
+          <button type="button" class="toggle" data-flag="ui" aria-pressed="false">Has UI</button>
+        </div>
+      </div>
+      <div class="chips" id="chips" role="group" aria-label="Categories"></div>
+
+      <p class="count" id="count" aria-live="polite"></p>
+      <div class="results" id="results"></div>
+      <div class="more-wrap"><button type="button" class="button" id="more" hidden>Show more</button></div>
+      <noscript><p class="count">The browser needs JavaScript. The full list is also on <a href="https://github.com/Singh-AP/awesome-claude-mods/tree/main/catalog">GitHub</a>.</p></noscript>
+    </section>
+  </main>
+
+  <footer>
+    <p>
+      <a href="https://github.com/Singh-AP/awesome-claude-mods">GitHub</a> ·
+      <a href="https://github.com/Singh-AP/awesome-claude-mods/blob/main/CONTRIBUTING.md">Contributing</a> ·
+      <a href="https://github.com/Singh-AP/awesome-claude-mods/issues/new?template=submit-a-mod.yml">Submit a mod</a> ·
+      <a href="https://github.com/Singh-AP/awesome-claude-mods/blob/main/docs/writing-mods.md">Write your own</a> ·
+      <a href="https://github.com/Singh-AP/awesome-claude-mods/blob/main/docs/capabilities.md">What each mod can touch</a>
+    </p>
+    <p class="fine">Mods run inside Claude Code with your permissions. Read a mod before installing it. MIT licensed. Not affiliated with Anthropic; Claude and Claude Code are trademarks of Anthropic.</p>
+  </footer>
+</body>
+</html>

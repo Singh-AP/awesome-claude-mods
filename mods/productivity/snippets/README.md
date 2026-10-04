@@ -2,6 +2,8 @@
 
 > Your best prompts, one command away. `/snip review` drops your saved review prompt into the prompt box, with the branch, your selection and any extra text filled in.
 
+<img src="../../../assets/screens/snippets.svg" alt="snippets in a real Claude Code session" width="100%">
+
 ```text
 > /snip review the token refresh
 

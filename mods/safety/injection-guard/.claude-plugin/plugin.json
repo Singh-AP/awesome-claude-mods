@@ -1,0 +1,19 @@
+{
+  "name": "injection-guard",
+  "version": "1.0.0",
+  "description": "Defuses prompt injection in tool output: strips invisible Unicode that hides text from you but not from the model, and flags web pages, files and command output that carry instructions aimed at Claude.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/injection-guard",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "safety", "prompt-injection", "unicode", "security", "webfetch"],
+  "userConfig": {
+    "mode": {
+      "type": "string",
+      "title": "Mode",
+      "description": "warn tells Claude the result is untrusted; strip also replaces the instruction-like passages; block withholds the whole result. Hidden characters are removed in every mode.",
+      "default": "warn",
+      "options": ["warn", "strip", "block"]
+    }
+  }
+}

@@ -1,0 +1,42 @@
+{
+  "name": "file-guard",
+  "version": "1.0.0",
+  "description": "Keeps Claude's file edits inside the project: refuses writes outside it (symlinks resolved), never lets a tool touch .git internals, and asks before it changes lockfiles, CI workflows, migrations or secrets.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/file-guard",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "safety", "files", "guardrails", "sandbox", "yolo"],
+  "userConfig": {
+    "protect": {
+      "type": "string",
+      "title": "Protected files",
+      "description": "Comma-separated globs inside the project that ask before Claude changes them. ** crosses folders; a pattern without / matches the file name anywhere; !glob exempts.",
+      "default": ".github/workflows/**, **/migrations/**, **/*.lock, package-lock.json, pnpm-lock.yaml, yarn.lock, Cargo.lock, poetry.lock, **/.env*, !**/.env.example, !**/.env.sample, !**/.env.template, **/*.pem, **/id_rsa*, .git/**"
+    },
+    "extraRoots": {
+      "type": "string",
+      "title": "Extra writable folders",
+      "description": "Comma-separated folders outside the project that Claude may write to (~ allowed), e.g. ~/notes, ~/work/shared-config.",
+      "default": ""
+    },
+    "allowTemp": {
+      "type": "boolean",
+      "title": "Allow temp folders",
+      "description": "Let Claude write to /tmp, /var/tmp and $TMPDIR.",
+      "default": true
+    },
+    "allowClaudeDirs": {
+      "type": "boolean",
+      "title": "Allow Claude's own folders",
+      "description": "Let Claude write its memory, plans, todos and session mods under ~/.claude (never ~/.claude/settings.json).",
+      "default": true
+    },
+    "fenceReads": {
+      "type": "boolean",
+      "title": "Fence reads too",
+      "description": "Also refuse Read calls outside the project and the folders above.",
+      "default": false
+    }
+  }
+}

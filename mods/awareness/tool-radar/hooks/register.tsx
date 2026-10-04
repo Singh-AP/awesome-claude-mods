@@ -94,7 +94,8 @@ export const register: Register = (on, options) => {
     const sums = await read($, totals)
     const onlyErrors = await read($, errorsOnly)
 
-    const width = Math.max(24, e.props.bodyColumns)
+    // Two columns of slack: a docked pane draws a little narrower than bodyColumns says.
+    const width = Math.max(24, e.props.bodyColumns - 2)
     const running = list.filter(call => call.status === 'running').length
     // Docked beside the transcript the pane has a fixed height; inline it grows.
     const room = e.props.placement === 'dock' ? Math.max(5, e.props.scroll.bodyRows - 3) : 12

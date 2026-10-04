@@ -3,7 +3,8 @@
 > Always know what a session costs: live spend, context and rate limits on the status line, the price of every turn, and a budget that asks before spending more.
 
 ```text
-✻ Baked for 1m 35s · $0.31
+✻ Baked for 1m 35s
+  $0.31 this turn
 
 ╭──────────────────────────────────────────────────────────────╮
 │ >                                                            │
@@ -19,7 +20,7 @@
 ## Features
 
 - **Status line** that shows only what your session actually reports: session cost, context fill, and your 5-hour / 7-day rate-limit windows (subscription plans). Nothing unknown is printed, so you never see `NaN` or `undefined`.
-- **Per-turn cost.** The line that closes each turn (`Baked for 1m 35s`) gets that turn's cost appended, subagents included.
+- **Per-turn cost.** Under the line that closes each turn (`Baked for 1m 35s`), a dim line shows what that turn cost, subagents included (terminal).
 - **Context warnings** at 70%, 85% and 95%. Each mark toasts once, and the marks re-arm after a `/compact`.
 - **Budget (optional).** Each time the session passes another multiple of your budget, the next tool call asks *Keep going / Stop here*. On Stop, the tool call is refused and the model is told to wrap up. A new prompt is held once and put back in the box, so pressing Enter again means "yes, keep going". Long turns are checked call by call, not only between turns. Headless runs stop.
 - **`/spend`** shows the session total, context, rate limits with reset times, the most expensive turn, and your last 10 turns with cost and duration. `/spend budget 5` sets a budget for this session; `/spend budget off` clears it.

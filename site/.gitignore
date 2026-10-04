@@ -1,0 +1,5 @@
+# Written by scripts/build-site.mjs (CI builds them before each deploy)
+data.json
+screens/
+banner.svg
+og.png

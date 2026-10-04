@@ -2,6 +2,8 @@
 
 > A tiny ASCII pet that lives above your prompt, reacts to everything Claude does, and levels up as you ship.
 
+<img src="../../../assets/screens/hero.svg" alt="buddy in a real Claude Code session" width="100%">
+
 ```text
  /\_/\       Byte  Lv 4 cat
 ( o_o )      ███████████░░░░░░░░░ 412/500 XP

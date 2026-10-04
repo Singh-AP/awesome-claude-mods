@@ -147,10 +147,11 @@ export const register: Register = (on, options) => {
       claimed.set(e.requestId, usd)
     }
     const { Box, Text } = $.ui.resolve(e)
+    // Claude Code's own line takes the full width, so the cost goes on a line of its own beneath it.
     return (
-      <Box flexDirection="row">
+      <Box flexDirection="column">
         {await next(e)}
-        <Text dimColor>{` · ${formatUsd(usd)}`}</Text>
+        <Text dimColor>{`  ${formatUsd(usd)} this turn`}</Text>
       </Box>
     )
   })

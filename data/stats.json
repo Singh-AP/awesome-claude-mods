@@ -1,0 +1,19 @@
+{
+  "updated": "2026-10-04",
+  "mods": 2378,
+  "repos": 1394,
+  "withUi": 1869,
+  "licensed": 1643,
+  "byCategory": {
+    "safety": 187,
+    "cost": 410,
+    "awareness": 707,
+    "productivity": 492,
+    "notifications": 54,
+    "fun": 188,
+    "ui": 139,
+    "integrations": 141,
+    "other": 60
+  },
+  "newThisWeek": 1591
+}

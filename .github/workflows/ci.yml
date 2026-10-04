@@ -17,9 +17,9 @@ jobs:
     name: Validate, typecheck and test every mod
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -32,14 +32,20 @@ jobs:
       - name: README and marketplace.json are generated from registry.json
         run: node scripts/build-readme.mjs --check
 
+      - name: Catalog pages are generated from data/mods.json
+        run: node scripts/build-catalog.mjs --check
+
+      - name: Script tests (index, catalog)
+        run: npm run test:scripts
+
       - name: Generate types from this Claude Code
         run: npm run types
 
       - name: Typecheck
         run: npm run typecheck
 
-      - name: Validate (strict)
-        run: npm run validate
+      - name: Validate (strict), and docs/capabilities.md matches what the analyzer sees
+        run: npm run validate -- --write-capabilities && git diff --exit-code docs/capabilities.md
 
       - name: Test
         run: npm test

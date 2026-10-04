@@ -1,0 +1,1 @@
+{ "description": "command-explainer hooks module", "modules": ["./register.tsx"] }

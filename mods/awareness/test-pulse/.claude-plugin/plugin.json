@@ -1,0 +1,10 @@
+{
+  "name": "test-pulse",
+  "version": "1.0.0",
+  "description": "Your test suite's heartbeat: every test run Claude makes shows up in the status line (🧪 ✅ 44/44 passing · 2m ago), with a toast when tests go red or green again, and /tests for history, a pass-rate sparkline and likely flakes.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/awareness/test-pulse",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "tests", "status-line", "ci", "flaky"]
+}

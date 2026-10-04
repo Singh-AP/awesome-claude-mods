@@ -2,6 +2,8 @@
 
 > Mission control for what Claude is doing: every tool call, live, with its status, arguments, duration and why it failed.
 
+<img src="../../../assets/screens/tool-radar.svg" alt="tool-radar in a real Claude Code session" width="100%">
+
 ```text
 ╭─ Tool radar ──────────────────────────────────────────────╮
 │ 42 calls · 3 failed · 1 running · avg 1.2s · Bash 20 Edit 12 Read 8

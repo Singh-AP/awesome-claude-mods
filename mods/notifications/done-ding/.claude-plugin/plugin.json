@@ -1,12 +1,24 @@
 {
   "name": "done-ding",
-  "version": "1.0.0",
-  "description": "Go make coffee: a desktop notification and a chime when a long Claude turn finishes, and when Claude is waiting on you.",
-  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "version": "1.1.0",
+  "description": "Go make coffee: a desktop notification, a chime, and optionally a phone push when a long Claude turn finishes or Claude is waiting on you.",
+  "author": {
+    "name": "awesome-claude-mods",
+    "url": "https://github.com/Singh-AP/awesome-claude-mods"
+  },
   "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/notifications/done-ding",
   "repository": "https://github.com/Singh-AP/awesome-claude-mods",
   "license": "MIT",
-  "keywords": ["mod", "notifications", "sound", "productivity", "macos", "linux"],
+  "keywords": [
+    "mod",
+    "notifications",
+    "sound",
+    "productivity",
+    "macos",
+    "linux",
+    "ntfy",
+    "push"
+  ],
   "userConfig": {
     "minSeconds": {
       "type": "number",
@@ -20,7 +32,11 @@
       "title": "Sound",
       "description": "chime plays a short two-note chime, say speaks a line, none stays quiet.",
       "default": "chime",
-      "options": ["chime", "say", "none"]
+      "options": [
+        "chime",
+        "say",
+        "none"
+      ]
     },
     "desktop": {
       "type": "boolean",
@@ -39,6 +55,18 @@
       "title": "Ping for headless runs",
       "description": "Also ping for claude -p and SDK runs, where nobody is at the prompt.",
       "default": false
+    },
+    "ntfyTopic": {
+      "type": "string",
+      "title": "Phone push: ntfy topic",
+      "description": "Get pushes on your phone with the ntfy app: subscribe to a hard-to-guess topic and put it here. Empty: no phone pushes.",
+      "default": ""
+    },
+    "ntfyServer": {
+      "type": "string",
+      "title": "Phone push: ntfy server",
+      "description": "The ntfy server to publish to (self-hosted works too).",
+      "default": "https://ntfy.sh"
     }
   }
 }

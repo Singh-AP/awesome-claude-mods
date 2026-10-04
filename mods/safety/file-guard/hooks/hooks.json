@@ -1,0 +1,1 @@
+{ "description": "file-guard hooks module", "modules": ["./register.ts"] }

@@ -48,3 +48,13 @@ Bump `version` in its `plugin.json`. Installed copies are cached by version, so 
 ## Code style
 
 Match the surrounding code: TypeScript, two-space indent, no semicolons, single quotes. Pure logic goes in its own file with no `$`, so it can be unit-tested. Comments explain *why*, not *what*.
+
+## Featured? Show it off
+
+If your mod is in the list, add this badge to its README:
+
+```markdown
+[![Featured in Awesome Claude Mods](https://img.shields.io/badge/featured%20in-awesome--claude--mods-D97757?logo=anthropic&logoColor=white)](https://github.com/Singh-AP/awesome-claude-mods)
+```
+
+[![Featured in Awesome Claude Mods](https://img.shields.io/badge/featured%20in-awesome--claude--mods-D97757?logo=anthropic&logoColor=white)](https://github.com/Singh-AP/awesome-claude-mods)

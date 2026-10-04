@@ -5,12 +5,13 @@
 
 # Awesome Claude Mods
 
-**{{TOTAL_COUNT}} mods that make Claude Code safer, cheaper and more fun. {{MOD_COUNT}} of them live here, tested in CI, one command to install.**
+**The best Claude Code mods, hand-picked and tested. {{MOD_COUNT}} built here, {{TOTAL_COUNT}} in the list, {{INSTALLABLE_COUNT}} installable with one command.**
 
-[Install](#-install-in-30-seconds) · [Browse](#-browse-all-mods) · [Start here](#-start-here) · [Build your own](#%EF%B8%8F-build-your-own-mod) · [Contribute](CONTRIBUTING.md)
+[Install](#-install-in-30-seconds) · [Gallery](#%EF%B8%8F-gallery) · [Browse](#-browse-all-mods) · [Start here](#-start-here) · [Full index](#-the-full-index) · [Build your own](#%EF%B8%8F-build-your-own-mod)
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-[![Mods](https://img.shields.io/badge/mods-{{TOTAL_COUNT}}-D97757)](#-browse-all-mods)
+[![Mods](https://img.shields.io/badge/curated%20mods-{{TOTAL_COUNT}}-D97757)](#-browse-all-mods)
+[![Index](https://img.shields.io/badge/indexed-{{INDEX_COUNT}}-8A63D2)](#-the-full-index)
 [![Tests](https://img.shields.io/badge/tests-{{TEST_COUNT}}%20passing-2ea44f)](#-quality-bar)
 [![CI](https://github.com/{{REPO}}/actions/workflows/ci.yml/badge.svg)](https://github.com/{{REPO}}/actions/workflows/ci.yml)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-%E2%89%A5%202.1.287-D97757)](https://code.claude.com/docs/en/plugins/mods/overview)
@@ -31,7 +32,7 @@ Inside Claude Code:
 /plugin install bash-guard@{{MARKETPLACE}}
 ```
 
-That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any mod below.
+That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any of the {{INSTALLABLE_COUNT}} mods marked installable below: the {{MOD_COUNT}} built here, plus {{PINNED_COUNT}} community and Anthropic mods we reviewed and pinned to a commit.
 
 <details>
 <summary><b>Every install command</b></summary>
@@ -44,24 +45,46 @@ From a shell: `claude plugin marketplace add {{REPO}}`, then `claude plugin inst
 
 ## 🖼️ Gallery
 
-Real captures from Claude Code sessions with the mods loaded.
+Real captures from Claude Code sessions with the mods loaded, not mockups.
+
+<a href="mods/fun/buddy/"><img src="assets/screens/hero.svg" alt="buddy, files-touched, aim, git-pulse and cost-meter in one session" width="100%"></a>
+<p align="center"><sub><b>One session, five mods:</b> 🐱 buddy, 🗂️ files-touched and 🎯 aim share the band above the prompt; ⎇ git-pulse and 💸 cost-meter share the status line.</sub></p>
 
 {{GALLERY}}
 
 ## 📂 Browse all mods
 
+Mods without a byline are built and tested in this repo. Community mods are credited to their authors. 📦 means you can install it from this marketplace, pinned to a commit we read.
+
 {{CATALOG}}
+
+{{INDEX_SECTION}}
 
 ## 🧭 Start here
 
 | If you... | Install |
 | --- | --- |
-| run with `--dangerously-skip-permissions` | 🛡️ `bash-guard` + 🔐 `secret-shield` + 📦 `slopsquat-guard` |
+| run with `--dangerously-skip-permissions` | 🛡️ `bash-guard` + 🚧 `file-guard` + 🔐 `secret-shield` + 🌐 `net-guard` + 🧯 `injection-guard` + 📦 `slopsquat-guard` |
+| approve commands you don't fully read | 💡 `command-explainer` |
 | pay per token | 💸 `cost-meter` |
 | kick off long tasks and walk away | 🔔 `done-ding` |
-| lose track of what Claude touched | 🗂️ `files-touched` + 📡 `tool-radar` + ⎇ `git-pulse` |
+| lose track of what Claude touched | 📡 `tool-radar` + 🗂️ `files-touched` + ⎇ `git-pulse` + 🧪 `test-pulse` |
+| drift off-task in long sessions | 🎯 `aim` + 📝 `tldr` |
+| retype the same prompts | 📎 `snippets` |
 | hate writing standups | 🗣️ `standup` |
-| want your terminal to be fun | 🐱 `buddy` + 🎁 `wrapped` |
+| want your terminal to be fun | 🐱 `buddy` + 🏴‍☠️ `spinner-packs` + 🎁 `wrapped` |
+
+Want the whole safety kit at once?
+
+```shell
+/plugin marketplace add {{REPO}}
+/plugin install bash-guard@{{MARKETPLACE}}
+/plugin install file-guard@{{MARKETPLACE}}
+/plugin install secret-shield@{{MARKETPLACE}}
+/plugin install net-guard@{{MARKETPLACE}}
+/plugin install injection-guard@{{MARKETPLACE}}
+/plugin install slopsquat-guard@{{MARKETPLACE}}
+```
 
 ## 🛠️ Build your own mod
 
@@ -76,11 +99,13 @@ Then read **[Writing mods: the practical guide](docs/writing-mods.md)**. It cove
 
 Every mod in this repo:
 
-- passes `claude plugin validate --strict`, which also prints exactly which events it hooks and which APIs it calls
+- passes `claude plugin validate --strict`, which also prints exactly which events it hooks and which APIs it calls. That output is published in **[What each mod can touch](docs/capabilities.md)**, and CI fails if it drifts
 - type-checks under strict TypeScript
 - ships tests that run on every push, and every week against the newest Claude Code (**{{TEST_COUNT}} tests** right now)
 - was run in a real Claude Code session before it was merged
 - sends no telemetry, and makes network calls only when its README says so
+
+Community mods marked 📦 were read before listing and are pinned to that exact commit, so an upstream change can't reach you until we review it and bump the pin.
 
 > [!WARNING]
 > Mods run inside Claude Code with your permissions. They aren't sandboxed. Read a mod before installing it, from here or anywhere else. `claude plugin validate <dir>` shows what it can touch.

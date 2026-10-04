@@ -1,0 +1,57 @@
+{
+  "name": "net-guard",
+  "version": "1.0.0",
+  "description": "Stops data exfiltration and surprise network calls: checks every curl, wget, ssh, scp, git push and WebFetch against allow and deny lists, and asks before data goes to a host you haven't approved.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/net-guard",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "safety", "network", "exfiltration", "allowlist", "curl", "yolo"],
+  "userConfig": {
+    "unknown": {
+      "type": "string",
+      "title": "Unknown hosts (shell)",
+      "description": "Bash commands that reach a host on neither list: ask, allow or deny.",
+      "default": "ask",
+      "options": ["ask", "allow", "deny"]
+    },
+    "fetchUnknown": {
+      "type": "string",
+      "title": "Unknown hosts (WebFetch)",
+      "description": "WebFetch reads of a host on neither list: allow (still asks when the URL looks like it carries data), ask or deny.",
+      "default": "allow",
+      "options": ["allow", "ask", "deny"]
+    },
+    "askUploads": {
+      "type": "string",
+      "title": "Ask before uploads",
+      "description": "When sending data (POST bodies, -d, -F, -T, git push, scp to a remote, ssh) asks: unlisted hosts only, always, or never.",
+      "default": "unlisted",
+      "options": ["unlisted", "always", "never"]
+    },
+    "allow": {
+      "type": "string",
+      "title": "Extra allowed hosts",
+      "description": "Comma-separated hosts added to the built-in allow list. example.com covers its subdomains, *.example.com only subdomains, example.com/path only that path.",
+      "default": ""
+    },
+    "deny": {
+      "type": "string",
+      "title": "Extra denied hosts",
+      "description": "Comma-separated hosts that are always blocked, on top of the built-in paste, request-catcher and tunnel list.",
+      "default": ""
+    },
+    "useDefaultLists": {
+      "type": "boolean",
+      "title": "Use built-in lists",
+      "description": "Start from the built-in allow list (code hosts, package registries, docs) and deny list (paste sites, request catchers, tunnels).",
+      "default": true
+    },
+    "allowPrivate": {
+      "type": "boolean",
+      "title": "Allow private networks",
+      "description": "Treat LAN addresses (10.x, 192.168.x, 172.16-31.x, *.local, *.internal) as allowed. Cloud metadata (169.254.x) is never treated as private.",
+      "default": true
+    }
+  }
+}

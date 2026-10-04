@@ -238,15 +238,20 @@ export const register: Register = (on, options) => {
     const line = seen.line || moodWord(mood)
     const level = levelOf(now.xp)
     const color = COLORS[now.species]
+    // The band is shared: draw the mods beneath this one under the pet.
+    const below = await next(e)
 
     if (e.props.bodyColumns < 44) {
       return (
-        <Box flexDirection="row" gap={1}>
-          <Text color={color}>{drawFace(now.species, mood)}</Text>
-          <Text bold>{now.name}</Text>
-          <Text dimColor wrap="truncate-end">
-            {line}
-          </Text>
+        <Box flexDirection="column">
+          <Box flexDirection="row" gap={1}>
+            <Text color={color}>{drawFace(now.species, mood)}</Text>
+            <Text bold>{now.name}</Text>
+            <Text dimColor wrap="truncate-end">
+              {line}
+            </Text>
+          </Box>
+          {below}
         </Box>
       )
     }
@@ -254,27 +259,30 @@ export const register: Register = (on, options) => {
     const rows = drawPet(now.species, mood, await read($, frame))
     const barWidth = Math.min(20, Math.max(8, e.props.bodyColumns - 48))
     return (
-      <Box flexDirection="row" gap={1}>
-        <Box flexDirection="column">
-          {rows.map(row => (
-            <Text color={color}>{row}</Text>
-          ))}
-        </Box>
-        <Box flexDirection="column" flexShrink={1}>
-          <Box flexDirection="row" gap={1}>
-            <Text bold>{now.name}</Text>
-            <Text dimColor>
-              Lv {level} {now.species}
-            </Text>
+      <Box flexDirection="column">
+        <Box flexDirection="row" gap={1}>
+          <Box flexDirection="column">
+            {rows.map(row => (
+              <Text color={color}>{row}</Text>
+            ))}
           </Box>
-          <Box flexDirection="row" gap={1}>
-            <Text color="#ffd54f">{xpBar(now.xp, barWidth)}</Text>
-            <Text dimColor>
-              {now.xp}/{xpForLevel(level + 1)} XP
-            </Text>
+          <Box flexDirection="column" flexShrink={1}>
+            <Box flexDirection="row" gap={1}>
+              <Text bold>{now.name}</Text>
+              <Text dimColor>
+                Lv {level} {now.species}
+              </Text>
+            </Box>
+            <Box flexDirection="row" gap={1}>
+              <Text color="#ffd54f">{xpBar(now.xp, barWidth)}</Text>
+              <Text dimColor>
+                {now.xp}/{xpForLevel(level + 1)} XP
+              </Text>
+            </Box>
+            <Text wrap="truncate-end">{line}</Text>
           </Box>
-          <Text wrap="truncate-end">{line}</Text>
         </Box>
+        {below}
       </Box>
     )
   })

@@ -1,0 +1,31 @@
+{
+  "name": "spinner-packs",
+  "version": "1.0.0",
+  "description": "Themed spinner words: Claude is 'Plundering…' then 'Plundered for 1m 3s'. Ten packs (pirate, Shakespeare, corporate, wizard, chef, space, noir, Gen Z, zen, retro) or your own words.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/fun/spinner-packs",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "fun", "spinner", "theme"],
+  "userConfig": {
+    "pack": {
+      "type": "string",
+      "title": "Word pack",
+      "description": "Which words the spinner uses. random picks a pack each session; off keeps Claude Code's own.",
+      "default": "random",
+      "options": ["random", "pirate", "shakespeare", "corporate", "wizard", "chef", "space", "noir", "genz", "zen", "retro", "off"]
+    },
+    "custom": {
+      "type": "string",
+      "title": "Custom words",
+      "description": "Comma-separated words that replace every pack, e.g. 'Frobbing|Frobbed, Yak shaving|Shaved yaks'. The part after | themes the line that closes a turn.",
+      "default": ""
+    },
+    "themeClosingLine": {
+      "type": "boolean",
+      "title": "Theme the closing line",
+      "description": "Also theme the line that closes a turn ('Plundered for 1m 3s'). Terminal only.",
+      "default": true
+    }
+  }
+}

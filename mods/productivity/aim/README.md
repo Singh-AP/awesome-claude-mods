@@ -2,6 +2,8 @@
 
 > Pin one goal for the session. It sits above the prompt with a timer, and Claude is told to stay on it and flag unrelated work instead of drifting.
 
+<img src="../../../assets/screens/hero.svg" alt="aim in a real Claude Code session" width="100%">
+
 ```text
   🎯 fix the login redirect bug · 12m  [ Done ]  [ Clear ]
 ╭──────────────────────────────────────────────────────────────╮

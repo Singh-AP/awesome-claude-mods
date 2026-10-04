@@ -9,7 +9,10 @@
     "validate": "node scripts/each-mod.mjs validate",
     "test": "node scripts/each-mod.mjs test",
     "readme": "node scripts/build-readme.mjs",
-    "check": "node scripts/build-readme.mjs --check && npm run types && npm run typecheck && npm run validate && npm run test"
+    "check": "node scripts/build-readme.mjs --check && node scripts/build-catalog.mjs --check && npm run test:scripts && npm run types && npm run typecheck && npm run validate && npm run test",
+    "test:scripts": "node --test scripts/test/*.test.mjs",
+    "scan": "node scripts/scan-mods.mjs",
+    "catalog": "node scripts/build-catalog.mjs"
   },
   "devDependencies": {
     "typescript": "^5.9.0"

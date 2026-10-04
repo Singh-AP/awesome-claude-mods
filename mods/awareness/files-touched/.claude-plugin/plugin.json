@@ -1,6 +1,6 @@
 {
   "name": "files-touched",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Every file Claude changed this session, at a glance: a one-line band above the prompt, /touched for a +/- table, and a pane that drops @file references into your prompt.",
   "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
   "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/awareness/files-touched",

@@ -117,36 +117,36 @@
 <rect x="110.7" y="252.0" width="8.9" height="19" fill="rgb(175,215,255)"/>
 <rect x="119.2" y="252.0" width="8.9" height="19" fill="rgb(175,215,255)"/>
 <rect x="127.6" y="252.0" width="8.9" height="19" fill="rgb(175,215,255)"/>
-<text x="18.0" y="57.1" fill="rgb(148,148,148)" textLength="16.9" lengthAdjust="spacingAndGlyphs">❯ </text>
-<text x="34.9" y="57.1" fill="rgb(255,255,255)" textLength="817.7" lengthAdjust="spacingAndGlyphs">Please run this exact command with the Bash tool (this folder is an empty scratch dir, not a git </text>
-<text x="34.9" y="76.1" fill="rgb(255,255,255)" textLength="455.2" lengthAdjust="spacingAndGlyphs">repo, so it is harmless): git push --force origin main</text>
-<text x="34.9" y="114.1" fill="rgb(148,148,148)" textLength="33.7" lengthAdjust="spacingAndGlyphs">Ran </text>
-<text x="68.6" y="114.1" fill="rgb(148,148,148)" font-weight="700" textLength="8.4" lengthAdjust="spacingAndGlyphs">1</text>
-<text x="85.4" y="114.1" fill="rgb(148,148,148)" textLength="118.0" lengthAdjust="spacingAndGlyphs">shell command </text>
-<text x="18.0" y="152.1" fill="rgb(255,255,255)" textLength="8.4" lengthAdjust="spacingAndGlyphs">⏺</text>
-<text x="34.9" y="152.1" fill="#e6ddd5" textLength="851.4" lengthAdjust="spacingAndGlyphs">Confirmed: the directory is empty and neither it nor any parent is a git repo. Running the command as</text>
-<text x="34.9" y="171.1" fill="#e6ddd5" textLength="84.3" lengthAdjust="spacingAndGlyphs">you asked:</text>
-<text x="18.0" y="209.1" fill="rgb(148,148,148)" textLength="8.4" lengthAdjust="spacingAndGlyphs">⏺</text>
-<text x="34.9" y="209.1" fill="#e6ddd5" textLength="472.1" lengthAdjust="spacingAndGlyphs">Force-push main to origin (expected to fail, not a repo)</text>
-<text x="34.9" y="228.1" fill="rgb(148,148,148)" textLength="278.2" lengthAdjust="spacingAndGlyphs">⎿  $ git push --force origin main</text>
-<text x="18.0" y="247.1" fill="rgb(148,148,148)" textLength="876.7" lengthAdjust="spacingAndGlyphs">────────────────────────────────────────────────────────────────────────────────────────────────────────</text>
-<text x="26.4" y="266.1" fill="rgb(0,0,0)" textLength="109.6" lengthAdjust="spacingAndGlyphs">☐ bash-guard </text>
-<text x="18.0" y="304.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacingAndGlyphs">│</text>
-<text x="34.9" y="304.1" fill="rgb(255,255,255)" font-weight="700" textLength="522.7" lengthAdjust="spacingAndGlyphs">bash-guard: this command force-pushes over a protected branch.</text>
-<text x="18.0" y="323.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacingAndGlyphs">│</text>
-<text x="18.0" y="342.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacingAndGlyphs">│</text>
-<text x="51.7" y="342.1" fill="rgb(255,255,255)" font-weight="700" textLength="252.9" lengthAdjust="spacingAndGlyphs">$ git push --force origin main</text>
-<text x="18.0" y="361.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacingAndGlyphs">│</text>
-<text x="18.0" y="380.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacingAndGlyphs">│</text>
-<text x="34.9" y="380.1" fill="rgb(255,255,255)" font-weight="700" textLength="59.0" lengthAdjust="spacingAndGlyphs">Run it?</text>
-<text x="18.0" y="418.1" fill="rgb(175,215,255)" textLength="8.4" lengthAdjust="spacingAndGlyphs">❯</text>
-<text x="34.9" y="418.1" fill="rgb(148,148,148)" textLength="16.9" lengthAdjust="spacingAndGlyphs">1.</text>
-<text x="60.1" y="418.1" fill="rgb(175,215,255)" textLength="50.6" lengthAdjust="spacingAndGlyphs">Run it</text>
-<text x="34.9" y="437.1" fill="rgb(148,148,148)" textLength="16.9" lengthAdjust="spacingAndGlyphs">2.</text>
-<text x="60.1" y="437.1" fill="#e6ddd5" textLength="67.4" lengthAdjust="spacingAndGlyphs">Block it</text>
-<text x="34.9" y="456.1" fill="rgb(148,148,148)" textLength="151.7" lengthAdjust="spacingAndGlyphs">3. Type something.</text>
-<text x="18.0" y="475.1" fill="rgb(148,148,148)" textLength="876.7" lengthAdjust="spacingAndGlyphs">────────────────────────────────────────────────────────────────────────────────────────────────────────</text>
-<text x="34.9" y="494.1" fill="#e6ddd5" textLength="151.7" lengthAdjust="spacingAndGlyphs">4. Chat about this</text>
-<text x="18.0" y="532.1" fill="rgb(148,148,148)" textLength="413.1" lengthAdjust="spacingAndGlyphs">Enter to select · ↑/↓ to navigate · Esc to cancel</text>
+<text x="18.0" y="57.1" fill="rgb(148,148,148)" textLength="16.9" lengthAdjust="spacing">❯ </text>
+<text x="34.9" y="57.1" fill="rgb(255,255,255)" textLength="817.7" lengthAdjust="spacing">Please run this exact command with the Bash tool (this folder is an empty scratch dir, not a git </text>
+<text x="34.9" y="76.1" fill="rgb(255,255,255)" textLength="455.2" lengthAdjust="spacing">repo, so it is harmless): git push --force origin main</text>
+<text x="34.9" y="114.1" fill="rgb(148,148,148)" textLength="33.7" lengthAdjust="spacing">Ran </text>
+<text x="68.6" y="114.1" fill="rgb(148,148,148)" font-weight="700" textLength="8.4" lengthAdjust="spacing">1</text>
+<text x="85.4" y="114.1" fill="rgb(148,148,148)" textLength="118.0" lengthAdjust="spacing">shell command </text>
+<text x="18.0" y="152.1" fill="rgb(255,255,255)" textLength="8.4" lengthAdjust="spacing">⏺</text>
+<text x="34.9" y="152.1" fill="#e6ddd5" textLength="851.4" lengthAdjust="spacing">Confirmed: the directory is empty and neither it nor any parent is a git repo. Running the command as</text>
+<text x="34.9" y="171.1" fill="#e6ddd5" textLength="84.3" lengthAdjust="spacing">you asked:</text>
+<text x="18.0" y="209.1" fill="rgb(148,148,148)" textLength="8.4" lengthAdjust="spacing">⏺</text>
+<text x="34.9" y="209.1" fill="#e6ddd5" textLength="472.1" lengthAdjust="spacing">Force-push main to origin (expected to fail, not a repo)</text>
+<text x="34.9" y="228.1" fill="rgb(148,148,148)" textLength="278.2" lengthAdjust="spacing">⎿  $ git push --force origin main</text>
+<text x="18.0" y="247.1" fill="rgb(148,148,148)" textLength="876.7" lengthAdjust="spacing">────────────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="26.4" y="266.1" fill="rgb(0,0,0)" textLength="109.6" lengthAdjust="spacing">☐ bash-guard </text>
+<text x="18.0" y="304.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacing">│</text>
+<text x="34.9" y="304.1" fill="rgb(255,255,255)" font-weight="700" textLength="522.7" lengthAdjust="spacing">bash-guard: this command force-pushes over a protected branch.</text>
+<text x="18.0" y="323.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacing">│</text>
+<text x="18.0" y="342.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacing">│</text>
+<text x="51.7" y="342.1" fill="rgb(255,255,255)" font-weight="700" textLength="252.9" lengthAdjust="spacing">$ git push --force origin main</text>
+<text x="18.0" y="361.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacing">│</text>
+<text x="18.0" y="380.1" fill="#e6ddd5" fill-opacity="0.6" textLength="8.4" lengthAdjust="spacing">│</text>
+<text x="34.9" y="380.1" fill="rgb(255,255,255)" font-weight="700" textLength="59.0" lengthAdjust="spacing">Run it?</text>
+<text x="18.0" y="418.1" fill="rgb(175,215,255)" textLength="8.4" lengthAdjust="spacing">❯</text>
+<text x="34.9" y="418.1" fill="rgb(148,148,148)" textLength="16.9" lengthAdjust="spacing">1.</text>
+<text x="60.1" y="418.1" fill="rgb(175,215,255)" textLength="50.6" lengthAdjust="spacing">Run it</text>
+<text x="34.9" y="437.1" fill="rgb(148,148,148)" textLength="16.9" lengthAdjust="spacing">2.</text>
+<text x="60.1" y="437.1" fill="#e6ddd5" textLength="67.4" lengthAdjust="spacing">Block it</text>
+<text x="34.9" y="456.1" fill="rgb(148,148,148)" textLength="151.7" lengthAdjust="spacing">3. Type something.</text>
+<text x="18.0" y="475.1" fill="rgb(148,148,148)" textLength="876.7" lengthAdjust="spacing">────────────────────────────────────────────────────────────────────────────────────────────────────────</text>
+<text x="34.9" y="494.1" fill="#e6ddd5" textLength="151.7" lengthAdjust="spacing">4. Chat about this</text>
+<text x="18.0" y="532.1" fill="rgb(148,148,148)" textLength="413.1" lengthAdjust="spacing">Enter to select · ↑/↓ to navigate · Esc to cancel</text>
 </g>
 </svg>

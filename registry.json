@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "testCount": 531,
+  "testCount": 793,
   "categories": [
     {
       "id": "safety",
@@ -54,16 +54,42 @@
       "screenshot": "assets/screens/bash-guard.svg"
     },
     {
+      "name": "file-guard",
+      "category": "safety",
+      "emoji": "🚧",
+      "tagline": "Keeps edits inside the project: no writes outside it or into `.git`, asks before lockfiles & CI"
+    },
+    {
       "name": "secret-shield",
       "category": "safety",
       "emoji": "🔐",
-      "tagline": "Claude never sees your keys: secrets in tool output become `[REDACTED:kind]` first"
+      "tagline": "Claude never sees your keys: secrets in tool output become `[REDACTED:kind]` first",
+      "screenshot": "assets/screens/secret-shield.svg"
+    },
+    {
+      "name": "net-guard",
+      "category": "safety",
+      "emoji": "🌐",
+      "tagline": "Your data doesn't leave without you knowing: every curl, ssh, git push & WebFetch is checked"
+    },
+    {
+      "name": "injection-guard",
+      "category": "safety",
+      "emoji": "🧯",
+      "tagline": "Prompt injection, defused: hidden Unicode stripped and shown, planted instructions flagged"
     },
     {
       "name": "slopsquat-guard",
       "category": "safety",
       "emoji": "📦",
       "tagline": "Stops hallucinated & typosquatted packages: every install is checked against its registry"
+    },
+    {
+      "name": "command-explainer",
+      "category": "safety",
+      "emoji": "💡",
+      "tagline": "Know what you're approving: a plain-English line and risk level right at the permission prompt",
+      "screenshot": "assets/screens/command-explainer.svg"
     },
     {
       "name": "cost-meter",
@@ -75,7 +101,8 @@
       "name": "tool-radar",
       "category": "awareness",
       "emoji": "📡",
-      "tagline": "Mission control: every tool call live in a pane, with status, args, duration and failures"
+      "tagline": "Mission control: every tool call live in a pane, with status, args, duration and failures",
+      "screenshot": "assets/screens/tool-radar.svg"
     },
     {
       "name": "files-touched",
@@ -90,6 +117,13 @@
       "tagline": "Branch, ahead/behind and dirty files in the status line; a heads-up when Claude commits"
     },
     {
+      "name": "test-pulse",
+      "category": "awareness",
+      "emoji": "🧪",
+      "tagline": "Your test suite's heartbeat: pass/fail in the status line, a toast when it flips, flakes spotted",
+      "screenshot": "assets/screens/test-pulse.svg"
+    },
+    {
       "name": "aim",
       "category": "productivity",
       "emoji": "🎯",
@@ -99,7 +133,8 @@
       "name": "snippets",
       "category": "productivity",
       "emoji": "📎",
-      "tagline": "Your best prompts, one command away, with `{{selection}}`, `{{branch}}` and `{{args}}` filled in"
+      "tagline": "Your best prompts, one command away, with `{{selection}}`, `{{branch}}` and `{{args}}` filled in",
+      "readmeShot": "assets/screens/snippets.svg"
     },
     {
       "name": "standup",
@@ -117,7 +152,7 @@
       "name": "done-ding",
       "category": "notifications",
       "emoji": "🔔",
-      "tagline": "Walk away: a desktop ping and a chime when a long turn finishes or Claude needs you"
+      "tagline": "Walk away: a desktop ping, chime or phone push when a long turn ends or Claude needs you"
     },
     {
       "name": "buddy",
@@ -129,7 +164,14 @@
       "name": "wrapped",
       "category": "fun",
       "emoji": "🎁",
-      "tagline": "Spotify Wrapped for your Claude Code life: stats, streaks, persona and a share card"
+      "tagline": "Spotify Wrapped for your Claude Code life: stats, streaks, persona and a share card",
+      "screenshot": "assets/screens/wrapped.svg"
+    },
+    {
+      "name": "spinner-packs",
+      "category": "fun",
+      "emoji": "🏴‍☠️",
+      "tagline": "\"Charting a course…\" instead of \"Sautéing…\": ten themed spinner-word packs, past tense included"
     }
   ],
   "community": []

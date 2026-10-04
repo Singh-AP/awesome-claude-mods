@@ -6,6 +6,8 @@ import { baseName, donePing, waitingPing, type Ping } from './text'
 // Two pings closer together than this are one too many.
 const COOLDOWN_MS = 60_000
 
+type Push = { server: string; topic: string }
+
 let chime = ''
 let isMuted = false
 let isInteractive = true
@@ -60,6 +62,27 @@ async function desktop($: EngineInterface, ping: Ping): Promise<'osascript' | 'n
   return 'none'
 }
 
+/** Pushes the ping to a phone through an ntfy server; says whether it took. */
+async function pushToPhone($: EngineInterface, ping: Ping, push: Push): Promise<boolean> {
+  if (push.topic === '') return false
+  try {
+    // JSON publishing (POST to the server root) keeps non-ASCII titles out of headers.
+    const sent = await $.http.fetch(push.server, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        topic: push.topic,
+        title: ping.subtitle === '' ? ping.title : `${ping.title} · ${ping.subtitle}`,
+        message: ping.body,
+        tags: ['robot'],
+      }),
+    })
+    return sent.ok
+  } catch {
+    return false
+  }
+}
+
 async function playSound($: EngineInterface, sound: string, phrase: string): Promise<void> {
   try {
     if (sound === 'chime') {
@@ -74,11 +97,15 @@ async function playSound($: EngineInterface, sound: string, phrase: string): Pro
 }
 
 /** Notifies on every channel the person turned on; says where it showed. */
-async function announce($: EngineInterface, message: Ping, sound: string, shouldNotify: boolean): Promise<string> {
-  const where = shouldNotify ? await desktop($, message) : 'none'
+async function announce($: EngineInterface, message: Ping, sound: string, shouldNotify: boolean, push: Push): Promise<string> {
+  const [where, isPushed] = await Promise.all([
+    shouldNotify ? desktop($, message) : Promise.resolve('none' as const),
+    pushToPhone($, message, push),
+  ])
   if (where === 'none') $.ui.toast(message.body)
   void playSound($, sound, message.phrase)
-  return where === 'none' ? 'a toast' : `a desktop notification (${where})`
+  const shown = where === 'none' ? 'a toast' : `a desktop notification (${where})`
+  return isPushed ? `${shown} and a phone push` : shown
 }
 
 export const register: Register = (on, options) => {
@@ -87,6 +114,12 @@ export const register: Register = (on, options) => {
   const shouldNotify = options.desktop !== false
   const notifyOnWaiting = options.notifyOnWaiting !== false
   const inHeadless = options.inHeadless === true
+  const topic = String(options.ntfyTopic ?? '').trim()
+  const push: Push = {
+    server: String(options.ntfyServer ?? 'https://ntfy.sh').trim().replace(/\/+$/, ''),
+    // A topic is the only secret on a public ntfy server; anything odd is ignored.
+    topic: /^[A-Za-z0-9_-]{1,64}$/.test(topic) ? topic : '',
+  }
 
   const isListening = () => !isMuted && (isInteractive || inHeadless)
 
@@ -107,7 +140,7 @@ export const register: Register = (on, options) => {
 
     const message = donePing(e, await projectName($))
     lastPingAt = await $.clock.now()
-    $.clock.after(0, () => void announce($, message, sound, shouldNotify))
+    $.clock.after(0, () => void announce($, message, sound, shouldNotify, push))
     return out
   })
 
@@ -120,7 +153,7 @@ export const register: Register = (on, options) => {
     const now = await $.clock.now()
     if (now - lastPingAt < COOLDOWN_MS) return out
     lastPingAt = now
-    $.clock.after(0, () => void announce($, message, sound, shouldNotify))
+    $.clock.after(0, () => void announce($, message, sound, shouldNotify, push))
     return out
   })
 
@@ -128,23 +161,24 @@ export const register: Register = (on, options) => {
     const verb = e.args.trim().toLowerCase()
     if (verb === 'mute') {
       isMuted = true
-      return { text: 'done-ding is muted for this session. /ding unmute turns it back on.' }
+      return { text: 'Muted for this session. /ding unmute turns it back on.' }
     }
     if (verb === 'unmute') {
       isMuted = false
-      return { text: 'done-ding is on again.' }
+      return { text: 'On again.' }
     }
     if (verb === 'test') {
       const message = donePing({ durationMs: 134_000, answer: 'This is what a finished turn looks like.', reason: 'answer' }, await projectName($))
-      const where = await announce($, message, sound, shouldNotify)
-      return { text: `done-ding sent a test as ${where}${sound === 'none' ? '' : `, with sound: ${sound}`}.` }
+      const where = await announce($, message, sound, shouldNotify, push)
+      return { text: `Sent a test as ${where}${sound === 'none' ? '' : `, with sound: ${sound}`}.` }
     }
-    const state = isMuted ? 'muted for this session' : 'on'
+    const state = isMuted ? 'Muted for this session' : 'On'
     const waiting = notifyOnWaiting ? ', and when Claude is waiting on you' : ''
+    const phone = push.topic === '' ? '' : ` Phone pushes go to ntfy topic "${push.topic}".`
     return {
       text:
-        `done-ding is ${state}: it pings after turns of ${minMs / 1000}s or longer${waiting}. ` +
-        `Sound: ${sound}. Try /ding test, /ding mute or /ding unmute.`,
+        `${state}: it pings after turns of ${minMs / 1000}s or longer${waiting}. ` +
+        `Sound: ${sound}.${phone} Try /ding test, /ding mute or /ding unmute.`,
     }
   })
 }

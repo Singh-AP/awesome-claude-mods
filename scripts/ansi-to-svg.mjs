@@ -2,7 +2,7 @@
 // Turns a terminal capture with ANSI colours (`tmux capture-pane -e -p`) into
 // an SVG screenshot with window chrome, so the gallery shows real output.
 //
-//   node scripts/ansi-to-svg.mjs capture.ansi out.svg [--title claude] [--crop-top N] [--rows N]
+//   node scripts/ansi-to-svg.mjs capture.ansi out.svg [--title claude] [--crop-top N] [--rows N] [--pick 2-16,30-40]
 
 import { readFileSync, writeFileSync } from 'node:fs'
 
@@ -54,11 +54,24 @@ const escapeXml = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>
 const raw = readFileSync(input, 'utf8').replace(/\r/g, '')
 let lines = raw.split('\n')
 while (lines.length > 0 && lines.at(-1).replace(/\x1b\[[0-9;]*m/g, '').trim() === '') lines.pop()
-const cropTop = Number(flag('crop-top', 0))
-lines = lines.slice(cropTop)
-const maxRows = Number(flag('rows', lines.length))
-lines = lines.slice(0, maxRows)
+// --pick 2-16,30-40 keeps those rows (1-based, inclusive); else --crop-top and --rows.
+const pick = flag('pick', undefined)
+if (pick !== undefined) {
+  const kept = []
+  for (const range of pick.split(',')) {
+    const [from, to = from] = range.split('-').map(Number)
+    kept.push(...lines.slice(from - 1, to))
+  }
+  lines = kept
+} else {
+  const cropTop = Number(flag('crop-top', 0))
+  lines = lines.slice(cropTop)
+  const maxRows = Number(flag('rows', lines.length))
+  lines = lines.slice(0, maxRows)
+}
 
+// --cols 80-150 keeps only those columns (1-based, inclusive), e.g. just a docked pane.
+const [colFrom, colTo] = (flag('cols', '1-100000')).split('-').map(Number)
 const runs = [] // { row, col, text, style }
 const rects = [] // { row, col, cells, color }
 let columns = 0
@@ -67,6 +80,7 @@ for (let row = 0; row < lines.length; row++) {
   let style = { fg: null, bg: null, bold: false, dim: false, italic: false, underline: false, inverse: false }
   let col = 0
   let run = null
+  let afterJoiner = false
   const flush = () => {
     if (run && run.text !== '') runs.push(run)
     run = null
@@ -107,7 +121,14 @@ for (let row = 0; row < lines.length; row++) {
       continue
     }
     for (const ch of part.replace(/\x1b\[[0-9;?]*[A-Za-z]/g, '')) {
-      const w = widthOf(ch.codePointAt(0))
+      // The part of an emoji after a zero-width joiner shares its cells (🏴‍☠️ is two).
+      const w = afterJoiner ? 0 : widthOf(ch.codePointAt(0))
+      afterJoiner = ch === '\u200d'
+      if (col + 1 < colFrom || col + 1 > colTo) {
+        flush()
+        col += w
+        continue
+      }
       const fg = style.inverse ? (style.bg ?? BG) : (style.fg ?? FG)
       const bg = style.inverse ? (style.fg ?? FG) : style.bg
       if (bg && w > 0) rects.push({ row, col, cells: w, color: bg })
@@ -128,12 +149,15 @@ for (let row = 0; row < lines.length; row++) {
   flush()
 }
 
-columns = Number(flag('columns', Math.max(columns, 60)))
+columns = Number(flag('columns', Math.max(Math.min(columns, colTo) - (colFrom - 1), 40)))
 const width = Math.ceil(PAD * 2 + columns * CELL)
 const height = Math.ceil(BAR + PAD + lines.length * LINE + PAD / 2)
 const title = escapeXml(flag('title', 'claude'))
 
 const body = []
+const shift = colFrom - 1
+for (const r of rects) r.col -= shift
+for (const r of runs) r.col -= shift
 for (const r of rects) {
   body.push(`<rect x="${(PAD + r.col * CELL).toFixed(1)}" y="${(BAR + PAD / 2 + r.row * LINE).toFixed(1)}" width="${(r.cells * CELL + 0.5).toFixed(1)}" height="${LINE}" fill="${r.color}"/>`)
 }
@@ -148,7 +172,7 @@ for (const r of runs) {
   if (r.style.italic) attrs.push('font-style="italic"')
   if (r.style.underline) attrs.push('text-decoration="underline"')
   const cells = [...r.text].reduce((n, ch) => n + widthOf(ch.codePointAt(0)), 0)
-  if (!r.hasWide) attrs.push(`textLength="${(cells * CELL).toFixed(1)}" lengthAdjust="spacingAndGlyphs"`)
+  if (!r.hasWide) attrs.push(`textLength="${(cells * CELL).toFixed(1)}" lengthAdjust="spacing"`)
   body.push(`<text ${attrs.join(' ')}>${escapeXml(r.text)}</text>`)
 }
 

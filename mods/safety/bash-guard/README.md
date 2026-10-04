@@ -2,6 +2,8 @@
 
 > A seatbelt for YOLO mode. Blocks the shell commands nobody means to run, and asks before the ones you might regret, **even with `--dangerously-skip-permissions`**.
 
+<img src="../../../assets/screens/bash-guard.svg" alt="bash-guard in a real Claude Code session" width="100%">
+
 ```text
 ● Bash(rm -rf ~/)
   ⎿  Error: bash-guard blocked this command because it recursively deletes ~/.
