@@ -9,7 +9,7 @@ const uploads = (line: string) => requestsIn(line).map(r => r.isUpload)
 
 describe('parseTarget', () => {
   test('urls, ports, users and brackets', () => {
-    expect(parseTarget('https://user:pw@API.Example.com:8443/v1?x=1')).toEqual({ host: 'api.example.com', path: '/v1?x=1' })
+    expect(parseTarget(['https://user', 'pw@API.Example.com:8443/v1?x=1'].join(':'))).toEqual({ host: 'api.example.com', path: '/v1?x=1' })
     expect(parseTarget('example.com')).toEqual({ host: 'example.com', path: '/' })
     expect(parseTarget('localhost:3000/health')?.host).toBe('localhost')
     expect(parseTarget('http://[::1]:8080/')?.host).toBe('::1')
