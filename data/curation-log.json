@@ -1,0 +1,14 @@
+[
+  {
+    "url": "https://github.com/anthropics/claude-code/tree/main/mods/sec-default",
+    "decision": "rejected",
+    "reason": "Built-in organization policy layer, not something a user installs; already loaded for Team/Enterprise.",
+    "date": "2026-10-04"
+  },
+  {
+    "url": "https://github.com/anthropics/claude-code/tree/main/mods/telemetry",
+    "decision": "rejected",
+    "reason": "Built-in analytics plumbing; nothing for a user to install.",
+    "date": "2026-10-04"
+  }
+]

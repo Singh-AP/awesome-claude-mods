@@ -1,0 +1,179 @@
+name: Daily mods
+
+# Every morning, Claude Code maintains this repo on its own: it fixes anything
+# a new Claude Code release broke, reviews the newest mods from the index and
+# curates the best, and builds one new mod from automation/ideas.md (or an
+# issue labelled `idea`). What it changes is published only after a clean
+# machine re-runs every check. See automation/README.md.
+#
+# Needs one secret: ANTHROPIC_API_KEY, or CLAUDE_CODE_OAUTH_TOKEN from
+# `claude setup-token`. Without either, the run skips. Optional repository
+# variables: DAILY_MODEL (e.g. opus), DAILY_BUDGET_USD (default 10),
+# DAILY_MODE (`push`, the default, or `pr`).
+
+on:
+  schedule:
+    # 05:45 UTC is 07:45 in Central Europe, after the index refresh at 05:17.
+    - cron: '45 5 * * *'
+  workflow_dispatch:
+    inputs:
+      budget:
+        description: Spend cap in USD
+        default: '10'
+      mode:
+        description: push (to main) or pr
+        default: ''
+
+permissions:
+  contents: read
+
+concurrency:
+  group: daily-mods
+  cancel-in-progress: false
+
+jobs:
+  agent:
+    name: Claude maintains the repo (read-only)
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    outputs:
+      changed: ${{ steps.package.outputs.changed }}
+    steps:
+      - name: Check for a Claude credential
+        id: auth
+        env:
+          KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          OAUTH: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+        run: |
+          if [ -z "$KEY$OAUTH" ]; then
+            echo "::notice::Daily mods skipped: add an ANTHROPIC_API_KEY or CLAUDE_CODE_OAUTH_TOKEN secret to turn it on."
+            echo "ok=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "ok=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - if: steps.auth.outputs.ok == 'true'
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - if: steps.auth.outputs.ok == 'true'
+        uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+
+      - if: steps.auth.outputs.ok == 'true'
+        name: Install
+        run: npm ci && npm install -g @anthropic-ai/claude-code@latest && claude --version
+
+      - if: steps.auth.outputs.ok == 'true'
+        name: Run the daily maintainer
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          CLAUDE_CODE_OAUTH_TOKEN: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          # Read-only (this job's permissions): enough for gh to read issues and other repos.
+          GH_TOKEN: ${{ github.token }}
+          DAILY_MODEL: ${{ vars.DAILY_MODEL }}
+          DAILY_BUDGET_USD: ${{ github.event.inputs.budget || vars.DAILY_BUDGET_USD || '10' }}
+        run: scripts/daily/run-agent.sh
+
+      - if: steps.auth.outputs.ok == 'true'
+        name: The agent changed only what it may change
+        run: node scripts/daily/check-paths.mjs
+
+      - if: steps.auth.outputs.ok == 'true'
+        name: Package the change
+        id: package
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "Nothing changed."
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          git diff --cached --stat
+          git diff --cached --binary > daily.patch
+          echo "changed=true" >> "$GITHUB_OUTPUT"
+
+      - if: steps.package.outputs.changed == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: daily-patch
+          path: daily.patch
+          retention-days: 14
+
+  verify:
+    name: A clean machine re-runs every check
+    needs: agent
+    if: needs.agent.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/download-artifact@v4
+        with:
+          name: daily-patch
+      - name: Apply the change and check its paths
+        run: |
+          git apply --index daily.patch
+          rm daily.patch
+          git diff --cached --name-only | node scripts/daily/check-paths.mjs --stdin
+      - name: Install
+        run: npm ci && npm install -g @anthropic-ai/claude-code@latest && claude --version
+      - name: Every check CI runs
+        run: |
+          npm run check
+          node scripts/each-mod.mjs validate --write-capabilities
+          git diff --exit-code docs/capabilities.md
+
+  publish:
+    name: Publish
+    needs: verify
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          ref: main
+      - uses: actions/download-artifact@v4
+        with:
+          name: daily-patch
+      # Nothing from the change runs here: apply, re-check the paths, commit, push.
+      - name: Commit
+        id: commit
+        run: |
+          git apply --index daily.patch
+          rm daily.patch
+          git diff --cached --name-only | node scripts/daily/check-paths.mjs --stdin
+          title="$(head -n 1 automation/last-run.md | cut -c1-72)"
+          [ -n "$title" ] || title="daily: $(date -u +%F)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          { echo "$title"; echo; tail -n +3 automation/last-run.md; echo; echo "Co-Authored-By: Claude <noreply@anthropic.com>"; } > /tmp/message
+          git commit -F /tmp/message
+          echo "title=$title" >> "$GITHUB_OUTPUT"
+
+      - name: Push to main
+        if: (github.event.inputs.mode || vars.DAILY_MODE || 'push') != 'pr'
+        run: |
+          git pull --rebase origin main
+          git push origin HEAD:main
+
+      - name: Open a pull request
+        if: (github.event.inputs.mode || vars.DAILY_MODE || 'push') == 'pr'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          branch="daily/$(date -u +%F)-${GITHUB_RUN_ID}"
+          git push origin "HEAD:refs/heads/$branch"
+          gh pr create --base main --head "$branch" --title "${{ steps.commit.outputs.title }}" --body-file automation/last-run.md

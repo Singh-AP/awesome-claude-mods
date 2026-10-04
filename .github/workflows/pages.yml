@@ -11,9 +11,9 @@ on:
       - 'scripts/build-site.mjs'
       - 'assets/**'
       - '.github/workflows/pages.yml'
-  # Redeploy after the daily index refresh commits new data.
+  # Redeploy after the daily index refresh and the daily maintainer commit.
   workflow_run:
-    workflows: ['Refresh mods index']
+    workflows: ['Refresh mods index', 'Daily mods']
     types: [completed]
   workflow_dispatch:
 

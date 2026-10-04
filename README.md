@@ -275,6 +275,10 @@ Want the whole safety kit at once?
 /plugin install slopsquat-guard@awesome-claude-mods
 ```
 
+## 🤖 Maintained daily by Claude
+
+Every morning a [scheduled run](automation/README.md) has Claude Code fix anything a new Claude Code release broke, review the newest mods from the index and curate the best, and build one new mod from the [ideas backlog](automation/ideas.md). A clean machine re-runs every check before anything is published, and the agent can't touch the checks that judge it. See the [changelog](CHANGELOG.md) for what it did, or [suggest a mod](https://github.com/Singh-AP/awesome-claude-mods/issues/new?template=mod-idea.yml) for it to build.
+
 ## 🛠️ Build your own mod
 
 ```shell
