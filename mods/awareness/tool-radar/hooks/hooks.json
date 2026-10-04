@@ -1,0 +1,1 @@
+{ "description": "tool-radar hooks module", "modules": ["./register.tsx"] }

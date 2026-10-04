@@ -1,0 +1,10 @@
+{
+  "name": "snippets",
+  "version": "1.0.0",
+  "description": "Reusable prompts one command away: /snip review drops your saved review prompt into the prompt box, with {{selection}}, {{branch}}, {{date}} and {{args}} filled in.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/productivity/snippets",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "productivity", "snippets", "prompts", "templates"]
+}

@@ -1,0 +1,289 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "awesome-claude-mods",
+  "owner": {
+    "name": "Singh-AP",
+    "url": "https://github.com/Singh-AP"
+  },
+  "metadata": {
+    "description": "Tested, ready-to-install Claude Code mods: guardrails, status lines, panes, notifications and fun.",
+    "version": "1.0.0"
+  },
+  "plugins": [
+    {
+      "name": "bash-guard",
+      "source": "./mods/safety/bash-guard",
+      "description": "A seatbelt for YOLO mode: blocks catastrophic shell commands (rm -rf ~, mkfs, dd to a disk, fork bombs) and asks before risky ones (force-push, reset --hard, DROP TABLE, curl | sh), even with permissions bypassed.",
+      "version": "1.0.0",
+      "category": "safety",
+      "tags": [
+        "mod",
+        "safety",
+        "bash",
+        "guardrails",
+        "yolo"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/bash-guard"
+    },
+    {
+      "name": "secret-shield",
+      "source": "./mods/safety/secret-shield",
+      "description": "Keeps secrets out of Claude's context: API keys, tokens, private keys and passwords in tool output are replaced with [REDACTED:kind] before the model or the transcript ever sees them.",
+      "version": "1.0.0",
+      "category": "safety",
+      "tags": [
+        "mod",
+        "safety",
+        "secrets",
+        "redaction",
+        "security",
+        "dlp"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/secret-shield"
+    },
+    {
+      "name": "slopsquat-guard",
+      "source": "./mods/safety/slopsquat-guard",
+      "description": "Stops Claude from installing hallucinated or typosquatted packages: every npm, pip, uv, poetry, cargo and gem install is checked against its registry first. Packages that don't exist are blocked; brand-new, barely used or lookalike packages ask you first.",
+      "version": "1.0.0",
+      "category": "safety",
+      "tags": [
+        "mod",
+        "safety",
+        "supply-chain",
+        "slopsquatting",
+        "typosquatting",
+        "npm",
+        "pypi"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/slopsquat-guard"
+    },
+    {
+      "name": "cost-meter",
+      "source": "./mods/cost/cost-meter",
+      "description": "Always know what a session costs: live $ / context / rate-limit status line, the cost of every turn, context warnings, and an optional budget that asks before spending more.",
+      "version": "1.0.0",
+      "category": "cost",
+      "tags": [
+        "mod",
+        "cost",
+        "tokens",
+        "context",
+        "budget",
+        "status-line"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/cost/cost-meter"
+    },
+    {
+      "name": "tool-radar",
+      "source": "./mods/awareness/tool-radar",
+      "description": "Mission control for what Claude is doing: a live pane of every tool call with status, arguments, duration and failures, plus /radar summary.",
+      "version": "1.0.0",
+      "category": "awareness",
+      "tags": [
+        "mod",
+        "pane",
+        "observability",
+        "tools",
+        "monitoring"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/awareness/tool-radar"
+    },
+    {
+      "name": "files-touched",
+      "source": "./mods/awareness/files-touched",
+      "description": "Every file Claude changed this session, at a glance: a one-line band above the prompt, /touched for a +/- table, and a pane that drops @file references into your prompt.",
+      "version": "1.0.0",
+      "category": "awareness",
+      "tags": [
+        "mod",
+        "band",
+        "files",
+        "diff",
+        "changes",
+        "awareness"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/awareness/files-touched"
+    },
+    {
+      "name": "git-pulse",
+      "source": "./mods/awareness/git-pulse",
+      "description": "Git status at a glance: branch, ahead/behind and changes on the status line, kept fresh as Claude edits, with a heads-up when the branch changes or a turn makes commits.",
+      "version": "1.0.0",
+      "category": "awareness",
+      "tags": [
+        "mod",
+        "git",
+        "status-line",
+        "branch",
+        "awareness"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/awareness/git-pulse"
+    },
+    {
+      "name": "aim",
+      "source": "./mods/productivity/aim",
+      "description": "Pin one goal for the session: it sits above the prompt with a timer, and Claude is told to stay on it and flag unrelated work instead of drifting.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "mod",
+        "productivity",
+        "aim",
+        "focus",
+        "goal",
+        "scope-creep"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/productivity/aim"
+    },
+    {
+      "name": "snippets",
+      "source": "./mods/productivity/snippets",
+      "description": "Reusable prompts one command away: /snip review drops your saved review prompt into the prompt box, with {{selection}}, {{branch}}, {{date}} and {{args}} filled in.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "mod",
+        "productivity",
+        "snippets",
+        "prompts",
+        "templates"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/productivity/snippets"
+    },
+    {
+      "name": "standup",
+      "source": "./mods/productivity/standup",
+      "description": "Your standup, written for you: journals every Claude turn (prompt, files, commits) and turns yesterday and today into Yesterday / Today / Blockers with /standup.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "mod",
+        "standup",
+        "journal",
+        "productivity",
+        "summary"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/productivity/standup"
+    },
+    {
+      "name": "tldr",
+      "source": "./mods/productivity/tldr",
+      "description": "A one-line TL;DR under every long answer, written by a small fast model, so you can skim a wall of text in two seconds.",
+      "version": "1.0.0",
+      "category": "productivity",
+      "tags": [
+        "mod",
+        "productivity",
+        "tldr",
+        "summary",
+        "skim"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/productivity/tldr"
+    },
+    {
+      "name": "done-ding",
+      "source": "./mods/notifications/done-ding",
+      "description": "Go make coffee: a desktop notification and a chime when a long Claude turn finishes, and when Claude is waiting on you.",
+      "version": "1.0.0",
+      "category": "notifications",
+      "tags": [
+        "mod",
+        "notifications",
+        "sound",
+        "productivity",
+        "macos",
+        "linux"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/notifications/done-ding"
+    },
+    {
+      "name": "buddy",
+      "source": "./mods/fun/buddy",
+      "description": "A tiny ASCII pet that lives above your prompt, reacts to everything Claude does, and levels up as you ship.",
+      "version": "1.0.0",
+      "category": "fun",
+      "tags": [
+        "mod",
+        "fun",
+        "pet",
+        "tamagotchi",
+        "gamification",
+        "ascii"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/fun/buddy"
+    },
+    {
+      "name": "wrapped",
+      "source": "./mods/fun/wrapped",
+      "description": "Spotify Wrapped for your Claude Code life: prompts, tool calls, lines written, streaks, your coding persona, and a share card you can copy.",
+      "version": "1.0.0",
+      "category": "fun",
+      "tags": [
+        "mod",
+        "fun",
+        "stats",
+        "wrapped",
+        "year-in-review",
+        "analytics"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/fun/wrapped"
+    }
+  ]
+}

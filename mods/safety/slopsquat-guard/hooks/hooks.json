@@ -1,0 +1,1 @@
+{ "description": "slopsquat-guard hooks module", "modules": ["./register.ts"] }

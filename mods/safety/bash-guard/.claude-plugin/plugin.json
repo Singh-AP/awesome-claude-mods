@@ -1,0 +1,31 @@
+{
+  "name": "bash-guard",
+  "version": "1.0.0",
+  "description": "A seatbelt for YOLO mode: blocks catastrophic shell commands (rm -rf ~, mkfs, dd to a disk, fork bombs) and asks before risky ones (force-push, reset --hard, DROP TABLE, curl | sh), even with permissions bypassed.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/bash-guard",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "safety", "bash", "guardrails", "yolo"],
+  "userConfig": {
+    "risky": {
+      "type": "string",
+      "title": "Risky commands",
+      "description": "What to do with risky (not catastrophic) commands: confirm asks you, block refuses, allow lets them run.",
+      "default": "confirm",
+      "options": ["confirm", "block", "allow"]
+    },
+    "customBlock": {
+      "type": "string",
+      "title": "Extra block pattern",
+      "description": "A case-insensitive regular expression; matching commands are always blocked. Empty: none.",
+      "default": ""
+    },
+    "customConfirm": {
+      "type": "string",
+      "title": "Extra confirm pattern",
+      "description": "A case-insensitive regular expression; matching commands ask first. Empty: none.",
+      "default": ""
+    }
+  }
+}

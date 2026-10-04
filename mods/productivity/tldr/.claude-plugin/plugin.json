@@ -1,0 +1,26 @@
+{
+  "name": "tldr",
+  "version": "1.0.0",
+  "description": "A one-line TL;DR under every long answer, written by a small fast model, so you can skim a wall of text in two seconds.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/productivity/tldr",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "productivity", "tldr", "summary", "skim"],
+  "userConfig": {
+    "minWords": {
+      "type": "number",
+      "title": "Minimum words",
+      "description": "Only answers at least this long (code blocks not counted) get a TL;DR.",
+      "default": 200,
+      "min": 20,
+      "max": 5000
+    },
+    "model": {
+      "type": "string",
+      "title": "Model",
+      "description": "The model that writes the TL;DR: an alias such as haiku, or a full model id.",
+      "default": "haiku"
+    }
+  }
+}

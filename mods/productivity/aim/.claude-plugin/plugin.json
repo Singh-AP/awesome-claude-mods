@@ -1,0 +1,11 @@
+{
+  "name": "aim",
+  "version": "1.0.0",
+  "description": "Pin one goal for the session: it sits above the prompt with a timer, and Claude is told to stay on it and flag unrelated work instead of drifting.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/productivity/aim",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "productivity", "aim", "focus", "goal", "scope-creep"],
+  "types": "./types/index.d.ts"
+}

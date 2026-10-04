@@ -1,0 +1,1 @@
+{ "description": "buddy hooks module", "modules": ["./register.tsx"] }

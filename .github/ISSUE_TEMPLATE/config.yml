@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Claude Code mods documentation
+    url: https://code.claude.com/docs/en/plugins/mods/overview
+    about: How mods work, the events and the API.

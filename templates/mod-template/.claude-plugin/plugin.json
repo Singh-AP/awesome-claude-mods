@@ -1,0 +1,16 @@
+{
+  "name": "my-mod",
+  "version": "0.1.0",
+  "description": "Counts Claude's tool calls in the status line and adds a /my-mod command.",
+  "author": { "name": "Your Name", "url": "https://github.com/you" },
+  "license": "MIT",
+  "keywords": ["mod"],
+  "userConfig": {
+    "label": {
+      "type": "string",
+      "title": "Status label",
+      "description": "Text shown before the count in the status line.",
+      "default": "tools"
+    }
+  }
+}

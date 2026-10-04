@@ -1,0 +1,1 @@
+{ "description": "files-touched hooks module", "modules": ["./register.tsx"] }

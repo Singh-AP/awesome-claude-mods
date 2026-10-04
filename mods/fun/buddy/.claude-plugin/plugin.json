@@ -1,0 +1,34 @@
+{
+  "name": "buddy",
+  "version": "1.0.0",
+  "description": "A tiny ASCII pet that lives above your prompt, reacts to everything Claude does, and levels up as you ship.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/fun/buddy",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "fun", "pet", "tamagotchi", "gamification", "ascii"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "name": {
+      "type": "string",
+      "title": "Pet name",
+      "description": "What your pet is called. /buddy name <name> changes it too.",
+      "default": "Byte"
+    },
+    "species": {
+      "type": "string",
+      "title": "Species",
+      "description": "Which pet you get. /buddy species <kind> changes it too.",
+      "default": "cat",
+      "options": ["cat", "dog", "blob", "robot", "ghost", "duck"]
+    },
+    "sleepAfterSeconds": {
+      "type": "number",
+      "title": "Naps after (seconds)",
+      "description": "How long without activity before your pet dozes off.",
+      "default": 120,
+      "min": 10,
+      "max": 3600
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "name": "done-ding",
+  "version": "1.0.0",
+  "description": "Go make coffee: a desktop notification and a chime when a long Claude turn finishes, and when Claude is waiting on you.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/notifications/done-ding",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "notifications", "sound", "productivity", "macos", "linux"],
+  "userConfig": {
+    "minSeconds": {
+      "type": "number",
+      "title": "Minimum turn length (seconds)",
+      "description": "Only turns at least this long ping you; shorter ones you were watching anyway.",
+      "default": 30,
+      "min": 0
+    },
+    "sound": {
+      "type": "string",
+      "title": "Sound",
+      "description": "chime plays a short two-note chime, say speaks a line, none stays quiet.",
+      "default": "chime",
+      "options": ["chime", "say", "none"]
+    },
+    "desktop": {
+      "type": "boolean",
+      "title": "Desktop notification",
+      "description": "Show a desktop notification (osascript on macOS, notify-send on Linux). Off: a toast inside Claude Code.",
+      "default": true
+    },
+    "notifyOnWaiting": {
+      "type": "boolean",
+      "title": "Ping when Claude waits on you",
+      "description": "Also ping when Claude needs a permission or has been waiting for your input.",
+      "default": true
+    },
+    "inHeadless": {
+      "type": "boolean",
+      "title": "Ping for headless runs",
+      "description": "Also ping for claude -p and SDK runs, where nobody is at the prompt.",
+      "default": false
+    }
+  }
+}

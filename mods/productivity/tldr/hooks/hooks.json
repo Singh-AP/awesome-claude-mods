@@ -1,0 +1,1 @@
+{ "description": "tldr hooks module", "modules": ["./register.ts"] }

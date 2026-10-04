@@ -1,0 +1,48 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+  schedule:
+    # Weekly, against the newest Claude Code, to catch mods API drift early.
+    - cron: '0 6 * * 1'
+
+permissions:
+  contents: read
+
+jobs:
+  mods:
+    name: Validate, typecheck and test every mod
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Install Claude Code
+        run: npm install -g @anthropic-ai/claude-code@latest && claude --version
+
+      - name: README and marketplace.json are generated from registry.json
+        run: node scripts/build-readme.mjs --check
+
+      - name: Generate types from this Claude Code
+        run: npm run types
+
+      - name: Typecheck
+        run: npm run typecheck
+
+      - name: Validate (strict)
+        run: npm run validate
+
+      - name: Test
+        run: npm test
+
+      - name: Test the mod template
+        run: claude plugin validate --strict templates/mod-template && claude plugin test templates/mod-template

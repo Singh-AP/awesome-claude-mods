@@ -1,0 +1,18 @@
+{
+  "name": "standup",
+  "version": "1.0.0",
+  "description": "Your standup, written for you: journals every Claude turn (prompt, files, commits) and turns yesterday and today into Yesterday / Today / Blockers with /standup.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/productivity/standup",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "standup", "journal", "productivity", "summary"],
+  "userConfig": {
+    "model": {
+      "type": "string",
+      "title": "Model",
+      "description": "The model that writes the standup: an alias such as haiku or sonnet, or a full model id.",
+      "default": "haiku"
+    }
+  }
+}

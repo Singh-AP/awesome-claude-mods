@@ -1,0 +1,19 @@
+{
+  "name": "wrapped",
+  "version": "1.0.0",
+  "description": "Spotify Wrapped for your Claude Code life: prompts, tool calls, lines written, streaks, your coding persona, and a share card you can copy.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/fun/wrapped",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "fun", "stats", "wrapped", "year-in-review", "analytics"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "shareCost": {
+      "type": "boolean",
+      "title": "Put cost on the share card",
+      "description": "Adds what your tokens cost to the card /wrapped copies. The pane always shows it.",
+      "default": false
+    }
+  }
+}

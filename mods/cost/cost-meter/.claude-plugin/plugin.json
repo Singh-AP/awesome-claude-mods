@@ -1,0 +1,31 @@
+{
+  "name": "cost-meter",
+  "version": "1.0.0",
+  "description": "Always know what a session costs: live $ / context / rate-limit status line, the cost of every turn, context warnings, and an optional budget that asks before spending more.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/cost/cost-meter",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "cost", "tokens", "context", "budget", "status-line"],
+  "userConfig": {
+    "budgetUsd": {
+      "type": "number",
+      "title": "Session budget (USD)",
+      "description": "Ask before spending more each time the session passes another multiple of this amount. 0 turns the budget off.",
+      "default": 0,
+      "min": 0
+    },
+    "showTurnCost": {
+      "type": "boolean",
+      "title": "Show each turn's cost",
+      "description": "Append the turn's cost to the line that closes it (Baked for 1m 3s · $0.12).",
+      "default": true
+    },
+    "contextWarnings": {
+      "type": "boolean",
+      "title": "Context warnings",
+      "description": "Toast when the context window passes 70%, 85% and 95%.",
+      "default": true
+    }
+  }
+}

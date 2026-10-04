@@ -1,0 +1,19 @@
+{
+  "name": "tool-radar",
+  "version": "1.0.0",
+  "description": "Mission control for what Claude is doing: a live pane of every tool call with status, arguments, duration and failures, plus /radar summary.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/awareness/tool-radar",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "pane", "observability", "tools", "monitoring"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "autoOpen": {
+      "type": "boolean",
+      "title": "Open at start",
+      "description": "Open the radar pane when a session starts. Claude Code only seats a pane it was not asked for in a terminal at least 144 columns wide.",
+      "default": false
+    }
+  }
+}

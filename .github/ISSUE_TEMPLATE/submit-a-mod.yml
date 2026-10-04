@@ -1,0 +1,59 @@
+name: Submit a mod
+description: Suggest a Claude Code mod for the list (yours or someone else's)
+title: "[Mod] "
+labels: [submission]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for sharing! A mod is a Claude Code plugin whose `hooks/hooks.json` lists `modules`.
+        Classic plugins (skills, agents, command hooks only) belong in other lists.
+  - type: input
+    id: name
+    attributes:
+      label: Mod name
+      placeholder: token-weather
+    validations:
+      required: true
+  - type: input
+    id: url
+    attributes:
+      label: Link to the mod's folder or repo
+      placeholder: https://github.com/you/repo/tree/main/my-mod
+    validations:
+      required: true
+  - type: input
+    id: tagline
+    attributes:
+      label: One line on what it does for the user (90 characters max)
+      placeholder: A live forecast of the context window, drawn above the prompt
+    validations:
+      required: true
+  - type: dropdown
+    id: category
+    attributes:
+      label: Category
+      options:
+        - Safety & Security
+        - Cost & Context
+        - Status & Awareness
+        - Productivity & Workflow
+        - Notifications
+        - Fun & Games
+    validations:
+      required: true
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Checklist
+      options:
+        - label: "`claude plugin validate --strict <dir>` passes"
+          required: true
+        - label: It has an open-source license
+          required: true
+        - label: It has tests (`claude plugin test`), or I explain below why not
+        - label: I'm the author
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else? (screenshot, what events it hooks, why it's useful)

@@ -1,0 +1,12 @@
+name: Mod idea
+description: Ask for a mod you wish existed
+title: "[Idea] "
+labels: [idea]
+body:
+  - type: textarea
+    id: idea
+    attributes:
+      label: What should the mod do?
+      description: The problem it solves and what you'd see on screen.
+    validations:
+      required: true

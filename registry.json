@@ -1,0 +1,136 @@
+{
+  "version": "1.0.0",
+  "testCount": 531,
+  "categories": [
+    {
+      "id": "safety",
+      "emoji": "🛡️",
+      "title": "Safety & Security",
+      "blurb": "Guardrails that hold even when permissions are bypassed."
+    },
+    {
+      "id": "cost",
+      "emoji": "💸",
+      "title": "Cost & Context",
+      "blurb": "Know what a session costs and how full the context is, before it bites."
+    },
+    {
+      "id": "awareness",
+      "emoji": "📡",
+      "title": "Status & Awareness",
+      "blurb": "See what Claude is doing, live, without scrolling the transcript."
+    },
+    {
+      "id": "productivity",
+      "emoji": "⚡",
+      "title": "Productivity & Workflow",
+      "blurb": "Less typing, more shipping."
+    },
+    {
+      "id": "notifications",
+      "emoji": "🔔",
+      "title": "Notifications",
+      "blurb": "Walk away. Get pinged when Claude is done or needs you."
+    },
+    {
+      "id": "fun",
+      "emoji": "🎮",
+      "title": "Fun & Games",
+      "blurb": "Because your terminal deserves a little joy."
+    },
+    {
+      "id": "official",
+      "emoji": "🏛️",
+      "title": "From Anthropic",
+      "blurb": "Sample and built-in mods published by the Claude Code team. Great to learn from."
+    }
+  ],
+  "mods": [
+    {
+      "name": "bash-guard",
+      "category": "safety",
+      "emoji": "🛡️",
+      "tagline": "Blocks `rm -rf ~`, `mkfs` & fork bombs, asks before force-pushes. Works in YOLO mode",
+      "screenshot": "assets/screens/bash-guard.svg"
+    },
+    {
+      "name": "secret-shield",
+      "category": "safety",
+      "emoji": "🔐",
+      "tagline": "Claude never sees your keys: secrets in tool output become `[REDACTED:kind]` first"
+    },
+    {
+      "name": "slopsquat-guard",
+      "category": "safety",
+      "emoji": "📦",
+      "tagline": "Stops hallucinated & typosquatted packages: every install is checked against its registry"
+    },
+    {
+      "name": "cost-meter",
+      "category": "cost",
+      "emoji": "💸",
+      "tagline": "Live spend, context % and rate limits in your status line, plus what every turn cost"
+    },
+    {
+      "name": "tool-radar",
+      "category": "awareness",
+      "emoji": "📡",
+      "tagline": "Mission control: every tool call live in a pane, with status, args, duration and failures"
+    },
+    {
+      "name": "files-touched",
+      "category": "awareness",
+      "emoji": "🗂️",
+      "tagline": "Every file Claude changed this session: a +/− band above the prompt and one-key @mentions"
+    },
+    {
+      "name": "git-pulse",
+      "category": "awareness",
+      "emoji": "⎇",
+      "tagline": "Branch, ahead/behind and dirty files in the status line; a heads-up when Claude commits"
+    },
+    {
+      "name": "aim",
+      "category": "productivity",
+      "emoji": "🎯",
+      "tagline": "Pin one goal above the prompt with a timer; Claude stays on it and flags side quests"
+    },
+    {
+      "name": "snippets",
+      "category": "productivity",
+      "emoji": "📎",
+      "tagline": "Your best prompts, one command away, with `{{selection}}`, `{{branch}}` and `{{args}}` filled in"
+    },
+    {
+      "name": "standup",
+      "category": "productivity",
+      "emoji": "🗣️",
+      "tagline": "Your standup, written for you: Yesterday / Today / Blockers from your work with Claude"
+    },
+    {
+      "name": "tldr",
+      "category": "productivity",
+      "emoji": "📝",
+      "tagline": "A one-line TL;DR under every long answer, written by a small, fast model"
+    },
+    {
+      "name": "done-ding",
+      "category": "notifications",
+      "emoji": "🔔",
+      "tagline": "Walk away: a desktop ping and a chime when a long turn finishes or Claude needs you"
+    },
+    {
+      "name": "buddy",
+      "category": "fun",
+      "emoji": "🐱",
+      "tagline": "A tiny ASCII pet above your prompt that reacts to everything Claude does and levels up"
+    },
+    {
+      "name": "wrapped",
+      "category": "fun",
+      "emoji": "🎁",
+      "tagline": "Spotify Wrapped for your Claude Code life: stats, streaks, persona and a share card"
+    }
+  ],
+  "community": []
+}

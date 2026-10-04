@@ -1,0 +1,24 @@
+name: Bug in a mod
+description: A mod in this repo misbehaves
+title: "[Bug] "
+labels: [bug]
+body:
+  - type: input
+    id: mod
+    attributes:
+      label: Which mod?
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: "`claude --version`"
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+      description: Include any dim `<mod>: ... refused` lines from the transcript, or `claude --debug` output.
+    validations:
+      required: true

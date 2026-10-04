@@ -1,0 +1,1 @@
+{ "description": "wrapped hooks module", "modules": ["./register.tsx"] }

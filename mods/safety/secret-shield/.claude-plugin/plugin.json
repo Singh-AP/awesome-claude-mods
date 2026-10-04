@@ -1,0 +1,24 @@
+{
+  "name": "secret-shield",
+  "version": "1.0.0",
+  "description": "Keeps secrets out of Claude's context: API keys, tokens, private keys and passwords in tool output are replaced with [REDACTED:kind] before the model or the transcript ever sees them.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/secret-shield",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "safety", "secrets", "redaction", "security", "dlp"],
+  "userConfig": {
+    "blockSecretFiles": {
+      "type": "boolean",
+      "title": "Block secret files",
+      "description": "Also refuse Read, Edit and Write on files that usually hold secrets (.env, *.pem, id_rsa, ~/.aws/credentials, .npmrc...). .env.example and friends stay readable.",
+      "default": false
+    },
+    "redactPrompts": {
+      "type": "boolean",
+      "title": "Redact prompts",
+      "description": "Also redact secrets you paste into your own prompts. Off by default, since a pasted key is usually meant for Claude.",
+      "default": false
+    }
+  }
+}

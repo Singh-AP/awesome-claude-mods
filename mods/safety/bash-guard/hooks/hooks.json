@@ -1,0 +1,1 @@
+{ "description": "bash-guard hooks module", "modules": ["./register.ts"] }

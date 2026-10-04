@@ -1,0 +1,41 @@
+{
+  "name": "slopsquat-guard",
+  "version": "1.0.0",
+  "description": "Stops Claude from installing hallucinated or typosquatted packages: every npm, pip, uv, poetry, cargo and gem install is checked against its registry first. Packages that don't exist are blocked; brand-new, barely used or lookalike packages ask you first.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/safety/slopsquat-guard",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "safety", "supply-chain", "slopsquatting", "typosquatting", "npm", "pypi"],
+  "userConfig": {
+    "minAgeDays": {
+      "type": "number",
+      "title": "Minimum age (days)",
+      "description": "A package first published fewer days ago than this asks you first.",
+      "default": 14,
+      "min": 0,
+      "max": 3650
+    },
+    "minWeeklyDownloads": {
+      "type": "number",
+      "title": "Minimum weekly downloads",
+      "description": "A package with fewer weekly downloads than this asks you first (npm, PyPI, crates.io; RubyGems is estimated from lifetime downloads).",
+      "default": 50,
+      "min": 0
+    },
+    "allowList": {
+      "type": "string",
+      "title": "Always allowed",
+      "description": "Comma-separated package names never checked, such as your private or internal packages.",
+      "default": ""
+    },
+    "timeoutMs": {
+      "type": "number",
+      "title": "Registry timeout (ms)",
+      "description": "How long to wait for a registry before letting the install run unchecked.",
+      "default": 5000,
+      "min": 500,
+      "max": 9000
+    }
+  }
+}

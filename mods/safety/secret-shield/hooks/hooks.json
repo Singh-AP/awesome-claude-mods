@@ -1,0 +1,1 @@
+{ "description": "secret-shield hooks module", "modules": ["./register.ts"] }

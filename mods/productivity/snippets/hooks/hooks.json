@@ -1,0 +1,1 @@
+{ "description": "snippets hooks module", "modules": ["./register.ts"] }

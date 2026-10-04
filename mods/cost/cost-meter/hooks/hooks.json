@@ -1,0 +1,1 @@
+{ "description": "cost-meter hooks module", "modules": ["./register.tsx"] }
