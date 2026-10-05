@@ -4,6 +4,7 @@
   "type": "module",
   "description": "A curated collection of Claude Code mods: tested, installable, ready to use.",
   "scripts": {
+    "setup:claude": "scripts/claude-local.sh --install",
     "types": "node scripts/gen-types.mjs",
     "typecheck": "tsc -p tsconfig.json",
     "validate": "node scripts/each-mod.mjs validate",

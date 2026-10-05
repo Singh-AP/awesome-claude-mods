@@ -20,6 +20,7 @@ A mod gets in when it is:
 ```shell
 git clone https://github.com/Singh-AP/awesome-claude-mods && cd awesome-claude-mods
 npm install
+npm run setup:claude    # optional: this repo's own Claude Code, under .tools/ and off your PATH
 cp -R templates/mod-template mods/<category>/<your-mod>
 ```
 
@@ -31,6 +32,8 @@ Categories: `safety`, `cost`, `awareness`, `productivity`, `notifications`, `fun
 4. Write `README.md`, following [bash-guard's](mods/safety/bash-guard/README.md): what it looks like, features, install, options, the events it uses, limitations.
 5. Add an entry to `registry.json` (`name`, `category`, `emoji`, `tagline`), then run `npm run readme`. This regenerates `README.md` and `.claude-plugin/marketplace.json`, so don't edit those two by hand.
 6. Run `npm run check` and open the PR.
+
+The scripts use this repo's own Claude Code once `npm run setup:claude` has installed it. It lives in `.tools/`, isn't on your `PATH`, has its own config directory and never auto-updates, so it can't disturb the `claude` you use for other work. Otherwise they use `claude` from your `PATH`, or whatever `CLAUDE_BIN` names.
 
 `npm run check` runs exactly what CI runs:
 

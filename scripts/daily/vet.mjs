@@ -41,7 +41,7 @@ try {
   const hooks = join(pluginDir, 'hooks', 'hooks.json')
   if (!existsSync(hooks) || !Array.isArray(JSON.parse(readFileSync(hooks, 'utf8')).modules)) fail('hooks/hooks.json lists no modules: not a mod')
 
-  const run = spawnSync(process.env.CLAUDE_BIN || 'claude', ['plugin', 'validate', '--json', pluginDir], { encoding: 'utf8', timeout: 120_000 })
+  const run = spawnSync(claudeBin(join(import.meta.dirname, '..', '..')), ['plugin', 'validate', '--json', pluginDir], { encoding: 'utf8', timeout: 120_000 })
   let report
   try {
     report = JSON.parse(run.stdout)
@@ -63,3 +63,10 @@ try {
   fail(String(error.message ?? error).split('\n')[0])
 }
 rmSync(work, { recursive: true, force: true })
+
+// CLAUDE_BIN if set; else this repo's own Claude Code (scripts/claude-local.sh,
+// under .tools/, off PATH) when installed; else whatever `claude` is on PATH.
+function claudeBin(root) {
+  if (process.env.CLAUDE_BIN) return process.env.CLAUDE_BIN
+  return existsSync(join(root, '.tools', 'claude-code', 'node_modules', '.bin', 'claude')) ? join(root, 'scripts', 'claude-local.sh') : 'claude'
+}

@@ -53,7 +53,7 @@ scripts/daily/install-launchd.sh 07:45     # every morning at 07:45 (launchd)
 scripts/daily/install-launchd.sh --remove
 ```
 
-It uses your own Claude Code sign-in and runs the same agent, the same path check and the same `npm run check` before committing. Set `CLAUDE_BIN` if your `claude` can't run `claude plugin test` (for example, a wrapper), and `DAILY_MODEL` or `DAILY_BUDGET_USD` as above.
+The agent runs on your own `claude` and sign-in (`CLAUDE_AGENT_BIN` picks another). Validation and tests use this repo's isolated Claude Code from `npm run setup:claude` when it's installed, so your own install is never touched. Set `CLAUDE_BIN` to use a different one, and `DAILY_MODEL` or `DAILY_BUDGET_USD` as above.
 
 ## Steer it
 

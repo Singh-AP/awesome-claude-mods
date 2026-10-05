@@ -5,7 +5,8 @@
 #
 # Environment:
 #   CLAUDE_AGENT_BIN   the claude that runs the agent (default: claude)
-#   CLAUDE_BIN         the claude that validates and tests mods (default: claude)
+#   CLAUDE_BIN         the claude that validates and tests mods (default: this repo's
+#                      own from scripts/claude-local.sh if installed, else claude)
 #   DAILY_MODEL        model alias or id (default: your Claude Code default)
 #   DAILY_BUDGET_USD   spend cap for the run (default: 10)
 #
@@ -16,6 +17,8 @@ set -euo pipefail
 cd "$(dirname "$0")/../.."
 
 AGENT_BIN="${CLAUDE_AGENT_BIN:-claude}"
+# Validate and test with this repo's own Claude Code when it's installed (off PATH).
+if [ -z "${CLAUDE_BIN:-}" ] && [ -x .tools/claude-code/node_modules/.bin/claude ]; then CLAUDE_BIN="$PWD/scripts/claude-local.sh"; fi
 export CLAUDE_BIN="${CLAUDE_BIN:-claude}"
 BUDGET="${DAILY_BUDGET_USD:-10}"
 TODAY="$(date -u +%F)"

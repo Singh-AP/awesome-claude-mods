@@ -11,3 +11,6 @@ mods/*/*/tsconfig.json
 
 # Scratch files of the daily run (candidates briefing, transcript)
 automation/.work/
+
+# This repo's own Claude Code (scripts/claude-local.sh), kept off PATH
+.tools/

@@ -5,16 +5,16 @@
 // mod headlessly and runs its slash command, which makes Claude Code lay down
 // the declarations beside it.
 //
-//   node scripts/gen-types.mjs        (CLAUDE_BIN picks the binary; default `claude`)
+//   node scripts/gen-types.mjs        (CLAUDE_BIN picks the binary; default: this repo's own, else `claude`)
 
 import { spawnSync } from 'node:child_process'
-import { copyFileSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
+import { copyFileSync, existsSync, mkdirSync, mkdtempSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(fileURLToPath(import.meta.url), '..', '..')
-const bin = process.env.CLAUDE_BIN || 'claude'
+const bin = claudeBin(root)
 const work = mkdtempSync(join(tmpdir(), 'acm-types-'))
 const mod = join(work, 'typegen')
 
@@ -56,3 +56,10 @@ try {
 
 const version = readFileSync(join(root, '.types', 'claude-code.d.ts'), 'utf8').match(/Written by Claude Code (\d+\.\d+\.\d+)/)?.[1]
 console.log(`✔ .types/ written by Claude Code ${version ?? '(unknown version)'}`)
+
+// CLAUDE_BIN if set; else this repo's own Claude Code (scripts/claude-local.sh,
+// under .tools/, off PATH) when installed; else whatever `claude` is on PATH.
+function claudeBin(root) {
+  if (process.env.CLAUDE_BIN) return process.env.CLAUDE_BIN
+  return existsSync(join(root, '.tools', 'claude-code', 'node_modules', '.bin', 'claude')) ? join(root, 'scripts', 'claude-local.sh') : 'claude'
+}

@@ -5,7 +5,8 @@
 //   node scripts/each-mod.mjs validate [mod-name...]
 //   node scripts/each-mod.mjs test [mod-name...]
 //
-// CLAUDE_BIN picks the Claude Code binary (default: `claude` on PATH).
+// CLAUDE_BIN picks the Claude Code binary (default: this repo's own, see
+// scripts/claude-local.sh, else `claude` on PATH).
 
 import { spawnSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
@@ -13,7 +14,7 @@ import { join, relative } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(fileURLToPath(import.meta.url), '..', '..')
-const bin = process.env.CLAUDE_BIN || 'claude'
+const bin = claudeBin(root)
 const args = process.argv.slice(2)
 const shouldUpdateCount = args.includes('--update-count')
 const shouldWriteCapabilities = args.includes('--write-capabilities')
@@ -119,4 +120,11 @@ function capabilitiesPage(rows) {
     lines.push(`| [${name}](../${row.name}/) | ${can || '—'} | ${clean(row.hooks)} | ${clean(row.calls)} |`)
   }
   return lines.join('\n') + '\n'
+}
+
+// CLAUDE_BIN if set; else this repo's own Claude Code (scripts/claude-local.sh,
+// under .tools/, off PATH) when installed; else whatever `claude` is on PATH.
+function claudeBin(root) {
+  if (process.env.CLAUDE_BIN) return process.env.CLAUDE_BIN
+  return existsSync(join(root, '.tools', 'claude-code', 'node_modules', '.bin', 'claude')) ? join(root, 'scripts', 'claude-local.sh') : 'claude'
 }
