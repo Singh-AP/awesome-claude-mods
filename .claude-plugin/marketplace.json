@@ -585,6 +585,22 @@
       "homepage": "https://github.com/takahirom/takahirom-claude-code-marketplace/tree/main/plugins/idle-compact"
     },
     {
+      "name": "cockpit",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/drkokorev/cockpit-for-claude.git",
+        "path": "plugins/cockpit",
+        "sha": "8960ed87ed3b39d7236aaa17a1e1d26c7d154461"
+      },
+      "description": "Live context, limits, cost, subagents, tool errors and diffs, plus a risky-command guard",
+      "category": "cost",
+      "author": {
+        "name": "drkokorev",
+        "url": "https://github.com/drkokorev"
+      },
+      "homepage": "https://github.com/drkokorev/cockpit-for-claude/tree/main/plugins/cockpit"
+    },
+    {
       "name": "burn-meter",
       "source": {
         "source": "git-subdir",
@@ -615,6 +631,21 @@
         "url": "https://github.com/VedantAndhale"
       },
       "homepage": "https://github.com/VedantAndhale/claude-pro-kit/tree/main/plugins/reread-guard"
+    },
+    {
+      "name": "mixture-of-models",
+      "source": {
+        "source": "github",
+        "repo": "alinaqi/mixture-of-models-claude-mod",
+        "sha": "9a6f9a0f1470de195262bcdbbfccb13626cc9934"
+      },
+      "description": "Scores each prompt for blast radius; cheap turns go to GLM/Kimi, risky ones stay on Claude",
+      "category": "cost",
+      "author": {
+        "name": "alinaqi",
+        "url": "https://github.com/alinaqi"
+      },
+      "homepage": "https://github.com/alinaqi/mixture-of-models-claude-mod"
     },
     {
       "name": "image-view",

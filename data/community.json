@@ -354,6 +354,26 @@
     "license": "MIT"
   },
   {
+    "name": "cockpit",
+    "url": "https://github.com/drkokorev/cockpit-for-claude/tree/main/plugins/cockpit",
+    "author": "drkokorev",
+    "authorUrl": "https://github.com/drkokorev",
+    "category": "cost",
+    "emoji": "🛩️",
+    "tagline": "Live context, limits, cost, subagents, tool errors and diffs, plus a risky-command guard",
+    "stars": 3,
+    "license": "MIT",
+    "marketplace": {
+      "name": "cockpit",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/drkokorev/cockpit-for-claude.git",
+        "path": "plugins/cockpit",
+        "sha": "8960ed87ed3b39d7236aaa17a1e1d26c7d154461"
+      }
+    }
+  },
+  {
     "name": "burn-meter",
     "url": "https://github.com/OneWave-AI/claude-code-mods/tree/main/burn-meter",
     "author": "OneWave-AI",
@@ -401,6 +421,25 @@
         "url": "https://github.com/VedantAndhale/claude-pro-kit.git",
         "path": "plugins/reread-guard",
         "sha": "316522ef1a4d5467758178cb658ed8adf4ad567f"
+      }
+    }
+  },
+  {
+    "name": "mixture-of-models",
+    "url": "https://github.com/alinaqi/mixture-of-models-claude-mod",
+    "author": "alinaqi",
+    "authorUrl": "https://github.com/alinaqi",
+    "category": "cost",
+    "emoji": "🔀",
+    "tagline": "Scores each prompt for blast radius; cheap turns go to GLM/Kimi, risky ones stay on Claude",
+    "stars": 0,
+    "license": "MIT",
+    "marketplace": {
+      "name": "mixture-of-models",
+      "source": {
+        "source": "github",
+        "repo": "alinaqi/mixture-of-models-claude-mod",
+        "sha": "9a6f9a0f1470de195262bcdbbfccb13626cc9934"
       }
     }
   },

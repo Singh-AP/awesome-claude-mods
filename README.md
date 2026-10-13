@@ -5,12 +5,12 @@
 
 # Awesome Claude Mods
 
-**The best Claude Code mods, hand-picked and tested. 21 built here, 97 in the list, 45 installable with one command.**
+**The best Claude Code mods, hand-picked and tested. 21 built here, 99 in the list, 47 installable with one command.**
 
 [Install](#-install-in-30-seconds) · [Gallery](#%EF%B8%8F-gallery) · [Browse](#-browse-all-mods) · [Start here](#-start-here) · [Full index](#-the-full-index) · [Build your own](#%EF%B8%8F-build-your-own-mod)
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-[![Mods](https://img.shields.io/badge/curated%20mods-97-D97757)](#-browse-all-mods)
+[![Mods](https://img.shields.io/badge/curated%20mods-99-D97757)](#-browse-all-mods)
 [![Index](https://img.shields.io/badge/indexed-3,444-8A63D2)](#-the-full-index)
 [![Tests](https://img.shields.io/badge/tests-819%20passing-2ea44f)](#-quality-bar)
 [![CI](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml/badge.svg)](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml)
@@ -32,7 +32,7 @@ Inside Claude Code:
 /plugin install bash-guard@awesome-claude-mods
 ```
 
-That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any of the 45 mods marked installable below: the 21 built here, plus 24 community and Anthropic mods we reviewed and pinned to a commit.
+That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any of the 47 mods marked installable below: the 21 built here, plus 26 community and Anthropic mods we reviewed and pinned to a commit.
 
 <details>
 <summary><b>Every install command</b></summary>
@@ -70,8 +70,10 @@ That's it. The mod is live once you run `/reload-plugins` or start a new session
 | 🖍️ [redact](https://github.com/karanb192/claude-code-redact/tree/main/plugins/redact) | [karanb192](https://github.com/karanb192), pinned | `/plugin install redact@awesome-claude-mods` |
 | 📊 [usage-meter](https://github.com/hamzafer/claude-code-mods/tree/main/mods/usage-meter) | [hamzafer](https://github.com/hamzafer), pinned | `/plugin install usage-meter@awesome-claude-mods` |
 | 💤 [idle-compact](https://github.com/takahirom/takahirom-claude-code-marketplace/tree/main/plugins/idle-compact) | [takahirom](https://github.com/takahirom), pinned | `/plugin install idle-compact@awesome-claude-mods` |
+| 🛩️ [cockpit](https://github.com/drkokorev/cockpit-for-claude/tree/main/plugins/cockpit) | [drkokorev](https://github.com/drkokorev), pinned | `/plugin install cockpit@awesome-claude-mods` |
 | 🔥 [burn-meter](https://github.com/OneWave-AI/claude-code-mods/tree/main/burn-meter) | [OneWave-AI](https://github.com/OneWave-AI), pinned | `/plugin install burn-meter@awesome-claude-mods` |
 | ♻️ [reread-guard](https://github.com/VedantAndhale/claude-pro-kit/tree/main/plugins/reread-guard) | [VedantAndhale](https://github.com/VedantAndhale), pinned | `/plugin install reread-guard@awesome-claude-mods` |
+| 🔀 [mixture-of-models](https://github.com/alinaqi/mixture-of-models-claude-mod) | [alinaqi](https://github.com/alinaqi), pinned | `/plugin install mixture-of-models@awesome-claude-mods` |
 | 🖼️ [image-view](https://github.com/jarrodwatts/claude-image-view) | [jarrodwatts](https://github.com/jarrodwatts), pinned | `/plugin install image-view@awesome-claude-mods` |
 | 🕵️ [agent-radar](https://github.com/hamzafer/claude-code-mods/tree/main/mods/agent-radar) | [hamzafer](https://github.com/hamzafer), pinned | `/plugin install agent-radar@awesome-claude-mods` |
 | 👀 [whats-agent-doing](https://github.com/tzafrir/whats-agent-doing) | [tzafrir](https://github.com/tzafrir), pinned | `/plugin install whats-agent-doing@awesome-claude-mods` |
@@ -147,9 +149,11 @@ Mods without a byline are built and tested in this repo. Community mods are cred
 *   [💤 idle-compact](https://github.com/takahirom/takahirom-claude-code-marketplace/tree/main/plugins/idle-compact) - Compacts once after 50 idle minutes, while the 1-hour prompt cache is still warm <sub>by [takahirom](https://github.com/takahirom) · 📦 installable here</sub>
 *   [🥗 bash-diet](https://github.com/KilimcininKorOglu/claude-code-mods/tree/main/plugins/bash-diet) - Shrinks Bash output from git, tests, linters and installs before Claude reads it <sub>by [KilimcininKorOglu](https://github.com/KilimcininKorOglu)</sub>
 *   [⏳ cache-timer](https://github.com/arasovic/claude-code-mods/tree/main/cache-timer) - Counts down until the prompt cache expires, so you can reply before a costly re-cache <sub>by [arasovic](https://github.com/arasovic)</sub>
+*   [🛩️ cockpit](https://github.com/drkokorev/cockpit-for-claude/tree/main/plugins/cockpit) - Live context, limits, cost, subagents, tool errors and diffs, plus a risky-command guard <sub>by [drkokorev](https://github.com/drkokorev) · 📦 installable here</sub>
 *   [🔥 burn-meter](https://github.com/OneWave-AI/claude-code-mods/tree/main/burn-meter) - A live cost odometer above the prompt, with a burning fuse and threshold alerts <sub>by [OneWave-AI](https://github.com/OneWave-AI) · 📦 installable here</sub>
 *   [🌊 wavy-usage](https://github.com/BatuhanCakmakk/wavy-usage) - Liquid-filled rings for your 5h and 7d limits, context and cache lifetime above the prompt <sub>by [BatuhanCakmakk](https://github.com/BatuhanCakmakk)</sub>
 *   [♻️ reread-guard](https://github.com/VedantAndhale/claude-pro-kit/tree/main/plugins/reread-guard) - Skips Claude's repeat reads of files that haven't changed since it last read them <sub>by [VedantAndhale](https://github.com/VedantAndhale) · 📦 installable here</sub>
+*   [🔀 mixture-of-models](https://github.com/alinaqi/mixture-of-models-claude-mod) - Scores each prompt for blast radius; cheap turns go to GLM/Kimi, risky ones stay on Claude <sub>by [alinaqi](https://github.com/alinaqi) · 📦 installable here</sub>
 
 ### 📡 Status & Awareness
 

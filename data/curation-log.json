@@ -10,5 +10,17 @@
     "decision": "rejected",
     "reason": "Built-in analytics plumbing; nothing for a user to install.",
     "date": "2026-10-04"
+  },
+  {
+    "url": "https://github.com/drkokorev/cockpit-for-claude/tree/main/plugins/cockpit",
+    "decision": "accepted",
+    "reason": "Submitted in #2. Read all of register.tsx at 8960ed8: no network, runs only fixed git commands, writes only .cockpit/cockpit-report.md; guard asks and fails closed. validate --strict and 12/12 tests pass on 2.1.296 in an isolated env; headless /cockpit-report and /cockpit-export behave.",
+    "date": "2026-10-13"
+  },
+  {
+    "url": "https://github.com/alinaqi/mixture-of-models-claude-mod",
+    "decision": "accepted",
+    "reason": "Submitted in #3. Read every module at 9a6f9a0: network is local Ollama, Haiku via Claude Code, and only the gateway the user configures; key from sensitive userConfig; observe-only without it; no telemetry. Example config defaults to the author's own gateway (palgu.ai, disclosed). validate --strict and 107/107 tests pass on 2.1.296 in an isolated env; headless /route reports observe-only.",
+    "date": "2026-10-13"
   }
 ]
