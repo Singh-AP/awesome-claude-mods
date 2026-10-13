@@ -43,6 +43,7 @@ function world(on: On, outcome: 'SUCCEEDED' | 'FAILED' = 'SUCCEEDED', created = 
       return ok()
     }
     if (cmd === 'aws' && args.includes('gone')) return fail('The config profile (gone) could not be found')
+    if (cmd === 'aws' && args[0] === 'sts' && args.includes('default')) return fail('Unable to locate credentials. You can configure credentials by running "aws configure".')
     const sub = `${args[0]} ${args[1]}`
     if (sub === 'configure list-profiles') return ok('default\ndev\n')
     if (sub === 'configure get') return ok('us-west-2\n')
@@ -73,7 +74,7 @@ function world(on: On, outcome: 'SUCCEEDED' | 'FAILED' = 'SUCCEEDED', created = 
 test('/codebuild on a new repo opens a one-screen setup with the profiles and the account', async ($, on) => {
   world(on)
   const out = await $.command.run({ command: 'codebuild', args: '', ...TYPED })
-  expect(out.text).toMatch(/Pick an AWS profile/)
+  expect(out.text).toMatch(/Ready with profile dev .*Run \/codebuild again to set up and build/s)
   for (const surface of ['terminal', 'desktop'] as const) {
     const ui = await $.ui.mount({ ...PANE, surface })
     expect(await ui.find({ key: 'profile' })).toBeDefined()
@@ -150,5 +151,46 @@ test('a remembered profile that no longer exists opens the setup screen instead 
   expect(out.text).toMatch(/Pick a working AWS profile/)
   const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
   const picker = await ui.find({ key: 'profile' })
-  expect((picker?.props as { value?: string }).value).toBe('default')
+  expect((picker?.props as { value?: string }).value).toBe('dev')
+})
+
+test('setup preselects the first profile that has working credentials and shows the others', async ($, on) => {
+  world(on)
+  on('ui.render', () => ({ type: 'Text' as const, props: {}, children: ['engine'] }))
+  await $.command.run({ command: 'codebuild', args: 'setup', ...TYPED })
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  const picker = await ui.find({ key: 'profile' })
+  expect((picker?.props as { value?: string }).value).toBe('dev')
+  expect(await ui.find({ type: 'Text', text: /other profiles: default ✗/ })).toBeDefined()
+})
+
+test('/codebuild profile <name> switches without the dropdown', async ($, on) => {
+  world(on)
+  on('ui.render', () => ({ type: 'Text' as const, props: {}, children: ['engine'] }))
+  expect((await $.command.run({ command: 'codebuild', args: 'profile default', ...TYPED })).text).toMatch(/no credentials/)
+  expect((await $.command.run({ command: 'codebuild', args: 'profile dev', ...TYPED })).text).toMatch(/Using profile dev: ✓ account 123456789012/)
+})
+
+test('running /codebuild again on the setup screen sets up and builds, and /codebuild fix hands Claude the failure', async ($, on) => {
+  const { w } = world(on, 'FAILED')
+  on('ui.render', () => ({ type: 'Text' as const, props: {}, children: ['engine'] }))
+  await $.command.run({ command: 'codebuild', args: '', ...TYPED })
+  const go = await $.command.run({ command: 'codebuild', args: '', ...TYPED })
+  expect(go.text).toMatch(/Setting up and building with profile dev/)
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  await ui.unmount()
+  expect(w.calls.some(c => c.includes('codebuild create-project'))).toBe(true)
+  expect(w.calls.some(c => c.includes('codebuild start-build'))).toBe(true)
+})
+
+test('/codebuild fix submits the failure to Claude once the command has returned', async ($, on) => {
+  const { w, clock } = world(on, 'FAILED', { bucket: true, role: true, project: true }, { 'repo:/work/app': { profile: 'dev', region: 'us-west-2', account: '123456789012', repo: '/work/app', project: 'claude-app-abc123', bucket: 'b', role: 'r' } })
+  await $.command.run({ command: 'codebuild', args: '', ...TYPED })
+  await clock.advance(4000)
+  await clock.advance(4000)
+  const out = await $.command.run({ command: 'codebuild', args: 'fix', ...TYPED })
+  expect(out.text).toMatch(/Asking Claude to fix build #1/)
+  expect(w.prompts).toEqual([])
+  await clock.settle()
+  expect(w.prompts[0]).toMatch(/Find the cause and fix it[\s\S]*not ok 1/)
 })

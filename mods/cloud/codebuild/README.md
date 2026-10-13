@@ -29,7 +29,7 @@ The only things it needs from you are an **AWS profile** and the **repo** to bui
 
 ## Features
 
-- **One-screen setup.** `/codebuild` lists the AWS profiles you already have and shows which account, region and role each one is, before anything happens. The first build creates what it needs and tags it `created-by=claude-codebuild-mod`:
+- **One-screen setup.** `/codebuild` checks every AWS profile you have, preselects the first one with working credentials, and shows its account, region and role, plus which other profiles work, before anything happens. Run `/codebuild` again to go; there's nothing to click. The first build creates what it needs and tags it `created-by=claude-codebuild-mod`:
   - a private S3 bucket per region, whose uploaded sources expire after 7 days
   - one IAM role per account that can only write `claude-*` build logs and read the uploaded sources
   - one CodeBuild project per repo
@@ -56,8 +56,10 @@ It needs the [AWS CLI](https://aws.amazon.com/cli/) (v2), signed in any way the 
 
 | Command | What it does |
 | --- | --- |
-| `/codebuild` | Build this repo, or open setup the first time |
+| `/codebuild` | Build this repo. The first time, it opens setup with a working profile already picked; run it again to set up and build |
 | `/codebuild <path>` | The same, for another folder |
+| `/codebuild profile <name>` | Switch AWS profile without the dropdown |
+| `/codebuild fix` | Hand the failed build's log to Claude to fix |
 | `/codebuild setup` | Change the profile or repo |
 | `/codebuild status` · `logs` · `stop` | The running build |
 | `/codebuild buildspec` · `buildspec save` | See or save the generated buildspec |
@@ -93,7 +95,7 @@ It needs the [AWS CLI](https://aws.amazon.com/cli/) (v2), signed in any way the 
 ## Test it
 
 ```shell
-claude plugin test mods/cloud/codebuild   # 19 tests, with the AWS CLI and git stubbed
+claude plugin test mods/cloud/codebuild   # 23 tests, with the AWS CLI and git stubbed
 ```
 
 ## Tested for real

@@ -119,29 +119,49 @@ async function identityLine($: EngineInterface, profile: string): Promise<{ text
   }
 }
 
+type Probe = { profile: string; isOk: boolean; text: string }
+
+/** Checks profiles side by side (at most 12), so setup can preselect one that works. */
+async function probeProfiles($: EngineInterface, profiles: readonly string[]): Promise<Probe[]> {
+  return Promise.all(profiles.slice(0, 12).map(async profile => ({ profile, ...(await identityLine($, profile)) })))
+}
+
+/** First working profile by preference: remembered, AWS_PROFILE, the option, default, then any. */
+function choosePreferred(probes: readonly Probe[], preferred: readonly string[]): Probe | undefined {
+  for (const name of preferred) {
+    const hit = probes.find(p => p.profile === name && p.isOk)
+    if (hit !== undefined) return hit
+  }
+  return probes.find(p => p.isOk)
+}
+
+const othersLine = (probes: readonly Probe[], chosen: string) =>
+  probes.filter(p => p.profile !== chosen).map(p => `${p.profile} ${p.isOk ? '✓' : '✗'}`).join(' · ')
+
 /** Opens the one-screen setup: profile, repo, what it will create. */
 async function openWizard($: EngineInterface, repoArg: string): Promise<void> {
   const repo = await absoluteRepo($, repoArg)
   const saved = (await $.store.get(`repo:${repo}`)) as Config | undefined
   const profiles = await listProfiles($)
   const envProfile = (await $.env.get('AWS_PROFILE')) ?? ''
-  // A remembered profile wins only while this machine still has it.
-  const isSavedUsable = saved !== undefined && (profiles.length === 0 || profiles.includes(saved.profile))
-  const fallback = settings.profile || envProfile || (profiles.includes('default') ? 'default' : profiles[0] ?? '')
-  const profile = isSavedUsable ? saved.profile : fallback
+  const preferred = [saved?.profile ?? '', envProfile, settings.profile, 'default'].filter(Boolean)
+  const guess = preferred.find(p => profiles.includes(p)) ?? profiles[0] ?? preferred[0] ?? ''
   const { plan, hasOwnBuildspec } = await inspectRepo($, repo).catch(() => ({ plan: planBuild({ names: [] }), hasOwnBuildspec: false }))
   await update($, modeAtom, () => 'wizard')
   await update($, wizardAtom, () => ({
-    profiles, profile, repo, identity: 'checking AWS…', isIdentityOk: false, stack: plan.stack.join(' + '),
-    buildspec: plan.yaml, hasOwnBuildspec, isConfigured: saved !== undefined, showBuildspec: false, message: '', isBusy: false,
+    profiles, profile: guess, repo, identity: profiles.length > 1 ? `checking ${profiles.length} profiles…` : 'checking AWS…', isIdentityOk: false, others: '',
+    stack: plan.stack.join(' + '), buildspec: plan.yaml, hasOwnBuildspec, isConfigured: saved !== undefined, showBuildspec: false, message: '', isBusy: false,
   }))
-  await $.ui.open({ id: PANE, title: 'CodeBuild' })
-  const who = await identityLine($, profile)
-  await update($, wizardAtom, w => (w === null ? w : { ...w, identity: who.text, isIdentityOk: who.isOk }))
+  // Setup takes the keyboard, so its hotkeys work at once; Esc hands it back.
+  await $.ui.open({ id: PANE, title: 'CodeBuild setup', focus: true, closeOnEscape: true })
+  const probes = profiles.length > 0 ? await probeProfiles($, profiles) : [{ profile: guess, ...(await identityLine($, guess)) }]
+  const chosen = choosePreferred(probes, preferred) ?? probes.find(p => p.profile === guess) ?? probes[0]
+  if (chosen === undefined) return
+  await update($, wizardAtom, w => (w === null ? w : { ...w, profile: chosen.profile, identity: chosen.text, isIdentityOk: chosen.isOk, others: othersLine(probes, chosen.profile) }))
 }
 
 async function pickProfile($: EngineInterface, profile: string): Promise<void> {
-  await update($, wizardAtom, w => (w === null ? w : { ...w, profile, identity: 'checking AWS…', isIdentityOk: false }))
+  await update($, wizardAtom, w => (w === null ? w : { ...w, profile, identity: 'checking AWS…', isIdentityOk: false, message: '' }))
   const who = await identityLine($, profile)
   await update($, wizardAtom, w => (w === null ? w : { ...w, identity: who.text, isIdentityOk: who.isOk }))
 }
@@ -284,9 +304,21 @@ async function refreshBuild($: EngineInterface): Promise<BuildView | null> {
   return view
 }
 
+/** CloudWatch delivers the last lines a few seconds after a build ends: read until the log stops growing. */
+async function settleLogs($: EngineInterface, view: BuildView): Promise<void> {
+  let quiet = 0
+  for (let round = 0; round < 8 && quiet < 2; round++) {
+    const before = (await read($, logAtom)).length
+    await fetchLogs($, view)
+    quiet = (await read($, logAtom)).length === before ? quiet + 1 : 0
+    if (quiet < 2) await $.process.run(['sleep', '2'], { timeoutMs: 10_000 })
+  }
+}
+
 async function finishBuild($: EngineInterface, view: BuildView): Promise<void> {
   poller?.cancel()
   poller = null
+  await settleLogs($, view)
   await $.store.delete('active')
   const took = duration((view.endedAt ?? view.startedAt) - view.startedAt)
   const cost = costOf((view.endedAt ?? view.startedAt) - view.startedAt, settings.computeType).toFixed(3)
@@ -298,10 +330,7 @@ async function tickBuild($: EngineInterface): Promise<void> {
   isTicking = true
   try {
     const view = await refreshBuild($)
-    if (view !== null && isDone(view)) {
-      await fetchLogs($, view)
-      await finishBuild($, view)
-    }
+    if (view !== null && isDone(view)) await finishBuild($, view)
   } catch (error) {
     $.ui.status(`☁️ ${error instanceof Error ? error.message : String(error)}`.slice(0, 120))
   } finally {
@@ -318,6 +347,10 @@ function followBuild($: EngineInterface): void {
 async function setupAndBuild($: EngineInterface): Promise<void> {
   const w = await read($, wizardAtom)
   if (w === null || w.isBusy) return
+  if (!w.isIdentityOk) {
+    await update($, wizardAtom, x => (x === null ? x : { ...x, message: `✗ Pick a profile with working credentials first (/codebuild profile <name> also works).` }))
+    return
+  }
   await update($, wizardAtom, x => (x === null ? x : { ...x, isBusy: true, message: w.isConfigured ? 'Starting the build…' : 'Setting up (first time takes ~20s)…' }))
   try {
     const { plan } = await inspectRepo($, w.repo)
@@ -417,7 +450,6 @@ async function buildForClaude($: EngineInterface, input: { repo?: unknown; profi
     await $.process.run(['sleep', '4'], { timeoutMs: 10_000 })
     const now = await refreshBuild($)
     if (now !== null && isDone(now)) {
-      await fetchLogs($, now)
       await finishBuild($, now)
       return reportForClaude(now, await read($, logAtom), settings.computeType)
     }
@@ -437,8 +469,8 @@ export const register: Register = (on, options) => {
   on('session.start', async ($, e, next) => {
     await $.command.register({
       name: 'codebuild',
-      description: 'Build this repo on AWS CodeBuild: /codebuild [setup|stop|status|logs|buildspec [save]|teardown [all]|<path>]',
-      argumentHint: '[setup | stop | status | logs | buildspec | teardown | <path>]',
+      description: 'Build this repo on AWS CodeBuild: /codebuild [setup|profile <name>|fix|stop|status|logs|buildspec [save]|teardown [all]|<path>]',
+      argumentHint: '[setup | profile <name> | fix | stop | status | logs | buildspec | teardown | <path>]',
     })
     await $.tool.register({
       name: 'build',
@@ -470,6 +502,25 @@ export const register: Register = (on, options) => {
     const [verb = '', ...rest] = e.args.trim().split(/\s+/)
     try {
       if (verb === 'stop') return { text: await stopBuild($) }
+      if (verb === 'fix') {
+        const view = await read($, buildAtom)
+        if (view === null || !isDone(view) || view.status === 'SUCCEEDED') return { text: 'No failed build to fix.' }
+        // A command can't submit a prompt while it runs (it holds the turn): do it right after.
+        $.clock.after(0, () => void askClaudeToFix($))
+        return { text: `Asking Claude to fix build #${view.number}…` }
+      }
+      if (verb === 'profile') {
+        const name = rest.join(' ').trim()
+        if (name === '') return { text: 'Usage: /codebuild profile <name>. Your profiles: ' + ((await listProfiles($)).join(', ') || 'none found') }
+        const who = await identityLine($, name)
+        if (!who.isOk) return { text: `${who.text}` }
+        const repo = await absoluteRepo($, '')
+        const saved = (await $.store.get(`repo:${repo}`)) as Config | undefined
+        if (saved !== undefined) await $.store.set(`repo:${repo}`, { ...saved, profile: name })
+        await openWizard($, repo)
+        await pickProfile($, name)
+        return { text: `Using profile ${name}: ${who.text}` }
+      }
       if (verb === 'setup') {
         await openWizard($, rest.join(' '))
         return { text: 'Opened CodeBuild setup.' }
@@ -492,8 +543,18 @@ export const register: Register = (on, options) => {
       const repo = await absoluteRepo($, verb === '' ? '' : [verb, ...rest].join(' '))
       const saved = (await $.store.get(`repo:${repo}`)) as Config | undefined
       if (saved === undefined) {
+        // A second /codebuild on the open setup screen means "go".
+        const ready = await read($, wizardAtom)
+        if (ready !== null && ready.repo === repo && ready.isIdentityOk && (await read($, modeAtom)) === 'wizard') {
+          void setupAndBuild($)
+          return { text: `Setting up and building with profile ${ready.profile}. Follow it in the CodeBuild pane.` }
+        }
         await openWizard($, repo)
-        return { text: 'Pick an AWS profile in the CodeBuild pane, then press Set up & build.' }
+        const w = await read($, wizardAtom)
+        if (w !== null && w.isIdentityOk) {
+          return { text: `Ready with profile ${w.profile} (${w.identity.replace(/^✓ /, '')}).\nRun /codebuild again to set up and build, or switch with /codebuild profile <name>.` }
+        }
+        return { text: `No AWS profile with working credentials found (${w?.others || w?.identity || 'none listed'}). Sign in (aws sso login --profile <name>, or aws configure), then run /codebuild again.` }
       }
       const view = await read($, buildAtom)
       if (view !== null && !isDone(view)) {
@@ -550,6 +611,7 @@ export const register: Register = (on, options) => {
             <Input key="profile-name" label="AWS profile" value={w.profile} placeholder="default" submitLabel="Check" onSubmit={value => void pickProfile($, value)} />
           )}
           <Text color={w.isIdentityOk ? 'green' : 'red'} wrap="wrap">{`  ${w.identity}`}</Text>
+          {w.others !== '' && <Text dimColor wrap="wrap">{`  other profiles: ${w.others} · switch with /codebuild profile <name>`}</Text>}
           <Input key="repo" label="Repo" value={w.repo} submitLabel="Use" onSubmit={value => void pickRepo($, value)} />
           <Text dimColor wrap="wrap">{`  ${w.stack} · ${w.hasOwnBuildspec ? 'your buildspec.yml' : 'buildspec generated for you'}`}</Text>
           <Text dimColor wrap="wrap">
@@ -563,6 +625,7 @@ export const register: Register = (on, options) => {
             {!w.hasOwnBuildspec && <Button key="spec-toggle" hotkey="s" label={w.showBuildspec ? 'Hide buildspec' : 'Show buildspec'} onPress={() => void update($, wizardAtom, x => (x === null ? x : { ...x, showBuildspec: !x.showBuildspec }))} />}
             <Button key="cancel" hotkey="x" label="Close" role="dismiss" onPress={() => void $.ui.close({ id: PANE })} />
           </Box>
+          <Text dimColor>  or just run /codebuild again · Esc returns to the prompt</Text>
         </Box>
       )
     }
@@ -591,6 +654,7 @@ export const register: Register = (on, options) => {
           <Button key="close" hotkey="x" label="Close" role="dismiss" onPress={() => void $.ui.close({ id: PANE })} />
         </Box>
         <Link href={build.consoleUrl} label="Open in the AWS console" />
+        <Text dimColor>{isRunning ? '/codebuild stop' : build.status === 'SUCCEEDED' ? '/codebuild builds again' : '/codebuild fix asks Claude · /codebuild builds again'}</Text>
       </Box>
     )
   })

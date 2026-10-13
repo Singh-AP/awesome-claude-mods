@@ -23,6 +23,8 @@ export type Wizard = {
   /** `✓ account 1234…5678 · us-east-1 · role/Dev`, or what's wrong. */
   identity: string
   isIdentityOk: boolean
+  /** The other profiles, checked: `simian ✗ no credentials`. */
+  others: string
   stack: string
   buildspec: string
   hasOwnBuildspec: boolean
