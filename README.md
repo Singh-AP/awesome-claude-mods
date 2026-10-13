@@ -12,7 +12,7 @@
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 [![Mods](https://img.shields.io/badge/curated%20mods-97-D97757)](#-browse-all-mods)
 [![Index](https://img.shields.io/badge/indexed-3,444-8A63D2)](#-the-full-index)
-[![Tests](https://img.shields.io/badge/tests-817%20passing-2ea44f)](#-quality-bar)
+[![Tests](https://img.shields.io/badge/tests-819%20passing-2ea44f)](#-quality-bar)
 [![CI](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml/badge.svg)](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-%E2%89%A5%202.1.287-D97757)](https://code.claude.com/docs/en/plugins/mods/overview)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -301,7 +301,7 @@ Every mod in this repo:
 
 - passes `claude plugin validate --strict`, which also prints exactly which events it hooks and which APIs it calls. That output is published in **[What each mod can touch](docs/capabilities.md)**, and CI fails if it drifts
 - type-checks under strict TypeScript
-- ships tests that run on every push, and every week against the newest Claude Code (**817 tests** right now)
+- ships tests that run on every push, and every week against the newest Claude Code (**819 tests** right now)
 - was run in a real Claude Code session before it was merged
 - sends no telemetry, and makes network calls only when its README says so
 

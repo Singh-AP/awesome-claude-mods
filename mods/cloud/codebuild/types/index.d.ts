@@ -25,6 +25,8 @@ export type Wizard = {
   isIdentityOk: boolean
   /** The other profiles, checked: `simian ✗ no credentials`. */
   others: string
+  /** The chosen profile signs in with `aws sso login`. */
+  isSso: boolean
   stack: string
   buildspec: string
   hasOwnBuildspec: boolean

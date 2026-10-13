@@ -40,6 +40,7 @@ The only things it needs from you are an **AWS profile** and the **repo** to bui
 - **Live in a pane.** Each phase shows with its time, along with a live log tail and a link to the console. The status line reads `☁️ #3 · BUILD · 1m 20s`, and a toast says when it's done and what it cost.
 - **Claude can build too.** Claude has a `build` tool. Ask "make sure this passes on CodeBuild" and Claude runs it, reads the failing log lines, fixes the code and builds again. It asks you first (**Build** / **Allow this session** / **Don't build**), and refuses when nobody can be asked.
 - **Ask Claude to fix.** One press on a failed build hands Claude the failing phase and the last 80 log lines.
+- **Signs you in.** If no profile has working credentials, `/codebuild login` (or **Sign me in**) runs `aws sso login` for SSO profiles. Otherwise it asks Claude to get credentials with whatever your environment provides, listing exactly the permissions it needs. When Claude is done, setup re-checks your profiles and moves on.
 - **Errors you can act on.** An expired SSO session tells you the `aws sso login --profile …` command to run. A missing permission names the IAM action. A missing profile or CLI says how to fix it.
 - **Clean exit.** `/codebuild teardown` deletes this repo's project, log group and uploaded sources after you confirm. `teardown all` also deletes the shared role and bucket.
 
@@ -58,6 +59,7 @@ It needs the [AWS CLI](https://aws.amazon.com/cli/) (v2), signed in any way the 
 | --- | --- |
 | `/codebuild` | Build this repo. The first time, it opens setup with a working profile already picked; run it again to set up and build |
 | `/codebuild <path>` | The same, for another folder |
+| `/codebuild login [profile]` | Sign in: runs `aws sso login` for an SSO profile, otherwise asks Claude to get credentials however your environment provides them |
 | `/codebuild profile <name>` | Switch AWS profile without the dropdown |
 | `/codebuild fix` | Hand the failed build's log to Claude to fix |
 | `/codebuild setup` | Change the profile or repo |
@@ -95,7 +97,7 @@ It needs the [AWS CLI](https://aws.amazon.com/cli/) (v2), signed in any way the 
 ## Test it
 
 ```shell
-claude plugin test mods/cloud/codebuild   # 24 tests, with the AWS CLI and git stubbed
+claude plugin test mods/cloud/codebuild   # 26 tests, with the AWS CLI and git stubbed
 ```
 
 ## Tested for real

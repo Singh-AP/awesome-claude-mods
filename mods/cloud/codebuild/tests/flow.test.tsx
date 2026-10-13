@@ -7,14 +7,14 @@ const PANE = {
   props: { title: 'CodeBuild', isFocused: true, bodyColumns: 70, placement: 'dock', scroll: { offset: 0, bodyRows: 30 }, view: {} },
 } as const
 
-type World = { calls: string[]; rmStdin: string[]; toasts: string[]; prompts: string[]; outcome: 'SUCCEEDED' | 'FAILED'; polls: number }
+type World = { calls: string[]; rmStdin: string[]; toasts: string[]; prompts: string[]; outcome: 'SUCCEEDED' | 'FAILED'; polls: number; sso: boolean }
 
 const ok = (stdout = '') => ({ value: { exitCode: 0, stdout, stderr: '', isStdoutTruncated: false, isStderrTruncated: false } })
 const fail = (stderr: string) => ({ value: { exitCode: 254, stdout: '', stderr, isStdoutTruncated: false, isStderrTruncated: false } })
 
 /** A fake AWS account and git repo beneath the mod. */
 function world(on: On, outcome: 'SUCCEEDED' | 'FAILED' = 'SUCCEEDED', created = { bucket: false, role: false, project: false }, store: Record<string, unknown> = {}, isSignedOut = false) {
-  const w: World = { calls: [], rmStdin: [], toasts: [], prompts: [], outcome, polls: 0 }
+  const w: World = { calls: [], rmStdin: [], toasts: [], prompts: [], outcome, polls: 0, sso: false }
   mock.store(on, store)
   const clock = mock.clock(on, { now: Date.parse('2026-10-13T10:00:00Z') })
   on('session.root', () => ({ value: '/work/app' }))
@@ -47,6 +47,8 @@ function world(on: On, outcome: 'SUCCEEDED' | 'FAILED' = 'SUCCEEDED', created = 
     if (cmd === 'aws' && args[0] === 'sts' && args.includes('default')) return fail('Unable to locate credentials. You can configure credentials by running "aws configure".')
     const sub = `${args[0]} ${args[1]}`
     if (sub === 'configure list-profiles') return ok('default\ndev\n')
+    if (sub === 'configure get' && (args[2] === 'sso_session' || args[2] === 'sso_start_url')) return w.sso ? ok('my-sso\n') : fail('')
+    if (sub === 'sso login') return ok('Successfully logged into Start URL')
     if (sub === 'configure get') return ok('us-west-2\n')
     if (sub === 'sts get-caller-identity') return ok(JSON.stringify({ Account: '123456789012', Arn: 'arn:aws:sts::123456789012:assumed-role/Dev/me' }))
     if (sub === 's3api head-bucket') return created.bucket ? ok() : fail('An error occurred (404) when calling the HeadBucket operation: Not Found')
@@ -69,7 +71,7 @@ function world(on: On, outcome: 'SUCCEEDED' | 'FAILED' = 'SUCCEEDED', created = 
     }
     return ok('{}')
   })
-  return { ...w, w, clock }
+  return { w, clock }
 }
 
 test('/codebuild on a new repo opens a one-screen setup with the profiles and the account', async ($, on) => {
@@ -202,6 +204,33 @@ test('with no working credentials, setup says to sign in instead of offering to 
   const out = await $.command.run({ command: 'codebuild', args: '', ...TYPED })
   expect(out.text).toMatch(/No AWS profile with working credentials/)
   const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
-  expect((await ui.find({ key: 'go' }))?.props).toMatchObject({ label: 'Sign in to AWS first' })
-  expect(await ui.find({ type: 'Text', text: /Sign in to AWS in a terminal/ })).toBeDefined()
+  expect((await ui.find({ key: 'login' }))?.props).toMatchObject({ label: 'Sign me in' })
+  expect(await ui.find({ type: 'Text', text: /\/codebuild login: Claude gets you credentials/ })).toBeDefined()
+})
+
+test('/codebuild login asks Claude for credentials with the permissions it needs, then re-checks the profiles', async ($, on) => {
+  const { w, clock } = world(on, 'SUCCEEDED', undefined, {}, true)
+  on('ui.render', () => ({ type: 'Text' as const, props: {}, children: ['engine'] }))
+  on('turn.complete', () => ({ text: '' }))
+  await $.command.run({ command: 'codebuild', args: '', ...TYPED })
+  const out = await $.command.run({ command: 'codebuild', args: 'login', ...TYPED })
+  expect(out.text).toMatch(/Asking Claude to get you AWS credentials/)
+  await clock.settle()
+  expect(w.prompts[0]).toMatch(/none of my AWS profiles has working credentials/)
+  expect(w.prompts[0]).toMatch(/CodeBuild on projects claude-\*: BatchGetProjects, CreateProject, StartBuild/)
+  const before = w.calls.filter(c => c.startsWith('aws sts')).length
+  await $.turn.complete({ turnId: 't1', answer: 'Done.', durationMs: 1000, isAborted: false, reason: 'answer' })
+  await clock.settle()
+  expect(w.calls.filter(c => c.startsWith('aws sts')).length).toBeGreaterThan(before)
+})
+
+test('an SSO profile signs in with aws sso login instead', async ($, on) => {
+  const { w } = world(on, 'SUCCEEDED', undefined, {}, true)
+  on('ui.render', () => ({ type: 'Text' as const, props: {}, children: ['engine'] }))
+  w.sso = true
+  await $.command.run({ command: 'codebuild', args: '', ...TYPED })
+  const out = await $.command.run({ command: 'codebuild', args: 'login', ...TYPED })
+  expect(w.calls.some(c => c.startsWith('aws sso login --profile'))).toBe(true)
+  expect(out.text).toMatch(/Signed in to|aws sso login failed/)
+  expect(w.prompts).toEqual([])
 })

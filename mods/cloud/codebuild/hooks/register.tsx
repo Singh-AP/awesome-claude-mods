@@ -4,7 +4,7 @@ import type { EngineInterface, Register } from 'claude-code'
 import type { BuildView, Wizard } from '../types'
 import {
   bucketName, costOf, duration, explainAwsError, isDone, isSecretPath, lifecycle, parseBuild, PRICE_PER_MINUTE,
-  projectInput, projectName, reportForClaude, ROLE, rolePolicy, shownPhases, statusText, TAG, trustPolicy, usefulLog,
+  projectInput, projectName, reportForClaude, requiredPermissions, ROLE, rolePolicy, shownPhases, signInRequest, statusText, TAG, trustPolicy, usefulLog,
   type Config, type Target,
 } from './aws'
 import { planBuild, type Plan, type ProjectFiles } from './buildspec'
@@ -28,6 +28,8 @@ let logToken: string | undefined
 let poller: { cancel: () => void } | null = null
 let isTicking = false
 let isClaudeAllowed = false
+// Set while Claude is getting credentials for the person; the next turn's end checks the profiles again.
+let isAwaitingSignIn = false
 
 type AwsOut = { ok: boolean; json: any; stdout: string; stderr: string }
 
@@ -149,7 +151,7 @@ async function openWizard($: EngineInterface, repoArg: string): Promise<void> {
   const { plan, hasOwnBuildspec } = await inspectRepo($, repo).catch(() => ({ plan: planBuild({ names: [] }), hasOwnBuildspec: false }))
   await update($, modeAtom, () => 'wizard')
   await update($, wizardAtom, () => ({
-    profiles, profile: guess, repo, identity: profiles.length > 1 ? `checking ${profiles.length} profiles…` : 'checking AWS…', isIdentityOk: false, others: '',
+    profiles, profile: guess, repo, identity: profiles.length > 1 ? `checking ${profiles.length} profiles…` : 'checking AWS…', isIdentityOk: false, others: '', isSso: false,
     stack: plan.stack.join(' + '), buildspec: plan.yaml, hasOwnBuildspec, isConfigured: saved !== undefined, showBuildspec: false, message: '', isBusy: false,
   }))
   // Setup takes the keyboard, so its hotkeys work at once; Esc hands it back.
@@ -157,13 +159,15 @@ async function openWizard($: EngineInterface, repoArg: string): Promise<void> {
   const probes = profiles.length > 0 ? await probeProfiles($, profiles) : [{ profile: guess, ...(await identityLine($, guess)) }]
   const chosen = choosePreferred(probes, preferred) ?? probes.find(p => p.profile === guess) ?? probes[0]
   if (chosen === undefined) return
-  await update($, wizardAtom, w => (w === null ? w : { ...w, profile: chosen.profile, identity: chosen.text, isIdentityOk: chosen.isOk, others: othersLine(probes, chosen.profile) }))
+  const isSso = chosen.isOk ? false : await usesSso($, chosen.profile)
+  await update($, wizardAtom, w => (w === null ? w : { ...w, profile: chosen.profile, identity: chosen.text, isIdentityOk: chosen.isOk, others: othersLine(probes, chosen.profile), isSso }))
 }
 
 async function pickProfile($: EngineInterface, profile: string): Promise<void> {
   await update($, wizardAtom, w => (w === null ? w : { ...w, profile, identity: 'checking AWS…', isIdentityOk: false, message: '' }))
   const who = await identityLine($, profile)
-  await update($, wizardAtom, w => (w === null ? w : { ...w, identity: who.text, isIdentityOk: who.isOk }))
+  const isSso = who.isOk ? false : await usesSso($, profile)
+  await update($, wizardAtom, w => (w === null ? w : { ...w, identity: who.text, isIdentityOk: who.isOk, isSso }))
 }
 
 async function pickRepo($: EngineInterface, path: string): Promise<void> {
@@ -343,6 +347,43 @@ function followBuild($: EngineInterface): void {
   poller = $.clock.every(4000, () => void tickBuild($))
 }
 
+/** Whether a profile signs in through IAM Identity Center (aws sso login). */
+async function usesSso($: EngineInterface, profile: string): Promise<boolean> {
+  if (profile === '') return false
+  for (const key of ['sso_session', 'sso_start_url']) {
+    const found = await awsCli($, { profile }, ['configure', 'get', key], 10_000).catch(() => undefined)
+    if (found !== undefined && found.ok && found.stdout.trim() !== '') return true
+  }
+  return false
+}
+
+/** Signs the person in: aws sso login where the profile uses SSO, else Claude gets credentials its own way. */
+async function signIn($: EngineInterface, profileArg: string): Promise<string> {
+  const w = await read($, wizardAtom)
+  const profile = profileArg || w?.profile || settings.profile || 'default'
+  if (await usesSso($, profile)) {
+    await update($, wizardAtom, x => (x === null ? x : { ...x, message: `Signing in to ${profile}: finish in the browser tab that opened…` }))
+    const ran = await $.process.run(['aws', 'sso', 'login', '--profile', profile], { timeoutMs: 300_000 }).catch(error => ({ exitCode: 1, stdout: '', stderr: String(error) }))
+    if (ran.exitCode !== 0) return `✗ aws sso login failed: ${explainAwsError(ran.stderr, profile)}`
+    await recheckProfiles($)
+    return `Signed in to ${profile}. Run /codebuild to build.`
+  }
+  isAwaitingSignIn = true
+  const listed = w === null ? '' : [`${w.profile} ✗`, w.others].filter(Boolean).join(' · ')
+  await update($, wizardAtom, x => (x === null ? x : { ...x, message: 'Asked Claude to get AWS credentials; setup checks again when it\'s done.' }))
+  await $.prompt.submit({ text: signInRequest(listed, requiredPermissions('')) })
+  return 'Asked Claude to get you AWS credentials.'
+}
+
+/** Probes every profile again and moves setup onto the first one that works. */
+async function recheckProfiles($: EngineInterface): Promise<void> {
+  const w = await read($, wizardAtom)
+  if (w === null) return
+  await openWizard($, w.repo)
+  const after = await read($, wizardAtom)
+  if (after !== null && after.isIdentityOk) $.ui.toast(`AWS profile ${after.profile} works now: run /codebuild to build`, { timeoutMs: 8000 })
+}
+
 /** The wizard's button: set up what's missing, then build. */
 async function setupAndBuild($: EngineInterface): Promise<void> {
   const w = await read($, wizardAtom)
@@ -469,8 +510,8 @@ export const register: Register = (on, options) => {
   on('session.start', async ($, e, next) => {
     await $.command.register({
       name: 'codebuild',
-      description: 'Build this repo on AWS CodeBuild: /codebuild [setup|profile <name>|fix|stop|status|logs|buildspec [save]|teardown [all]|<path>]',
-      argumentHint: '[setup | profile <name> | fix | stop | status | logs | buildspec | teardown | <path>]',
+      description: 'Build this repo on AWS CodeBuild: /codebuild [setup|login|profile <name>|fix|stop|status|logs|buildspec [save]|teardown [all]|<path>]',
+      argumentHint: '[setup | login | profile <name> | fix | stop | status | logs | buildspec | teardown | <path>]',
     })
     await $.tool.register({
       name: 'build',
@@ -502,6 +543,15 @@ export const register: Register = (on, options) => {
     const [verb = '', ...rest] = e.args.trim().split(/\s+/)
     try {
       if (verb === 'stop') return { text: await stopBuild($) }
+      if (verb === 'login') {
+        const repo = await absoluteRepo($, '')
+        if ((await read($, wizardAtom)) === null) await openWizard($, repo)
+        const profile = rest.join(' ').trim()
+        if (await usesSso($, profile || (await read($, wizardAtom))?.profile || '')) return { text: await signIn($, profile) }
+        // Submitting a prompt has to wait until this command returns.
+        $.clock.after(0, () => void signIn($, profile))
+        return { text: 'Asking Claude to get you AWS credentials…' }
+      }
       if (verb === 'fix') {
         const view = await read($, buildAtom)
         if (view === null || !isDone(view) || view.status === 'SUCCEEDED') return { text: 'No failed build to fix.' }
@@ -554,7 +604,7 @@ export const register: Register = (on, options) => {
         if (w !== null && w.isIdentityOk) {
           return { text: `Ready with profile ${w.profile} (${w.identity.replace(/^✓ /, '')}).\nRun /codebuild again to set up and build, or switch with /codebuild profile <name>.` }
         }
-        return { text: `No AWS profile with working credentials found (${w?.others || w?.identity || 'none listed'}). Sign in (aws sso login --profile <name>, or aws configure), then run /codebuild again.` }
+        return { text: `No AWS profile with working credentials found (${w?.others || w?.identity || 'none listed'}).\nRun /codebuild login and it signs you in (aws sso login for SSO profiles, otherwise Claude gets credentials), then /codebuild again.` }
       }
       const view = await read($, buildAtom)
       if (view !== null && !isDone(view)) {
@@ -578,6 +628,16 @@ export const register: Register = (on, options) => {
       $.ui.status(undefined)
       return { text: `✗ ${error instanceof Error ? error.message : String(error)}` }
     }
+  })
+
+  // After Claude got credentials, check the profiles again so setup moves on by itself.
+  on('turn.complete', async ($, e, next) => {
+    const out = await next(e)
+    if (isAwaitingSignIn && e.agentId === undefined) {
+      isAwaitingSignIn = false
+      $.clock.after(0, () => void recheckProfiles($))
+    }
+    return out
   })
 
   on('tool.call', { tool: TOOL }, async ($, e, next) => {
@@ -621,14 +681,20 @@ export const register: Register = (on, options) => {
           {w.message !== '' && <Text color={w.message.startsWith('✗') ? 'red' : 'yellow'} wrap="wrap">{w.message}</Text>}
           {w.showBuildspec && <Markdown key="spec" text={'```yaml\n' + w.buildspec + '```'} />}
           <Box flexDirection="row" columnGap={1}>
-            <Button key="go" variant="primary" hotkey="b" label={w.isBusy ? 'Working…' : !w.isIdentityOk ? 'Sign in to AWS first' : w.isConfigured ? 'Build' : 'Set up & build'} onPress={() => void setupAndBuild($)} />
+            {w.isIdentityOk ? (
+              <Button key="go" variant="primary" hotkey="b" label={w.isBusy ? 'Working…' : w.isConfigured ? 'Build' : 'Set up & build'} onPress={() => void setupAndBuild($)} />
+            ) : (
+              <Button key="login" variant="primary" hotkey="l" label={w.isSso ? 'Sign in with SSO' : 'Sign me in'} onPress={() => void signIn($, '')} />
+            )}
             {!w.hasOwnBuildspec && <Button key="spec-toggle" hotkey="s" label={w.showBuildspec ? 'Hide buildspec' : 'Show buildspec'} onPress={() => void update($, wizardAtom, x => (x === null ? x : { ...x, showBuildspec: !x.showBuildspec }))} />}
             <Button key="cancel" hotkey="x" label="Close" role="dismiss" onPress={() => void $.ui.close({ id: PANE })} />
           </Box>
           <Text dimColor wrap="wrap">
             {w.isIdentityOk
               ? '  or just run /codebuild again · Esc returns to the prompt'
-              : '  Sign in to AWS in a terminal (aws configure, or aws sso login --profile <name>), then run /codebuild again.'}
+              : w.isSso
+                ? '  or run /codebuild login: it runs aws sso login and opens your browser.'
+                : '  or run /codebuild login: Claude gets you credentials its own way, then setup checks again.'}
           </Text>
         </Box>
       )

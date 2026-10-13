@@ -180,3 +180,29 @@ export function reportForClaude(b: BuildView, log: readonly string[], computeTyp
   if (tail.length > 0) lines.push('', `Last ${tail.length} log lines:`, '```', ...tail, '```')
   return lines.join('\n')
 }
+
+/** What the person's AWS identity needs, for a sign-in request: every action, scoped to what the mod touches. */
+export function requiredPermissions(account: string): string {
+  const where = account === '' ? 'your account' : `account ${account}`
+  const own = account === '' ? '<account>' : account
+  return [
+    `In ${where}, any region:`,
+    '- sts:GetCallerIdentity',
+    `- S3 on buckets claude-codebuild-${own}-*: ListBucket, CreateBucket, PutBucketPublicAccessBlock, PutLifecycleConfiguration, PutBucketTagging, GetBucketLocation, PutObject, GetObject, DeleteObject (under sources/claude-*), DeleteBucket`,
+    `- IAM on role ${ROLE}: GetRole, CreateRole, TagRole, PutRolePolicy, PassRole (to codebuild.amazonaws.com), DeleteRolePolicy, DeleteRole`,
+    '- CodeBuild on projects claude-*: BatchGetProjects, CreateProject, StartBuild, BatchGetBuilds, StopBuild, DeleteProject',
+    '- CloudWatch Logs on log groups /aws/codebuild/claude-*: GetLogEvents, DescribeLogStreams, DeleteLogGroup',
+  ].join('\n')
+}
+
+/** The request Claude gets when nobody is signed in: sign-in is the environment's business, so Claude picks the way. */
+export function signInRequest(profiles: string, permissions: string): string {
+  return [
+    'I want to build this repo on AWS CodeBuild with the codebuild mod, but none of my AWS profiles has working credentials' + (profiles === '' ? '.' : ` (${profiles}).`),
+    'Get me working credentials in an AWS profile, using whatever this environment provides for AWS sign-in (an AWS credentials tool if you have one, else tell me the exact command to run, such as aws sso login --profile <name> or aws configure).',
+    'If you need an account ID, a role or a profile name and can\'t find them from my configured profiles, ask me.',
+    'The profile needs these permissions:',
+    permissions,
+    'Don\'t start a build yourself; the mod checks the profiles again when you\'re done.',
+  ].join('\n')
+}
