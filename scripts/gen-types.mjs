@@ -38,8 +38,10 @@ const run = spawnSync(bin, ['-p', '--plugin-dir', mod, '/typegen'], {
   cwd: work,
   encoding: 'utf8',
   timeout: 120_000,
-  // A throwaway config dir: nothing is read from or written to yours.
-  env: { ...process.env, CLAUDE_CONFIG_DIR: join(work, 'config') },
+  // A throwaway config dir: nothing is read from or written to yours. Since
+  // 2.1.296 the declarations are laid only in a watched plugin dir, and -p
+  // doesn't watch unless asked.
+  env: { ...process.env, CLAUDE_CONFIG_DIR: join(work, 'config'), CLAUDE_CODE_PLUGIN_DIR_WATCH: '1' },
 })
 
 const types = join(mod, '.claude-plugin', 'types')
