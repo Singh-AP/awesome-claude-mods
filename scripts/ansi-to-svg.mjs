@@ -51,7 +51,8 @@ function widthOf(cp) {
 
 const escapeXml = s => s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
 
-const raw = readFileSync(input, 'utf8').replace(/\r/g, '')
+// OSC sequences (hyperlinks, titles) draw nothing: drop them before parsing.
+const raw = readFileSync(input, 'utf8').replace(/\r/g, '').replace(/\x1b\][^\x07\x1b]*(?:\x07|\x1b\\)/g, '')
 let lines = raw.split('\n')
 while (lines.length > 0 && lines.at(-1).replace(/\x1b\[[0-9;]*m/g, '').trim() === '') lines.pop()
 // --pick 2-16,30-40 keeps those rows (1-based, inclusive); else --crop-top and --rows.
@@ -132,7 +133,9 @@ for (let row = 0; row < lines.length; row++) {
       const fg = style.inverse ? (style.bg ?? BG) : (style.fg ?? FG)
       const bg = style.inverse ? (style.fg ?? FG) : style.bg
       if (bg && w > 0) rects.push({ row, col, cells: w, color: bg })
-      if (ch === ' ' && !run) {
+      // Every word sits at its own column, so the picture lines up in any monospace font.
+      if (ch === ' ') {
+        flush()
         col += 1
         continue
       }
@@ -171,8 +174,6 @@ for (const r of runs) {
   if (r.style.dim) attrs.push('fill-opacity="0.6"')
   if (r.style.italic) attrs.push('font-style="italic"')
   if (r.style.underline) attrs.push('text-decoration="underline"')
-  const cells = [...r.text].reduce((n, ch) => n + widthOf(ch.codePointAt(0)), 0)
-  if (!r.hasWide) attrs.push(`textLength="${(cells * CELL).toFixed(1)}" lengthAdjust="spacing"`)
   body.push(`<text ${attrs.join(' ')}>${escapeXml(r.text)}</text>`)
 }
 

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "testCount": 809,
+  "testCount": 811,
   "categories": [
     {
       "id": "safety",
@@ -158,7 +158,8 @@
       "name": "codebuild",
       "category": "cloud",
       "emoji": "☁️",
-      "tagline": "Build any repo on AWS CodeBuild: pick a profile, press Build. Self-setup, live logs, Claude fixes"
+      "tagline": "Build any repo on AWS CodeBuild: pick a profile, press Build. Self-setup, live logs, Claude fixes",
+      "screenshot": "assets/screens/codebuild.svg"
     },
     {
       "name": "done-ding",

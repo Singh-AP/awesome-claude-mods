@@ -12,7 +12,7 @@
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 [![Mods](https://img.shields.io/badge/curated%20mods-97-D97757)](#-browse-all-mods)
 [![Index](https://img.shields.io/badge/indexed-3,454-8A63D2)](#-the-full-index)
-[![Tests](https://img.shields.io/badge/tests-809%20passing-2ea44f)](#-quality-bar)
+[![Tests](https://img.shields.io/badge/tests-811%20passing-2ea44f)](#-quality-bar)
 [![CI](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml/badge.svg)](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-%E2%89%A5%202.1.287-D97757)](https://code.claude.com/docs/en/plugins/mods/overview)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -103,8 +103,8 @@ Real captures from Claude Code sessions with the mods loaded, not mockups.
 <td width="33%" align="center"><a href="mods/safety/secret-shield/"><img src="assets/screens/secret-shield.svg" alt="secret-shield"></a><br><sub><b>🔐 secret-shield</b></sub></td>
 </tr>
 <tr>
+<td width="33%" align="center"><a href="mods/cloud/codebuild/"><img src="assets/screens/codebuild.svg" alt="codebuild"></a><br><sub><b>☁️ codebuild</b></sub></td>
 <td width="33%" align="center"><a href="mods/awareness/tool-radar/"><img src="assets/screens/tool-radar.svg" alt="tool-radar"></a><br><sub><b>📡 tool-radar</b></sub></td>
-<td width="33%" align="center"><a href="mods/awareness/test-pulse/"><img src="assets/screens/test-pulse.svg" alt="test-pulse"></a><br><sub><b>🧪 test-pulse</b></sub></td>
 <td width="33%" align="center"><a href="mods/fun/wrapped/"><img src="assets/screens/wrapped.svg" alt="wrapped"></a><br><sub><b>🎁 wrapped</b></sub></td>
 </tr>
 </table>
@@ -301,7 +301,7 @@ Every mod in this repo:
 
 - passes `claude plugin validate --strict`, which also prints exactly which events it hooks and which APIs it calls. That output is published in **[What each mod can touch](docs/capabilities.md)**, and CI fails if it drifts
 - type-checks under strict TypeScript
-- ships tests that run on every push, and every week against the newest Claude Code (**809 tests** right now)
+- ships tests that run on every push, and every week against the newest Claude Code (**811 tests** right now)
 - was run in a real Claude Code session before it was merged
 - sends no telemetry, and makes network calls only when its README says so
 

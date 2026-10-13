@@ -2,6 +2,10 @@
 
 > Build any repo on AWS CodeBuild without leaving Claude Code. Pick an AWS profile, press **Build**. No console, no YAML, no CI to set up.
 
+<img src="../../../assets/screens/codebuild.svg" alt="codebuild in a real Claude Code session: Claude fixed a failing test and the rebuild passed" width="100%">
+
+<sub>A real session: build #1 failed, Claude read the log, fixed the code and built again through its tool. It passed in 24s, for about $0.005.</sub>
+
 ```text
 ☁️ Build on AWS CodeBuild
   AWS profile   [ dev ▾ ]
@@ -89,8 +93,12 @@ It needs the [AWS CLI](https://aws.amazon.com/cli/) (v2), signed in any way the 
 ## Test it
 
 ```shell
-claude plugin test mods/cloud/codebuild   # 16 tests, with the AWS CLI and git stubbed
+claude plugin test mods/cloud/codebuild   # 18 tests, with the AWS CLI and git stubbed
 ```
+
+## Tested for real
+
+In a personal AWS account in us-east-1, the first build created the bucket, role and project in about 20 seconds. It ran `npm test` on CodeBuild and streamed the failure into the pane. **Ask Claude to fix** gave Claude the log; Claude fixed the code and rebuilt through the tool, and it went green.
 
 ## Limitations
 

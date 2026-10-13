@@ -113,6 +113,29 @@ export function parseBuild(raw: RawBuild, c: Config, startedBy: 'you' | 'claude'
 
 export const isDone = (b: BuildView) => b.status !== 'IN_PROGRESS'
 
+// Phases worth a glance; the rest (queued, finalizing...) show only when they fail.
+const MAIN_PHASES = ['PROVISIONING', 'DOWNLOAD_SOURCE', 'INSTALL', 'PRE_BUILD', 'BUILD', 'POST_BUILD']
+
+/** The phases the pane lists: the main ones, plus any that failed. */
+export const shownPhases = (b: BuildView) =>
+  b.phases.filter(p => MAIN_PHASES.includes(p.name) || (p.status !== 'SUCCEEDED' && p.status !== 'IN_PROGRESS' && p.name !== 'COMPLETED'))
+
+/**
+ * The log lines that explain the outcome: for a failed build, everything up
+ * to CodeBuild's "Command did not exit successfully" line, not the bookkeeping after it.
+ */
+export function usefulLog(b: BuildView, log: readonly string[]): readonly string[] {
+  const lines = log.filter(line => !isBookkeeping(line))
+  if (b.status === 'SUCCEEDED' || b.status === 'IN_PROGRESS') return lines
+  const at = lines.findIndex(line => /Command did not exit successfully|Phase complete: \w+ State: FAILED/.test(line))
+  return at < 0 ? lines : lines.slice(0, at + 1)
+}
+
+// CodeBuild's own housekeeping lines: kept in the console, left out of the pane and of Claude's report.
+const BOOKKEEPING = /^\[Container\] \S+ \S+ (Phase context status code|Expanding|Assembling file list|Set report auto-discover|No matching auto-discover|Report auto-discover|Skip cleanup|Selecting|Processing environment|Moving to directory|Registering with agent|Waiting for agent|Phases found|Cache is not defined|Successfully updated|Waiting for DOWNLOAD_SOURCE|Entering phase|Phase complete: (?!BUILD State: FAILED))/
+
+export const isBookkeeping = (line: string) => BOOKKEEPING.test(line)
+
 export function duration(ms: number): string {
   const s = Math.max(0, Math.round(ms / 1000))
   return s < 60 ? `${s}s` : `${Math.floor(s / 60)}m ${String(s % 60).padStart(2, '0')}s`
@@ -153,7 +176,7 @@ export function reportForClaude(b: BuildView, log: readonly string[], computeTyp
   const head = `CodeBuild build #${b.number} (${b.project}) ${b.status} after ${took}, about $${costOf((b.endedAt ?? b.startedAt) - b.startedAt, computeType).toFixed(3)}.`
   const lines = [head, `Console: ${b.consoleUrl}`]
   if (b.failure !== undefined) lines.push(`Failed phase: ${b.failure}`)
-  const tail = log.slice(b.status === 'SUCCEEDED' ? -15 : -80)
+  const tail = usefulLog(b, log).slice(b.status === 'SUCCEEDED' ? -15 : -80)
   if (tail.length > 0) lines.push('', `Last ${tail.length} log lines:`, '```', ...tail, '```')
   return lines.join('\n')
 }

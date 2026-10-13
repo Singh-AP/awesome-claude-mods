@@ -328,7 +328,7 @@
       "name": "codebuild",
       "source": "./mods/cloud/codebuild",
       "description": "Build any repo on AWS CodeBuild from Claude Code: pick an AWS profile, press Build. Sets itself up, generates the buildspec, streams logs into a pane, and lets Claude fix failures.",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "category": "cloud",
       "tags": [
         "mod",

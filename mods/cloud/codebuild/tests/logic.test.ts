@@ -1,6 +1,6 @@
 import { describe, expect, test } from 'claude-code/testing'
 
-import { explainAwsError, isSecretPath, parseBuild, projectName, rolePolicy, statusText, trustPolicy, type Config } from '../hooks/aws'
+import { explainAwsError, isSecretPath, parseBuild, projectName, rolePolicy, shownPhases, statusText, trustPolicy, usefulLog, type Config } from '../hooks/aws'
 import { planBuild, yamlString } from '../hooks/buildspec'
 
 const C: Config = { profile: 'dev', region: 'us-west-2', account: '123456789012', repo: '/work/app', project: 'claude-app-abc123', bucket: 'claude-codebuild-123456789012-us-west-2', role: 'claude-codebuild-service-role' }
@@ -76,4 +76,27 @@ describe('aws helpers', () => {
     expect(statusText(view, 0)).toBe('☁️ ❌ #7 failed in BUILD · 2m 05s')
     expect(view.consoleUrl).toContain('us-west-2.console.aws.amazon.com/codesuite/codebuild/123456789012/projects/claude-app-abc123/build/claude-app%3A1')
   })
+})
+
+test('a failed build shows the lines that explain it, not the bookkeeping after', () => {
+  const view = parseBuild({ buildStatus: 'FAILED', phases: [
+    { phaseType: 'QUEUED', phaseStatus: 'SUCCEEDED' }, { phaseType: 'INSTALL', phaseStatus: 'SUCCEEDED' },
+    { phaseType: 'BUILD', phaseStatus: 'FAILED' }, { phaseType: 'FINALIZING', phaseStatus: 'SUCCEEDED' }, { phaseType: 'COMPLETED' },
+  ] }, C, 'you')
+  expect(shownPhases(view).map(p => p.name)).toEqual(['INSTALL', 'BUILD'])
+  const log = ['npm test', 'not ok 1 - totals', '[Container] Command did not exit successfully npm test exit status 1', '[Container] Entering phase POST_BUILD', '[Container] Expanding **/*']
+  expect(usefulLog(view, log).at(-1)).toMatch(/did not exit successfully/)
+  expect(usefulLog({ ...view, status: 'SUCCEEDED' }, log)).toEqual(log)
+})
+
+test('CodeBuild bookkeeping is left out, commands and output stay', () => {
+  const view = parseBuild({ buildStatus: 'SUCCEEDED' }, C, 'you')
+  const log = [
+    '[Container] 2026/10/13 09:57:30.1 Running command npm test',
+    '# pass 1',
+    '[Container] 2026/10/13 09:57:43.9 Phase complete: BUILD State: SUCCEEDED',
+    '[Container] 2026/10/13 09:57:43.9 Phase context status code:  Message:',
+    '[Container] 2026/10/13 09:57:44.0 Expanding **/*',
+  ]
+  expect(usefulLog(view, log)).toEqual(log.slice(0, 2))
 })

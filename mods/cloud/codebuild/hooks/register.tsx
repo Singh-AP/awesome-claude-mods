@@ -4,7 +4,7 @@ import type { EngineInterface, Register } from 'claude-code'
 import type { BuildView, Wizard } from '../types'
 import {
   bucketName, costOf, duration, explainAwsError, isDone, isSecretPath, lifecycle, parseBuild, PRICE_PER_MINUTE,
-  projectInput, projectName, reportForClaude, ROLE, rolePolicy, statusText, TAG, trustPolicy,
+  projectInput, projectName, reportForClaude, ROLE, rolePolicy, shownPhases, statusText, TAG, trustPolicy, usefulLog,
   type Config, type Target,
 } from './aws'
 import { planBuild, type Plan, type ProjectFiles } from './buildspec'
@@ -533,7 +533,7 @@ export const register: Register = (on, options) => {
         <Box flexDirection="column">
           <Text bold>☁️ Build on AWS CodeBuild</Text>
           {w.profiles.length > 0 ? (
-            <Select key="profile" label="AWS profile" value={w.profile} options={w.profiles.map(p => ({ value: p, label: p }))} onSelect={value => void pickProfile($, value)} />
+            <Select key="profile" label="AWS profile" value={w.profile} options={(w.profiles.includes(w.profile) || w.profile === '' ? w.profiles : [w.profile, ...w.profiles]).map(p => ({ value: p, label: p }))} onSelect={value => void pickProfile($, value)} />
           ) : (
             <Input key="profile-name" label="AWS profile" value={w.profile} placeholder="default" submitLabel="Check" onSubmit={value => void pickProfile($, value)} />
           )}
@@ -558,8 +558,8 @@ export const register: Register = (on, options) => {
     const log = await read($, logAtom)
     const isRunning = !isDone(build)
     const color = build.status === 'SUCCEEDED' ? 'green' : isRunning ? 'yellow' : 'red'
-    const glyph = (status: string) => (status === 'SUCCEEDED' ? '✓' : status === 'IN_PROGRESS' ? '◐' : '✗')
-    const phases = build.phases.map(p => `${glyph(p.status)} ${p.name.toLowerCase().replace(/_/g, ' ')}${p.seconds ? ` ${p.seconds}s` : ''}`).join('  ')
+    const glyph = (status: string) => (status === 'SUCCEEDED' ? '✓' : status === 'IN_PROGRESS' ? (isRunning ? '◐' : '✓') : '✗')
+    const phases = shownPhases(build).map(p => `${glyph(p.status)} ${p.name.toLowerCase().replace(/_/g, ' ')}${p.seconds ? ` ${p.seconds}s` : ''}`).join('  ')
     const rows = e.props.placement === 'dock' ? Math.max(4, e.props.scroll.bodyRows - 9) : 14
     return (
       <Box flexDirection="column">
@@ -567,7 +567,7 @@ export const register: Register = (on, options) => {
         <Text dimColor wrap="truncate-end">{`${build.project} · started by ${build.startedBy}${build.failure ? ` · ${build.failure}` : ''}`}</Text>
         <Text wrap="wrap">{phases || 'submitted'}</Text>
         <Box flexDirection="column">
-          {(log.length === 0 ? ['(waiting for logs…)'] : log.slice(-rows)).map((line, i) => (
+          {(log.length === 0 ? ['(waiting for logs…)'] : usefulLog(build, log).slice(-rows)).map((line, i) => (
             <Text key={`l${i}`} dimColor wrap="truncate-end">{line.slice(0, width)}</Text>
           ))}
         </Box>

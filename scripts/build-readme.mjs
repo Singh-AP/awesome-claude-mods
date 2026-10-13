@@ -112,9 +112,9 @@ function installTable() {
 }
 
 function gallery() {
-  const order = ['bash-guard', 'command-explainer', 'secret-shield', 'tool-radar', 'test-pulse', 'wrapped']
+  const order = ['bash-guard', 'command-explainer', 'secret-shield', 'codebuild', 'tool-radar', 'wrapped']
   const shots = mods
-    .filter(m => m.screenshot !== undefined && existsSync(join(root, m.screenshot)))
+    .filter(m => m.screenshot !== undefined && existsSync(join(root, m.screenshot)) && order.includes(m.name))
     .sort((a, b) => (order.indexOf(a.name) + 1 || 99) - (order.indexOf(b.name) + 1 || 99))
   if (shots.length === 0) return ''
   const cells = shots.map(m =>
