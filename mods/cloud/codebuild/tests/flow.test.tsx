@@ -42,6 +42,7 @@ function world(on: On, outcome: 'SUCCEEDED' | 'FAILED' = 'SUCCEEDED', created = 
       if (args[0] === 'write-tree') return ok('abc123\n')
       return ok()
     }
+    if (cmd === 'aws' && args.includes('gone')) return fail('The config profile (gone) could not be found')
     const sub = `${args[0]} ${args[1]}`
     if (sub === 'configure list-profiles') return ok('default\ndev\n')
     if (sub === 'configure get') return ok('us-west-2\n')
@@ -139,4 +140,15 @@ test('without anyone to ask, Claude is told the build needs the user', async ($,
   on('tool.call', () => ({ deny: 'headless' }))
   const out = await $.tool.call({ tool: 'mcp__codebuild__build' })
   expect(String(out.result)).toMatch(/needs the user's OK/)
+})
+
+test('a remembered profile that no longer exists opens the setup screen instead of failing', async ($, on) => {
+  const { w } = world(on, 'SUCCEEDED', { bucket: true, role: true, project: true }, { 'repo:/work/app': { profile: 'gone', region: 'us-east-1', account: '123456789012', repo: '/work/app', project: 'p', bucket: 'b', role: 'r' } })
+  void w
+  on('ui.render', () => ({ type: 'Text' as const, props: {}, children: ['engine'] }))
+  const out = await $.command.run({ command: 'codebuild', args: '', ...TYPED })
+  expect(out.text).toMatch(/Pick a working AWS profile/)
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  const picker = await ui.find({ key: 'profile' })
+  expect((picker?.props as { value?: string }).value).toBe('default')
 })

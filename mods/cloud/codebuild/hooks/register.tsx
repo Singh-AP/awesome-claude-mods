@@ -125,7 +125,10 @@ async function openWizard($: EngineInterface, repoArg: string): Promise<void> {
   const saved = (await $.store.get(`repo:${repo}`)) as Config | undefined
   const profiles = await listProfiles($)
   const envProfile = (await $.env.get('AWS_PROFILE')) ?? ''
-  const profile = saved?.profile ?? (settings.profile || envProfile || (profiles.includes('default') ? 'default' : profiles[0] ?? ''))
+  // A remembered profile wins only while this machine still has it.
+  const isSavedUsable = saved !== undefined && (profiles.length === 0 || profiles.includes(saved.profile))
+  const fallback = settings.profile || envProfile || (profiles.includes('default') ? 'default' : profiles[0] ?? '')
+  const profile = isSavedUsable ? saved.profile : fallback
   const { plan, hasOwnBuildspec } = await inspectRepo($, repo).catch(() => ({ plan: planBuild({ names: [] }), hasOwnBuildspec: false }))
   await update($, modeAtom, () => 'wizard')
   await update($, wizardAtom, () => ({
@@ -498,9 +501,18 @@ export const register: Register = (on, options) => {
         return { text: `Build #${view.number} is still running.` }
       }
       await $.ui.open({ id: PANE, title: 'CodeBuild' })
-      const started = await launch($, saved, 'you')
-      followBuild($)
-      return { text: `Started build #${started.number} of ${repo} on ${saved.project} (${saved.region}).` }
+      try {
+        const started = await launch($, saved, 'you')
+        followBuild($)
+        return { text: `Started build #${started.number} of ${repo} on ${saved.project} (${saved.region}).` }
+      } catch (error) {
+        // The remembered profile is gone or signed out: hand back the setup screen instead of a dead end.
+        const why = error instanceof Error ? error.message : String(error)
+        $.ui.status(undefined)
+        await openWizard($, repo)
+        await update($, wizardAtom, w => (w === null ? w : { ...w, message: `✗ ${why}` }))
+        return { text: `✗ ${why}\nPick a working AWS profile in the CodeBuild pane, then press Build.` }
+      }
     } catch (error) {
       $.ui.status(undefined)
       return { text: `✗ ${error instanceof Error ? error.message : String(error)}` }
