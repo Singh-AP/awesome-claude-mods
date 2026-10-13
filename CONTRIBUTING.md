@@ -24,7 +24,7 @@ npm run setup:claude    # optional: this repo's own Claude Code, under .tools/ a
 cp -R templates/mod-template mods/<category>/<your-mod>
 ```
 
-Categories: `safety`, `cost`, `awareness`, `productivity`, `notifications`, `fun`.
+Categories: `safety`, `cost`, `awareness`, `productivity`, `cloud`, `notifications`, `fun`.
 
 1. Rename it in `.claude-plugin/plugin.json` (the name must not start with `claude-`) and write `hooks/register.ts`. The [practical guide](docs/writing-mods.md) has the patterns and the gotchas.
 2. Write tests in `tests/*.test.ts`, then run `claude plugin test mods/<category>/<your-mod>`.

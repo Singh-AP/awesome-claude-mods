@@ -5,14 +5,14 @@
 
 # Awesome Claude Mods
 
-**The best Claude Code mods, hand-picked and tested. 20 built here, 96 in the list, 44 installable with one command.**
+**The best Claude Code mods, hand-picked and tested. 21 built here, 97 in the list, 45 installable with one command.**
 
 [Install](#-install-in-30-seconds) · [Gallery](#%EF%B8%8F-gallery) · [Browse](#-browse-all-mods) · [Start here](#-start-here) · [Full index](#-the-full-index) · [Build your own](#%EF%B8%8F-build-your-own-mod)
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-[![Mods](https://img.shields.io/badge/curated%20mods-96-D97757)](#-browse-all-mods)
+[![Mods](https://img.shields.io/badge/curated%20mods-97-D97757)](#-browse-all-mods)
 [![Index](https://img.shields.io/badge/indexed-3,454-8A63D2)](#-the-full-index)
-[![Tests](https://img.shields.io/badge/tests-793%20passing-2ea44f)](#-quality-bar)
+[![Tests](https://img.shields.io/badge/tests-809%20passing-2ea44f)](#-quality-bar)
 [![CI](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml/badge.svg)](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-%E2%89%A5%202.1.287-D97757)](https://code.claude.com/docs/en/plugins/mods/overview)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
@@ -32,7 +32,7 @@ Inside Claude Code:
 /plugin install bash-guard@awesome-claude-mods
 ```
 
-That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any of the 44 mods marked installable below: the 20 built here, plus 24 community and Anthropic mods we reviewed and pinned to a commit.
+That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any of the 45 mods marked installable below: the 21 built here, plus 24 community and Anthropic mods we reviewed and pinned to a commit.
 
 <details>
 <summary><b>Every install command</b></summary>
@@ -55,6 +55,7 @@ That's it. The mod is live once you run `/reload-plugins` or start a new session
 | 📎 [snippets](mods/productivity/snippets/) | this repo | `/plugin install snippets@awesome-claude-mods` |
 | 🗣️ [standup](mods/productivity/standup/) | this repo | `/plugin install standup@awesome-claude-mods` |
 | 📝 [tldr](mods/productivity/tldr/) | this repo | `/plugin install tldr@awesome-claude-mods` |
+| ☁️ [codebuild](mods/cloud/codebuild/) | this repo | `/plugin install codebuild@awesome-claude-mods` |
 | 🔔 [done-ding](mods/notifications/done-ding/) | this repo | `/plugin install done-ding@awesome-claude-mods` |
 | 🐱 [buddy](mods/fun/buddy/) | this repo | `/plugin install buddy@awesome-claude-mods` |
 | 🎁 [wrapped](mods/fun/wrapped/) | this repo | `/plugin install wrapped@awesome-claude-mods` |
@@ -195,6 +196,12 @@ Mods without a byline are built and tested in this repo. Community mods are cred
 *   [🌍 fanyi](https://github.com/JrCx7scC/claude-code-fanyi) - Write to Claude in your own language; each reply gets a streamed translation underneath <sub>by [JrCx7scC](https://github.com/JrCx7scC)</sub>
 *   [⏪ auto-checkpoint](https://github.com/Justmalhar/awesome-claude-mods/tree/main/mods/auto-checkpoint) - A hidden git snapshot at the start of every turn; /undo-turn rolls back what Claude did <sub>by [Justmalhar](https://github.com/Justmalhar) · 📦 installable here</sub>
 
+### ☁️ CI & Cloud
+
+*Build and test on real infrastructure without leaving Claude Code.*
+
+*   [☁️ codebuild](mods/cloud/codebuild/) - Build any repo on AWS CodeBuild: pick a profile, press Build. Self-setup, live logs, Claude fixes
+
 ### 🔔 Notifications
 
 *Walk away. Get pinged when Claude is done or needs you.*
@@ -294,7 +301,7 @@ Every mod in this repo:
 
 - passes `claude plugin validate --strict`, which also prints exactly which events it hooks and which APIs it calls. That output is published in **[What each mod can touch](docs/capabilities.md)**, and CI fails if it drifts
 - type-checks under strict TypeScript
-- ships tests that run on every push, and every week against the newest Claude Code (**793 tests** right now)
+- ships tests that run on every push, and every week against the newest Claude Code (**809 tests** right now)
 - was run in a real Claude Code session before it was merged
 - sends no telemetry, and makes network calls only when its README says so
 

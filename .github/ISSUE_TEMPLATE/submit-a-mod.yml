@@ -38,6 +38,7 @@ body:
         - Cost & Context
         - Status & Awareness
         - Productivity & Workflow
+        - CI & Cloud
         - Notifications
         - Fun & Games
     validations:

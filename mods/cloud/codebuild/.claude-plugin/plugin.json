@@ -1,0 +1,38 @@
+{
+  "name": "codebuild",
+  "version": "1.0.0",
+  "description": "Build any repo on AWS CodeBuild from Claude Code: pick an AWS profile, press Build. Sets itself up, generates the buildspec, streams logs into a pane, and lets Claude fix failures.",
+  "author": { "name": "awesome-claude-mods", "url": "https://github.com/Singh-AP/awesome-claude-mods" },
+  "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/cloud/codebuild",
+  "repository": "https://github.com/Singh-AP/awesome-claude-mods",
+  "license": "MIT",
+  "keywords": ["mod", "aws", "codebuild", "ci", "build", "cloud"],
+  "types": "./types/index.d.ts",
+  "userConfig": {
+    "profile": {
+      "type": "string",
+      "title": "Default AWS profile",
+      "description": "Used when a repo hasn't been set up yet. Empty: AWS_PROFILE, else default.",
+      "default": ""
+    },
+    "region": {
+      "type": "string",
+      "title": "Region",
+      "description": "Empty: the profile's own region, else us-east-1.",
+      "default": ""
+    },
+    "computeType": {
+      "type": "string",
+      "title": "Machine size",
+      "description": "CodeBuild compute type for new builds.",
+      "default": "BUILD_GENERAL1_SMALL",
+      "options": ["BUILD_GENERAL1_SMALL", "BUILD_GENERAL1_MEDIUM", "BUILD_GENERAL1_LARGE"]
+    },
+    "image": {
+      "type": "string",
+      "title": "Build image",
+      "description": "The CodeBuild image new projects use.",
+      "default": "aws/codebuild/amazonlinux-x86_64-standard:5.0"
+    }
+  }
+}

@@ -1,6 +1,6 @@
 {
   "version": "1.0.0",
-  "testCount": 793,
+  "testCount": 809,
   "categories": [
     {
       "id": "safety",
@@ -25,6 +25,12 @@
       "emoji": "⚡",
       "title": "Productivity & Workflow",
       "blurb": "Less typing, more shipping."
+    },
+    {
+      "id": "cloud",
+      "emoji": "☁️",
+      "title": "CI & Cloud",
+      "blurb": "Build and test on real infrastructure without leaving Claude Code."
     },
     {
       "id": "notifications",
@@ -147,6 +153,12 @@
       "category": "productivity",
       "emoji": "📝",
       "tagline": "A one-line TL;DR under every long answer, written by a small, fast model"
+    },
+    {
+      "name": "codebuild",
+      "category": "cloud",
+      "emoji": "☁️",
+      "tagline": "Build any repo on AWS CodeBuild: pick a profile, press Build. Self-setup, live logs, Claude fixes"
     },
     {
       "name": "done-ding",

@@ -325,6 +325,26 @@
       "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/productivity/tldr"
     },
     {
+      "name": "codebuild",
+      "source": "./mods/cloud/codebuild",
+      "description": "Build any repo on AWS CodeBuild from Claude Code: pick an AWS profile, press Build. Sets itself up, generates the buildspec, streams logs into a pane, and lets Claude fix failures.",
+      "version": "1.0.0",
+      "category": "cloud",
+      "tags": [
+        "mod",
+        "aws",
+        "codebuild",
+        "ci",
+        "build",
+        "cloud"
+      ],
+      "author": {
+        "name": "awesome-claude-mods",
+        "url": "https://github.com/Singh-AP/awesome-claude-mods"
+      },
+      "homepage": "https://github.com/Singh-AP/awesome-claude-mods/tree/main/mods/cloud/codebuild"
+    },
+    {
       "name": "done-ding",
       "source": "./mods/notifications/done-ding",
       "description": "Go make coffee: a desktop notification, a chime, and optionally a phone push when a long Claude turn finishes or Claude is waiting on you.",

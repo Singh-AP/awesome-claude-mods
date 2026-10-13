@@ -1,0 +1,1 @@
+{ "description": "codebuild hooks module", "modules": ["./register.tsx"] }

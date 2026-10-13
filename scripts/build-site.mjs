@@ -11,7 +11,8 @@ import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const REPO = 'Singh-AP/awesome-claude-mods'
-export const SIZE_BUDGET = 700 * 1024
+// GitHub Pages serves it gzipped, about a quarter of this on the wire.
+export const SIZE_BUDGET = 1536 * 1024
 const TEXT_LIMIT = 160
 
 // Categories the index has beyond the registry's own.
