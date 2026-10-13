@@ -13,7 +13,7 @@ const ok = (stdout = '') => ({ value: { exitCode: 0, stdout, stderr: '', isStdou
 const fail = (stderr: string) => ({ value: { exitCode: 254, stdout: '', stderr, isStdoutTruncated: false, isStderrTruncated: false } })
 
 /** A fake AWS account and git repo beneath the mod. */
-function world(on: On, outcome: 'SUCCEEDED' | 'FAILED' = 'SUCCEEDED', created = { bucket: false, role: false, project: false }, store: Record<string, unknown> = {}) {
+function world(on: On, outcome: 'SUCCEEDED' | 'FAILED' = 'SUCCEEDED', created = { bucket: false, role: false, project: false }, store: Record<string, unknown> = {}, isSignedOut = false) {
   const w: World = { calls: [], rmStdin: [], toasts: [], prompts: [], outcome, polls: 0 }
   mock.store(on, store)
   const clock = mock.clock(on, { now: Date.parse('2026-10-13T10:00:00Z') })
@@ -43,6 +43,7 @@ function world(on: On, outcome: 'SUCCEEDED' | 'FAILED' = 'SUCCEEDED', created = 
       return ok()
     }
     if (cmd === 'aws' && args.includes('gone')) return fail('The config profile (gone) could not be found')
+    if (cmd === 'aws' && args[0] === 'sts' && isSignedOut) return fail('Unable to locate credentials. You can configure credentials by running "aws configure".')
     if (cmd === 'aws' && args[0] === 'sts' && args.includes('default')) return fail('Unable to locate credentials. You can configure credentials by running "aws configure".')
     const sub = `${args[0]} ${args[1]}`
     if (sub === 'configure list-profiles') return ok('default\ndev\n')
@@ -193,4 +194,14 @@ test('/codebuild fix submits the failure to Claude once the command has returned
   expect(w.prompts).toEqual([])
   await clock.settle()
   expect(w.prompts[0]).toMatch(/Find the cause and fix it[\s\S]*not ok 1/)
+})
+
+test('with no working credentials, setup says to sign in instead of offering to build', async ($, on) => {
+  world(on, 'SUCCEEDED', undefined, {}, true)
+  on('ui.render', () => ({ type: 'Text' as const, props: {}, children: ['engine'] }))
+  const out = await $.command.run({ command: 'codebuild', args: '', ...TYPED })
+  expect(out.text).toMatch(/No AWS profile with working credentials/)
+  const ui = await $.ui.mount({ ...PANE, surface: 'terminal' })
+  expect((await ui.find({ key: 'go' }))?.props).toMatchObject({ label: 'Sign in to AWS first' })
+  expect(await ui.find({ type: 'Text', text: /Sign in to AWS in a terminal/ })).toBeDefined()
 })

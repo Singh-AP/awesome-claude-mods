@@ -95,7 +95,7 @@ It needs the [AWS CLI](https://aws.amazon.com/cli/) (v2), signed in any way the 
 ## Test it
 
 ```shell
-claude plugin test mods/cloud/codebuild   # 23 tests, with the AWS CLI and git stubbed
+claude plugin test mods/cloud/codebuild   # 24 tests, with the AWS CLI and git stubbed
 ```
 
 ## Tested for real

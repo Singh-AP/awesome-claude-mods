@@ -621,11 +621,15 @@ export const register: Register = (on, options) => {
           {w.message !== '' && <Text color={w.message.startsWith('✗') ? 'red' : 'yellow'} wrap="wrap">{w.message}</Text>}
           {w.showBuildspec && <Markdown key="spec" text={'```yaml\n' + w.buildspec + '```'} />}
           <Box flexDirection="row" columnGap={1}>
-            <Button key="go" variant="primary" hotkey="b" label={w.isBusy ? 'Working…' : w.isConfigured ? 'Build' : 'Set up & build'} onPress={() => void setupAndBuild($)} />
+            <Button key="go" variant="primary" hotkey="b" label={w.isBusy ? 'Working…' : !w.isIdentityOk ? 'Sign in to AWS first' : w.isConfigured ? 'Build' : 'Set up & build'} onPress={() => void setupAndBuild($)} />
             {!w.hasOwnBuildspec && <Button key="spec-toggle" hotkey="s" label={w.showBuildspec ? 'Hide buildspec' : 'Show buildspec'} onPress={() => void update($, wizardAtom, x => (x === null ? x : { ...x, showBuildspec: !x.showBuildspec }))} />}
             <Button key="cancel" hotkey="x" label="Close" role="dismiss" onPress={() => void $.ui.close({ id: PANE })} />
           </Box>
-          <Text dimColor>  or just run /codebuild again · Esc returns to the prompt</Text>
+          <Text dimColor wrap="wrap">
+            {w.isIdentityOk
+              ? '  or just run /codebuild again · Esc returns to the prompt'
+              : '  Sign in to AWS in a terminal (aws configure, or aws sso login --profile <name>), then run /codebuild again.'}
+          </Text>
         </Box>
       )
     }
