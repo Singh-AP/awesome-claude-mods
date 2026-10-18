@@ -256,7 +256,7 @@ Mods without a byline are built and tested in this repo. Community mods are cred
 
 ## 🌍 The full index
 
-Want everything? A GitHub Action scans GitHub every day for public mods, checks each one's `hooks.json`, and drops copies and test fixtures. It currently lists **4,046 mods across 2,261 repos**, sorted by stars and grouped by category. Last refreshed 2026-10-17.
+Want everything? A GitHub Action scans GitHub every day for public mods, checks each one's `hooks.json`, and drops copies and test fixtures. It currently lists **4,046 mods across 2,260 repos**, sorted by stars and grouped by category. Last refreshed 2026-10-18.
 
 **[Browse the full index →](catalog/README.md)**
 
