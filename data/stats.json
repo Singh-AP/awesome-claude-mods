@@ -1,19 +1,19 @@
 {
-  "updated": "2026-10-18",
-  "mods": 4046,
-  "repos": 2260,
-  "withUi": 2863,
-  "licensed": 2760,
+  "updated": "2026-10-19",
+  "mods": 4024,
+  "repos": 2252,
+  "withUi": 2855,
+  "licensed": 2751,
   "byCategory": {
-    "safety": 390,
-    "cost": 653,
-    "awareness": 1189,
-    "productivity": 848,
+    "safety": 387,
+    "cost": 651,
+    "awareness": 1184,
+    "productivity": 845,
     "notifications": 91,
-    "fun": 236,
-    "ui": 244,
-    "integrations": 234,
-    "other": 161
+    "fun": 235,
+    "ui": 242,
+    "integrations": 232,
+    "other": 157
   },
-  "newThisWeek": 1194
+  "newThisWeek": 670
 }
