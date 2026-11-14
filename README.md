@@ -11,7 +11,7 @@
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
 [![Mods](https://img.shields.io/badge/curated%20mods-99-D97757)](#-browse-all-mods)
-[![Index](https://img.shields.io/badge/indexed-4,291-8A63D2)](#-the-full-index)
+[![Index](https://img.shields.io/badge/indexed-4,285-8A63D2)](#-the-full-index)
 [![Tests](https://img.shields.io/badge/tests-819%20passing-2ea44f)](#-quality-bar)
 [![CI](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml/badge.svg)](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml)
 [![Claude Code](https://img.shields.io/badge/Claude%20Code-%E2%89%A5%202.1.287-D97757)](https://code.claude.com/docs/en/plugins/mods/overview)
@@ -256,7 +256,7 @@ Mods without a byline are built and tested in this repo. Community mods are cred
 
 ## 🌍 The full index
 
-Want everything? A GitHub Action scans GitHub every day for public mods, checks each one's `hooks.json`, and drops copies and test fixtures. It currently lists **4,291 mods across 2,396 repos**, sorted by stars and grouped by category. Last refreshed 2026-11-13.
+Want everything? A GitHub Action scans GitHub every day for public mods, checks each one's `hooks.json`, and drops copies and test fixtures. It currently lists **4,285 mods across 2,391 repos**, sorted by stars and grouped by category. Last refreshed 2026-11-14.
 
 **[Browse the full index →](catalog/README.md)**
 
