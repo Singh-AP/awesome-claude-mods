@@ -5,12 +5,12 @@
 
 # Awesome Claude Mods
 
-**The best Claude Code mods, hand-picked and tested. 21 built here, 104 in the list, 52 installable with one command.**
+**The best Claude Code mods, hand-picked and tested. 21 built here, 105 in the list, 53 installable with one command.**
 
 [Install](#-install-in-30-seconds) · [Gallery](#%EF%B8%8F-gallery) · [Browse](#-browse-all-mods) · [Start here](#-start-here) · [Full index](#-the-full-index) · [Build your own](#%EF%B8%8F-build-your-own-mod)
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-[![Mods](https://img.shields.io/badge/curated%20mods-104-D97757)](#-browse-all-mods)
+[![Mods](https://img.shields.io/badge/curated%20mods-105-D97757)](#-browse-all-mods)
 [![Index](https://img.shields.io/badge/indexed-4,266-8A63D2)](#-the-full-index)
 [![Tests](https://img.shields.io/badge/tests-819%20passing-2ea44f)](#-quality-bar)
 [![CI](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml/badge.svg)](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml)
@@ -32,7 +32,7 @@ Inside Claude Code:
 /plugin install bash-guard@awesome-claude-mods
 ```
 
-That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any of the 52 mods marked installable below: the 21 built here, plus 31 community and Anthropic mods we reviewed and pinned to a commit.
+That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any of the 53 mods marked installable below: the 21 built here, plus 32 community and Anthropic mods we reviewed and pinned to a commit.
 
 <details>
 <summary><b>Every install command</b></summary>
@@ -91,6 +91,7 @@ That's it. The mod is live once you run `/reload-plugins` or start a new session
 | 🐈 [cat-spinner](https://github.com/swicken/cat-spinner) | [swicken](https://github.com/swicken), pinned | `/plugin install cat-spinner@awesome-claude-mods` |
 | 👾 [boss-fight](https://github.com/OneWave-AI/claude-code-mods/tree/main/boss-fight) | [OneWave-AI](https://github.com/OneWave-AI), pinned | `/plugin install boss-fight@awesome-claude-mods` |
 | 💣 [minefield](https://github.com/reporails/arcade/tree/main/minefield) | [reporails](https://github.com/reporails), pinned | `/plugin install minefield@awesome-claude-mods` |
+| 🎚️ [automode](https://github.com/mralexivy/AutoMode) | [mralexivy](https://github.com/mralexivy), pinned | `/plugin install automode@awesome-claude-mods` |
 
 From a shell: `claude plugin marketplace add Singh-AP/awesome-claude-mods`, then `claude plugin install <mod>@awesome-claude-mods`.
 
@@ -160,6 +161,7 @@ Mods without a byline are built and tested in this repo. Community mods are cred
 *   [🌊 wavy-usage](https://github.com/BatuhanCakmakk/wavy-usage) - Liquid-filled rings for your 5h and 7d limits, context and cache lifetime above the prompt <sub>by [BatuhanCakmakk](https://github.com/BatuhanCakmakk)</sub>
 *   [♻️ reread-guard](https://github.com/VedantAndhale/claude-pro-kit/tree/main/plugins/reread-guard) - Skips Claude's repeat reads of files that haven't changed since it last read them <sub>by [VedantAndhale](https://github.com/VedantAndhale) · 📦 installable here</sub>
 *   [🔀 mixture-of-models](https://github.com/alinaqi/mixture-of-models-claude-mod) - Scores each prompt for blast radius; cheap turns go to GLM/Kimi, risky ones stay on Claude <sub>by [alinaqi](https://github.com/alinaqi) · 📦 installable here</sub>
+*   [🎚️ automode](https://github.com/mralexivy/AutoMode) - Picks the model and effort for each prompt, with an Opus review for risky changes. <sub>by [mralexivy](https://github.com/mralexivy) · ★ 74 · 📦 installable here</sub>
 
 ### 📡 Status & Awareness
 

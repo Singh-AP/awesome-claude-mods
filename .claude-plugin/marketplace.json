@@ -913,6 +913,21 @@
         "url": "https://github.com/reporails"
       },
       "homepage": "https://github.com/reporails/arcade/tree/main/minefield"
+    },
+    {
+      "name": "automode",
+      "source": {
+        "source": "github",
+        "repo": "mralexivy/AutoMode",
+        "sha": "abf0bbf6e2b13e36167632435df1ca925840b45e"
+      },
+      "description": "Picks the model and effort for each prompt, with an Opus review for risky changes.",
+      "category": "cost",
+      "author": {
+        "name": "mralexivy",
+        "url": "https://github.com/mralexivy"
+      },
+      "homepage": "https://github.com/mralexivy/AutoMode"
     }
   ]
 }

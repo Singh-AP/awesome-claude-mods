@@ -1184,5 +1184,24 @@
     "tagline": "Snake while Claude works, where every tool call Claude makes drops food on the board",
     "stars": 1,
     "license": "MIT"
+  },
+  {
+    "name": "automode",
+    "url": "https://github.com/mralexivy/AutoMode",
+    "author": "mralexivy",
+    "authorUrl": "https://github.com/mralexivy",
+    "category": "cost",
+    "emoji": "🎚️",
+    "tagline": "Picks the model and effort for each prompt, with an Opus review for risky changes.",
+    "stars": 74,
+    "license": "MIT",
+    "marketplace": {
+      "name": "automode",
+      "source": {
+        "source": "github",
+        "repo": "mralexivy/AutoMode",
+        "sha": "abf0bbf6e2b13e36167632435df1ca925840b45e"
+      }
+    }
   }
 ]
