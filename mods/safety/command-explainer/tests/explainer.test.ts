@@ -16,7 +16,13 @@ type World = { notices: { id: string; text: string | undefined }[]; models: stri
 function world(on: On, opts: { decision?: 'ask' | 'allow' | 'deny'; reply?: string; modelMs?: number; refuse?: string } = {}) {
   const clock = mock.clock(on)
   const seen: World = { notices: [], models: [], checks: 0, bashStarted: 0 }
-  on('tool.check', () => (seen.checks++, { decision: opts.decision ?? 'ask' }))
+  // The mod's own check carries no tool_use_id. The engine's check of the call
+  // does: answering it allow stands for the person approving at the dialog.
+  on('tool.check', ($, e) => {
+    if (e.tool_use_id !== undefined) return { decision: 'allow' as const }
+    seen.checks++
+    return { decision: opts.decision ?? 'ask' }
+  })
   on('session.model', () => ({ value: 'claude-session-model' }))
   on('model.complete', async ($, e) => {
     seen.models.push(e.model)

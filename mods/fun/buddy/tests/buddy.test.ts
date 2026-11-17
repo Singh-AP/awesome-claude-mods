@@ -6,6 +6,7 @@ const SURFACES = ['terminal', 'desktop'] as const
 
 const bandProps = (bodyColumns = 100, more: { hasSurvey?: boolean; isWorking?: boolean } = {}) => ({
   hasSurvey: more.hasSurvey ?? false,
+  isCollapsed: false,
   isWorking: more.isWorking ?? false,
   maxRows: 10,
   bodyColumns,
