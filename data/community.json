@@ -259,6 +259,26 @@
     "license": null
   },
   {
+    "name": "headroom-snip",
+    "url": "https://github.com/headroomlabs-ai/headroom/tree/main/plugins/headroom-snip",
+    "author": "headroomlabs-ai",
+    "authorUrl": "https://github.com/headroomlabs-ai",
+    "category": "cost",
+    "emoji": "✂️",
+    "tagline": "See how many tokens the Headroom proxy cut from each request, animated above the prompt",
+    "stars": 79882,
+    "license": "Apache-2.0",
+    "marketplace": {
+      "name": "headroom-snip",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/headroomlabs-ai/headroom.git",
+        "path": "plugins/headroom-snip",
+        "sha": "18067b1d19f6606bae3b4d6b50efeeaa48dc477e"
+      }
+    }
+  },
+  {
     "name": "token-optimizer",
     "url": "https://github.com/alexgreensh/token-optimizer",
     "author": "alexgreensh",
@@ -466,6 +486,25 @@
     "license": "MIT"
   },
   {
+    "name": "flightdeck",
+    "url": "https://github.com/scasella/claude-flightdeck",
+    "author": "scasella",
+    "authorUrl": "https://github.com/scasella",
+    "category": "awareness",
+    "emoji": "✈️",
+    "tagline": "A live pane of context, cost, every permission check, and your subagents as cards or lanes",
+    "stars": 316,
+    "license": "MIT",
+    "marketplace": {
+      "name": "flightdeck",
+      "source": {
+        "source": "github",
+        "repo": "scasella/claude-flightdeck",
+        "sha": "bf433171558f63a2fef46e8b92560968b2033e4f"
+      }
+    }
+  },
+  {
     "name": "image-view",
     "url": "https://github.com/jarrodwatts/claude-image-view",
     "author": "jarrodwatts",
@@ -634,6 +673,26 @@
     "license": "MIT"
   },
   {
+    "name": "diffr",
+    "url": "https://github.com/devdotfast/whiteboard/tree/main/diffr/packages/claude-code/plugin",
+    "author": "devdotfast",
+    "authorUrl": "https://github.com/devdotfast",
+    "category": "productivity",
+    "emoji": "🔬",
+    "tagline": "Structural diffs of any git range in a pane; select lines to hand to Claude (needs diffr)",
+    "stars": 3547,
+    "license": "MIT",
+    "marketplace": {
+      "name": "diffr",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/devdotfast/whiteboard.git",
+        "path": "diffr/packages/claude-code/plugin",
+        "sha": "4793780788022e00bc8708a690e58bf6ce41145c"
+      }
+    }
+  },
+  {
     "name": "reflect-mod",
     "url": "https://github.com/BayramAnnakov/claude-reflect/tree/main/mod",
     "author": "BayramAnnakov",
@@ -676,6 +735,26 @@
     "tagline": "Today's Apple Reminders above the prompt in your lists' colors, via RemCTL",
     "stars": 587,
     "license": "MIT"
+  },
+  {
+    "name": "prismantis",
+    "url": "https://github.com/NahumLitvin/prismantis/tree/main/plugin",
+    "author": "NahumLitvin",
+    "authorUrl": "https://github.com/NahumLitvin",
+    "category": "productivity",
+    "emoji": "🌈",
+    "tagline": "Replies in color: themed tables, highlighted code, mermaid charts and one-click copy",
+    "stars": 451,
+    "license": "MIT",
+    "marketplace": {
+      "name": "prismantis",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/NahumLitvin/prismantis.git",
+        "path": "plugin",
+        "sha": "75f1d9aaddf616704ddb101654403d90d1f62508"
+      }
+    }
   },
   {
     "name": "hal-grammar-check",
@@ -927,6 +1006,26 @@
     "tagline": "Animated cartoons of what Claude is doing under the spinner (uses extra model calls)",
     "stars": 22,
     "license": "MIT"
+  },
+  {
+    "name": "usage-pet",
+    "url": "https://github.com/manson341349-beep/claude-desktop-mods/tree/main/plugins/usage-pet",
+    "author": "manson341349-beep",
+    "authorUrl": "https://github.com/manson341349-beep",
+    "category": "fun",
+    "emoji": "🐾",
+    "tagline": "Desktop app: Clawd the pixel pet levels up beside rings for context, limits and cache time",
+    "stars": 6,
+    "license": "MIT",
+    "marketplace": {
+      "name": "usage-pet",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/manson341349-beep/claude-desktop-mods.git",
+        "path": "plugins/usage-pet",
+        "sha": "b72f8ad5e624024538e8663d529c3f5db2d71b00"
+      }
+    }
   },
   {
     "name": "idle-art",

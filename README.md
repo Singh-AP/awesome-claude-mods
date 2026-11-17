@@ -5,12 +5,12 @@
 
 # Awesome Claude Mods
 
-**The best Claude Code mods, hand-picked and tested. 21 built here, 99 in the list, 47 installable with one command.**
+**The best Claude Code mods, hand-picked and tested. 21 built here, 104 in the list, 52 installable with one command.**
 
 [Install](#-install-in-30-seconds) · [Gallery](#%EF%B8%8F-gallery) · [Browse](#-browse-all-mods) · [Start here](#-start-here) · [Full index](#-the-full-index) · [Build your own](#%EF%B8%8F-build-your-own-mod)
 
 [![Awesome](https://awesome.re/badge.svg)](https://awesome.re)
-[![Mods](https://img.shields.io/badge/curated%20mods-99-D97757)](#-browse-all-mods)
+[![Mods](https://img.shields.io/badge/curated%20mods-104-D97757)](#-browse-all-mods)
 [![Index](https://img.shields.io/badge/indexed-4,277-8A63D2)](#-the-full-index)
 [![Tests](https://img.shields.io/badge/tests-819%20passing-2ea44f)](#-quality-bar)
 [![CI](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml/badge.svg)](https://github.com/Singh-AP/awesome-claude-mods/actions/workflows/ci.yml)
@@ -32,7 +32,7 @@ Inside Claude Code:
 /plugin install bash-guard@awesome-claude-mods
 ```
 
-That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any of the 47 mods marked installable below: the 21 built here, plus 26 community and Anthropic mods we reviewed and pinned to a commit.
+That's it. The mod is live once you run `/reload-plugins` or start a new session. Swap `bash-guard` for any of the 52 mods marked installable below: the 21 built here, plus 31 community and Anthropic mods we reviewed and pinned to a commit.
 
 <details>
 <summary><b>Every install command</b></summary>
@@ -68,21 +68,26 @@ That's it. The mod is live once you run `/reload-plugins` or start a new session
 | 🚦 [collision-guard](https://github.com/nateherkai/claude-code-mods/tree/main/collision-guard) | [nateherkai](https://github.com/nateherkai), pinned | `/plugin install collision-guard@awesome-claude-mods` |
 | 🧱 [guardrails](https://github.com/mishgoldenberg/claude-mods/tree/main/plugins/guardrails) | [mishgoldenberg](https://github.com/mishgoldenberg), pinned | `/plugin install guardrails@awesome-claude-mods` |
 | 🖍️ [redact](https://github.com/karanb192/claude-code-redact/tree/main/plugins/redact) | [karanb192](https://github.com/karanb192), pinned | `/plugin install redact@awesome-claude-mods` |
+| ✂️ [headroom-snip](https://github.com/headroomlabs-ai/headroom/tree/main/plugins/headroom-snip) | [headroomlabs-ai](https://github.com/headroomlabs-ai), pinned | `/plugin install headroom-snip@awesome-claude-mods` |
 | 📊 [usage-meter](https://github.com/hamzafer/claude-code-mods/tree/main/mods/usage-meter) | [hamzafer](https://github.com/hamzafer), pinned | `/plugin install usage-meter@awesome-claude-mods` |
 | 💤 [idle-compact](https://github.com/takahirom/takahirom-claude-code-marketplace/tree/main/plugins/idle-compact) | [takahirom](https://github.com/takahirom), pinned | `/plugin install idle-compact@awesome-claude-mods` |
 | 🛩️ [cockpit](https://github.com/drkokorev/cockpit-for-claude/tree/main/plugins/cockpit) | [drkokorev](https://github.com/drkokorev), pinned | `/plugin install cockpit@awesome-claude-mods` |
 | 🔥 [burn-meter](https://github.com/OneWave-AI/claude-code-mods/tree/main/burn-meter) | [OneWave-AI](https://github.com/OneWave-AI), pinned | `/plugin install burn-meter@awesome-claude-mods` |
 | ♻️ [reread-guard](https://github.com/VedantAndhale/claude-pro-kit/tree/main/plugins/reread-guard) | [VedantAndhale](https://github.com/VedantAndhale), pinned | `/plugin install reread-guard@awesome-claude-mods` |
 | 🔀 [mixture-of-models](https://github.com/alinaqi/mixture-of-models-claude-mod) | [alinaqi](https://github.com/alinaqi), pinned | `/plugin install mixture-of-models@awesome-claude-mods` |
+| ✈️ [flightdeck](https://github.com/scasella/claude-flightdeck) | [scasella](https://github.com/scasella), pinned | `/plugin install flightdeck@awesome-claude-mods` |
 | 🖼️ [image-view](https://github.com/jarrodwatts/claude-image-view) | [jarrodwatts](https://github.com/jarrodwatts), pinned | `/plugin install image-view@awesome-claude-mods` |
 | 🕵️ [agent-radar](https://github.com/hamzafer/claude-code-mods/tree/main/mods/agent-radar) | [hamzafer](https://github.com/hamzafer), pinned | `/plugin install agent-radar@awesome-claude-mods` |
 | 👀 [whats-agent-doing](https://github.com/tzafrir/whats-agent-doing) | [tzafrir](https://github.com/tzafrir), pinned | `/plugin install whats-agent-doing@awesome-claude-mods` |
+| 🔬 [diffr](https://github.com/devdotfast/whiteboard/tree/main/diffr/packages/claude-code/plugin) | [devdotfast](https://github.com/devdotfast), pinned | `/plugin install diffr@awesome-claude-mods` |
+| 🌈 [prismantis](https://github.com/NahumLitvin/prismantis/tree/main/plugin) | [NahumLitvin](https://github.com/NahumLitvin), pinned | `/plugin install prismantis@awesome-claude-mods` |
 | 📍 [where-am-i](https://github.com/hamzafer/claude-code-mods/tree/main/mods/where-am-i) | [hamzafer](https://github.com/hamzafer), pinned | `/plugin install where-am-i@awesome-claude-mods` |
 | ▶️ [run-command](https://github.com/bendrucker/claude/tree/main/plugins/run-command) | [bendrucker](https://github.com/bendrucker), pinned | `/plugin install run-command@awesome-claude-mods` |
 | ⏪ [auto-checkpoint](https://github.com/Justmalhar/awesome-claude-mods/tree/main/mods/auto-checkpoint) | [Justmalhar](https://github.com/Justmalhar), pinned | `/plugin install auto-checkpoint@awesome-claude-mods` |
 | 🎐 [cuelume](https://github.com/danielwh2/cuelume/tree/main/claude-code) | [danielwh2](https://github.com/danielwh2), pinned | `/plugin install cuelume@awesome-claude-mods` |
 | 🐍 [snake](https://github.com/hamzafer/claude-code-mods/tree/main/mods/snake) | [hamzafer](https://github.com/hamzafer), pinned | `/plugin install snake@awesome-claude-mods` |
 | 🕹️ [cc-arcade](https://github.com/sezaakgun/cc-arcade) | [sezaakgun](https://github.com/sezaakgun), pinned | `/plugin install cc-arcade@awesome-claude-mods` |
+| 🐾 [usage-pet](https://github.com/manson341349-beep/claude-desktop-mods/tree/main/plugins/usage-pet) | [manson341349-beep](https://github.com/manson341349-beep), pinned | `/plugin install usage-pet@awesome-claude-mods` |
 | 🐈 [cat-spinner](https://github.com/swicken/cat-spinner) | [swicken](https://github.com/swicken), pinned | `/plugin install cat-spinner@awesome-claude-mods` |
 | 👾 [boss-fight](https://github.com/OneWave-AI/claude-code-mods/tree/main/boss-fight) | [OneWave-AI](https://github.com/OneWave-AI), pinned | `/plugin install boss-fight@awesome-claude-mods` |
 | 💣 [minefield](https://github.com/reporails/arcade/tree/main/minefield) | [reporails](https://github.com/reporails), pinned | `/plugin install minefield@awesome-claude-mods` |
@@ -142,6 +147,7 @@ Mods without a byline are built and tested in this repo. Community mods are cred
 *Know what a session costs and how full the context is, before it bites.*
 
 *   [💸 cost-meter](mods/cost/cost-meter/) - Live spend, context % and rate limits in your status line, plus what every turn cost
+*   [✂️ headroom-snip](https://github.com/headroomlabs-ai/headroom/tree/main/plugins/headroom-snip) - See how many tokens the Headroom proxy cut from each request, animated above the prompt <sub>by [headroomlabs-ai](https://github.com/headroomlabs-ai) · ★ 80k · 📦 installable here</sub>
 *   [🪙 token-optimizer](https://github.com/alexgreensh/token-optimizer) - Finds the ghost tokens eating your context window, with a usage band above the prompt <sub>by [alexgreensh](https://github.com/alexgreensh) · ★ 2.5k</sub>
 *   [🌾 winnow](https://github.com/GhalebDweikat/winnow) - A small model trims irrelevant parts of large tool results before they enter context <sub>by [GhalebDweikat](https://github.com/GhalebDweikat) · ★ 101</sub>
 *   [📊 usage-meter](https://github.com/hamzafer/claude-code-mods/tree/main/mods/usage-meter) - Your plan's 5-hour and 7-day limits as small bars above the prompt, with reset countdowns <sub>by [hamzafer](https://github.com/hamzafer) · ★ 60 · 📦 installable here</sub>
@@ -165,6 +171,7 @@ Mods without a byline are built and tested in this repo. Community mods are cred
 *   [🧪 test-pulse](mods/awareness/test-pulse/) - Your test suite's heartbeat: pass/fail in the status line, a toast when it flips, flakes spotted
 *   [📱 mobile-mcp](https://github.com/mobile-next/mobile-mcp/tree/main/plugin) - /mobile-mirror: a live, clickable phone or emulator screen in a pane, plus automation <sub>by [mobile-next](https://github.com/mobile-next) · ★ 8.6k</sub>
 *   [🌐 terminal-browser](https://github.com/zenbu-labs/terminal-browser/tree/main/claude-code-plugin) - A real browser in a pane that Claude can drive: preview sites and HTML in the terminal <sub>by [zenbu-labs](https://github.com/zenbu-labs) · ★ 3.6k</sub>
+*   [✈️ flightdeck](https://github.com/scasella/claude-flightdeck) - A live pane of context, cost, every permission check, and your subagents as cards or lanes <sub>by [scasella](https://github.com/scasella) · ★ 316 · 📦 installable here</sub>
 *   [🖼️ image-view](https://github.com/jarrodwatts/claude-image-view) - Thumbnails of the images you paste, above the prompt, instead of bare [Image #1] tags <sub>by [jarrodwatts](https://github.com/jarrodwatts) · ★ 119 · 📦 installable here</sub>
 *   [🕵️ agent-radar](https://github.com/hamzafer/claude-code-mods/tree/main/mods/agent-radar) - One live line per running subagent above the prompt: time, tool count, what it's doing <sub>by [hamzafer](https://github.com/hamzafer) · ★ 60 · 📦 installable here</sub>
 *   [📘 md-preview](https://github.com/hamzafer/claude-code-mods/tree/main/mods/md-preview) - Markdown files Claude edits, rendered like GitHub in a pane, before and after side by side <sub>by [hamzafer](https://github.com/hamzafer) · ★ 60</sub>
@@ -187,10 +194,12 @@ Mods without a byline are built and tested in this repo. Community mods are cred
 *   [📝 tldr](mods/productivity/tldr/) - A one-line TL;DR under every long answer, written by a small, fast model
 *   [🗒️ plannotator](https://github.com/backnotprop/plannotator/tree/main/apps/hook) - Mark up Claude's plans and diffs in a review UI and send your annotations back <sub>by [backnotprop](https://github.com/backnotprop) · ★ 9.1k</sub>
 *   [🧠 obsidian-mind](https://github.com/breferrari/obsidian-mind/tree/main/.claude/skills/obsidian-mind) - Obsidian-vault memory for Claude whose session context survives compaction <sub>by [breferrari](https://github.com/breferrari) · ★ 4.9k</sub>
+*   [🔬 diffr](https://github.com/devdotfast/whiteboard/tree/main/diffr/packages/claude-code/plugin) - Structural diffs of any git range in a pane; select lines to hand to Claude (needs diffr) <sub>by [devdotfast](https://github.com/devdotfast) · ★ 3.5k · 📦 installable here</sub>
 *   [🪞 reflect-mod](https://github.com/BayramAnnakov/claude-reflect/tree/main/mod) - Spots corrections in your prompts and saves them to CLAUDE.md with one press <sub>by [BayramAnnakov](https://github.com/BayramAnnakov) · ★ 1.7k</sub>
 *   [💬 crit-tui](https://github.com/tomasz-tomczyk/crit/tree/main/integrations/claude-code-tui) - Comment on the conversation, your diff or a file in a pane; Claude replies in threads <sub>by [tomasz-tomczyk](https://github.com/tomasz-tomczyk) · ★ 1.2k</sub>
 *   [👥 claude-council](https://github.com/hex/claude-council) - Ask Gemini, GPT, Grok and other models the same question; answers stream into a pane <sub>by [hex](https://github.com/hex) · ★ 826</sub>
 *   [✅ remctl](https://github.com/viticci/remctl/tree/main/plugins/claude-code) - Today's Apple Reminders above the prompt in your lists' colors, via RemCTL <sub>by [viticci](https://github.com/viticci) · ★ 587</sub>
+*   [🌈 prismantis](https://github.com/NahumLitvin/prismantis/tree/main/plugin) - Replies in color: themed tables, highlighted code, mermaid charts and one-click copy <sub>by [NahumLitvin](https://github.com/NahumLitvin) · ★ 451 · 📦 installable here</sub>
 *   [🔴 hal-grammar-check](https://github.com/vinta/hal-9000/tree/main/plugins/hal-grammar-check) - Grammar-checks your prompt as you type with a local Ollama model, shown above the prompt <sub>by [vinta](https://github.com/vinta) · ★ 138</sub>
 *   [📍 where-am-i](https://github.com/hamzafer/claude-code-mods/tree/main/mods/where-am-i) - A live recap above the prompt: the goal, what Claude is doing, what waits on you, next <sub>by [hamzafer](https://github.com/hamzafer) · ★ 60 · 📦 installable here</sub>
 *   [🔮 think-first](https://github.com/petekp/claude-code-setup/tree/main/mods/think-first) - Asks what you expect before a long task, then shows how your prediction held up <sub>by [petekp](https://github.com/petekp)</sub>
@@ -229,6 +238,7 @@ Mods without a byline are built and tested in this repo. Community mods are cred
 *   [🐍 snake](https://github.com/hamzafer/claude-code-mods/tree/main/mods/snake) - Snake in a pane while Claude works, paused the moment it's done <sub>by [hamzafer](https://github.com/hamzafer) · ★ 60 · 📦 installable here</sub>
 *   [🕹️ cc-arcade](https://github.com/sezaakgun/cc-arcade) - Snake, Tetris, 2048, Minesweeper, Pong and more above the prompt, plus a pet that grows <sub>by [sezaakgun](https://github.com/sezaakgun) · 📦 installable here</sub>
 *   [📺 toons](https://github.com/achimala/claude-toons) - Animated cartoons of what Claude is doing under the spinner (uses extra model calls) <sub>by [achimala](https://github.com/achimala)</sub>
+*   [🐾 usage-pet](https://github.com/manson341349-beep/claude-desktop-mods/tree/main/plugins/usage-pet) - Desktop app: Clawd the pixel pet levels up beside rings for context, limits and cache time <sub>by [manson341349-beep](https://github.com/manson341349-beep) · 📦 installable here</sub>
 *   [🎆 idle-art](https://github.com/KilimcininKorOglu/claude-code-mods/tree/main/plugins/idle-art) - Matrix rain, fire, an aquarium or your own GIF as ASCII art above the prompt <sub>by [KilimcininKorOglu](https://github.com/KilimcininKorOglu)</sub>
 *   [🐈 cat-spinner](https://github.com/swicken/cat-spinner) - A pixel-art cat walks above the spinner, plays with yarn and sits to think with Claude <sub>by [swicken](https://github.com/swicken) · 📦 installable here</sub>
 *   [🎵 clauisc](https://github.com/mireabot/Clauisc/tree/main/plugins/clauisc) - Apple Music now playing above the prompt: pixel album art and a bopping Claude plush <sub>by [mireabot](https://github.com/mireabot)</sub>

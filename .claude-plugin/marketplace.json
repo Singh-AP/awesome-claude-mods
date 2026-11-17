@@ -553,6 +553,22 @@
       "homepage": "https://github.com/karanb192/claude-code-redact/tree/main/plugins/redact"
     },
     {
+      "name": "headroom-snip",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/headroomlabs-ai/headroom.git",
+        "path": "plugins/headroom-snip",
+        "sha": "18067b1d19f6606bae3b4d6b50efeeaa48dc477e"
+      },
+      "description": "See how many tokens the Headroom proxy cut from each request, animated above the prompt",
+      "category": "cost",
+      "author": {
+        "name": "headroomlabs-ai",
+        "url": "https://github.com/headroomlabs-ai"
+      },
+      "homepage": "https://github.com/headroomlabs-ai/headroom/tree/main/plugins/headroom-snip"
+    },
+    {
       "name": "usage-meter",
       "source": {
         "source": "git-subdir",
@@ -648,6 +664,21 @@
       "homepage": "https://github.com/alinaqi/mixture-of-models-claude-mod"
     },
     {
+      "name": "flightdeck",
+      "source": {
+        "source": "github",
+        "repo": "scasella/claude-flightdeck",
+        "sha": "bf433171558f63a2fef46e8b92560968b2033e4f"
+      },
+      "description": "A live pane of context, cost, every permission check, and your subagents as cards or lanes",
+      "category": "awareness",
+      "author": {
+        "name": "scasella",
+        "url": "https://github.com/scasella"
+      },
+      "homepage": "https://github.com/scasella/claude-flightdeck"
+    },
+    {
       "name": "image-view",
       "source": {
         "source": "github",
@@ -692,6 +723,38 @@
         "url": "https://github.com/tzafrir"
       },
       "homepage": "https://github.com/tzafrir/whats-agent-doing"
+    },
+    {
+      "name": "diffr",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/devdotfast/whiteboard.git",
+        "path": "diffr/packages/claude-code/plugin",
+        "sha": "4793780788022e00bc8708a690e58bf6ce41145c"
+      },
+      "description": "Structural diffs of any git range in a pane; select lines to hand to Claude (needs diffr)",
+      "category": "productivity",
+      "author": {
+        "name": "devdotfast",
+        "url": "https://github.com/devdotfast"
+      },
+      "homepage": "https://github.com/devdotfast/whiteboard/tree/main/diffr/packages/claude-code/plugin"
+    },
+    {
+      "name": "prismantis",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/NahumLitvin/prismantis.git",
+        "path": "plugin",
+        "sha": "75f1d9aaddf616704ddb101654403d90d1f62508"
+      },
+      "description": "Replies in color: themed tables, highlighted code, mermaid charts and one-click copy",
+      "category": "productivity",
+      "author": {
+        "name": "NahumLitvin",
+        "url": "https://github.com/NahumLitvin"
+      },
+      "homepage": "https://github.com/NahumLitvin/prismantis/tree/main/plugin"
     },
     {
       "name": "where-am-i",
@@ -787,6 +850,22 @@
         "url": "https://github.com/sezaakgun"
       },
       "homepage": "https://github.com/sezaakgun/cc-arcade"
+    },
+    {
+      "name": "usage-pet",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/manson341349-beep/claude-desktop-mods.git",
+        "path": "plugins/usage-pet",
+        "sha": "b72f8ad5e624024538e8663d529c3f5db2d71b00"
+      },
+      "description": "Desktop app: Clawd the pixel pet levels up beside rings for context, limits and cache time",
+      "category": "fun",
+      "author": {
+        "name": "manson341349-beep",
+        "url": "https://github.com/manson341349-beep"
+      },
+      "homepage": "https://github.com/manson341349-beep/claude-desktop-mods/tree/main/plugins/usage-pet"
     },
     {
       "name": "cat-spinner",

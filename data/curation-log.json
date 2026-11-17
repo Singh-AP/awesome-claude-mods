@@ -22,5 +22,155 @@
     "decision": "accepted",
     "reason": "Submitted in #3. Read every module at 9a6f9a0: network is local Ollama, Haiku via Claude Code, and only the gateway the user configures; key from sensitive userConfig; observe-only without it; no telemetry. Example config defaults to the author's own gateway (palgu.ai, disclosed). validate --strict and 107/107 tests pass on 2.1.296 in an isolated env; headless /route reports observe-only.",
     "date": "2026-10-13"
+  },
+  {
+    "url": "https://github.com/manson341349-beep/claude-desktop-mods/tree/main/plugins/usage-pet",
+    "decision": "accepted",
+    "reason": "Submitted in #5. Read every module at b72f8ad: no network or model calls; runs only a fixed locale lookup and the /clawd-card export (macOS qlmanage/sips/osascript, Windows Edge headless), writes only ~/Pictures/Clawd Reports (keeps 20) and its store, all disclosed. No intervals. 81/81 tests on 2.1.326 in an isolated env; strict validate flags only type-check warnings and the deliberate missing version.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/scasella/claude-flightdeck",
+    "decision": "accepted",
+    "reason": "Read register.tsx, core.ts and its client modules at bf43317: observe-only, no network, processes, files or model calls, as its README says. The most polished dashboard so far, with its own permission-gate view and subagent lanes. validate --strict and 59/59 tests pass on 2.1.326.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/devdotfast/whiteboard/tree/main/diffr/packages/claude-code/plugin",
+    "decision": "accepted",
+    "reason": "Read src/ and checked the committed register.js bundle against it at 4793780: no network or file writes; runs only the diffr binary. Polished structural-diff pane; needs the diffr CLI installed and registers an always-loaded tool so Claude can open diffs. validate --strict and 8/8 tests pass on 2.1.326.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/NahumLitvin/prismantis/tree/main/plugin",
+    "decision": "accepted",
+    "reason": "Read register.tsx and every $ call at 75f1d9a: no network or telemetry; runs only the clipboard helper on a click and opt-in ratex-render. Adds a disclosed ~630-token diagram hint to each prompt (switchable) and an occasional hint to offer a repro issue. validate --strict passes; 1291/1291 tests on 2.1.326.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/headroomlabs-ai/headroom/tree/main/plugins/headroom-snip",
+    "decision": "accepted",
+    "reason": "Read the module at 18067b1: talks only to the local Headroom proxy (loopback hosts enforced), no commands or files, no timers while idle. A clean companion to a widely used proxy; the proxy itself, not this mod, has an on-by-default usage beacon. 18/18 tests pass on 2.1.326.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/SimakovIgor/pixel-buddy",
+    "decision": "rejected",
+    "reason": "Submitted in #7. Safe (no network, processes, files or model calls) but not quiet: a 5 Hz engine loop polling $.agent.list runs all session, even after /buddy off, plus a 20 fps footer repaint. Worth another look if the loops pause while hidden or off.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/YeonwooSung/my-claude-code-mods/tree/main/agent-profiler",
+    "decision": "rejected",
+    "reason": "Safe (network only an opt-in OTLP POST), but writes a trace file to ~/.claude/agent-profiler after every turn with no off switch and never prunes them, and runs a 1 s timer all session.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/HeyCubit/effortless/tree/main/textless/plugin",
+    "decision": "rejected",
+    "reason": "A permanent 2 s timer, background git fetch and `claude plugin marketplace update` at every load and every 6 h, and a settings sync to a Cloudflare Worker that the README doesn't mention.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/iamumeransari/claude-show-your-work",
+    "decision": "rejected",
+    "reason": "Substantial and well built, but PostHog usage telemetry is on by default (opt-out) and a daily check installs updates without asking; the bar is no telemetry.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/Paradigm-Study/claude-share/tree/main/plugin",
+    "decision": "rejected",
+    "reason": "Updates itself from unpinned GitHub main via a settings.json plugin-dir entry that outlives uninstall, and by default anyone with the link can have Claude read project files, secrets included, and mirror them to the project's relay.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/Eigenwise/eigenwise-toolshed/tree/main/plugins/quality-gate",
+    "decision": "rejected",
+    "reason": "Real and tested, but its main effect is a default-on persona in every session's system prompt with the author's own tool-specific rules; the band itself is cryptic.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/karanb192/awesome-claude-code-mods/tree/main/examples/hello-mod",
+    "decision": "rejected",
+    "reason": "A three-file example that exists to show the format, not something to install.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/RuView/tree/main/harness/ruview/mod",
+    "decision": "rejected",
+    "reason": "Only useful with RuView sensing hardware (ESP32 CSI nodes, 60 GHz radar); not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-agntcy",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-arena",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-console",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-daa",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-ddd",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-deepseek-harness",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-docs",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-federation",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-mods",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-ruos",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-rvf",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
+  },
+  {
+    "url": "https://github.com/ruvnet/ruflo/tree/main/plugins/ruflo-swarm",
+    "decision": "rejected",
+    "reason": "Part of the ruflo agent framework and only useful inside it; not a general Claude Code mod. Code not reviewed.",
+    "date": "2026-11-17"
   }
 ]

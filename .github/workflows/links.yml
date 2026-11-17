@@ -20,11 +20,12 @@ jobs:
         with:
           # catalog/ is rebuilt daily from GitHub (the scan drops gone repos) and its links
           # inside third-party descriptions aren't ours to fix. The template has {{REPO}}
-          # placeholders. GitHub answers 404 on /stargazers to anything but a browser.
+          # placeholders. GitHub answers 404 on /stargazers to anything but a browser, and
+          # star-history's chart API rate-limits bots (403, 503).
           args: >-
             --no-progress --max-retries 3
             --exclude-path catalog --exclude-path scripts/README.template.md
-            --exclude 'github\.com/.+/stargazers$'
+            --exclude 'github\.com/.+/stargazers$' --exclude '^https://api\.star-history\.com/'
             './**/*.md'
           fail: false
       - name: Open an issue for broken links
